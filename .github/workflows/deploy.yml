@@ -1,0 +1,35 @@
+# This is a basic workflow that is manually triggered
+
+name: DEPLOY TO DEDICATED SERVER
+on:
+  push:
+    branches:
+    - master
+    - CI
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      name:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Person to greet'
+        # Default value if no value is explicitly provided
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        switches: -avzr --delete --exclude="" --include="" --filter=""
+        path: .
+        remote_path: /home/demo/ebird-client
+        remote_host: 171.226.155.174
+        remote_port: 22
+        remote_user: demo
+        remote_key: haibaconga
