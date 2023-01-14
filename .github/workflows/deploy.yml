@@ -16,7 +16,7 @@ jobs:
       uses: burnett01/rsync-deployments@5.2.1
       with:
         switches: -avzr --delete --exclude="" --include="" --filter=""
-        path: .
+        path: /src
         remote_path: /home/demo/ebird-client
         remote_host: 171.226.155.174
         remote_port: 22
