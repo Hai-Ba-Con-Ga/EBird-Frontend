@@ -21,7 +21,8 @@ jobs:
         remote_host: 171.226.155.174
         remote_port: 22
         remote_user: demo
-        remote_key: -----BEGIN OPENSSH PRIVATE KEY-----
+        remote_key: >
+                    -----BEGIN OPENSSH PRIVATE KEY-----
                     b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
                     NhAAAAAwEAAQAAAgEArwLMlLl2hmG4OL53+fyOfCK5XTcgMKmcoLL1Dey1432S+hRKCauG
                     o5fzN7wNu6wnhNBbqmqd0zQRxa/NUpCN1Il7wOokHqtjDg3KkGFemrfYT/aQM+G4B9f09i
