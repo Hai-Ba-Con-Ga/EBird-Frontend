@@ -1,32 +1,44 @@
 import React, { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import AppLayout from "./_component/layout/AppLayout";
+import ProtectedRoute from "./_component/layout/ProtectedRoute";
+import useAuth from "./_hook/useAuth";
+import LandingPage from "./_pages/LandingPage";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const { user } = useAuth();
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route path="/">
+          <Route path="" element={<LandingPage />}></Route>
+          <Route path="/login" element=""></Route>
+          <Route path="/signup" element=""></Route>
+          <Route path="/forgot" element=""></Route>
+        </Route>
+        <Route path="/app" element={<ProtectedRoute user={user} />}>
+          <Route
+            path=""
+            element={
+              <AppLayout>
+                <h1>Dashboard</h1>
+              </AppLayout>
+            }
+          ></Route>
+          <Route
+            path="profile"
+            element={
+              <AppLayout>
+                <h1>Profile</h1>
+              </AppLayout>
+            }
+          ></Route>
+        </Route>
+        <Route path="/admin"></Route>
+        <Route path="/*" element="Not found"></Route>
+        {/* TODO : Not found component */}
+      </Routes>
     </div>
   );
 }
