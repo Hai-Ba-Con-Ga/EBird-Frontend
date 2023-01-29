@@ -6,6 +6,7 @@ import {
   LandingHeaderNavBar,
   LandingHeaderWrapper,
 } from "./Header.style";
+import { NavLink } from "react-router-dom";
 
 const LandingHeader = () => {
   return (
@@ -18,18 +19,22 @@ const LandingHeader = () => {
           />
         </HeaderLogo>
         <li>
-          <a href="#!">About</a>
+          <a href="#about">About</a>
         </li>
         <li>
-          <a href="#!">Ranking</a>
+          <a href="#ranking">Ranking</a>
         </li>
         <li>
-          <a href="#!">Rules</a>
+          <a href="#rules">Rules</a>
         </li>
       </LandingHeaderNavBar>
       <HeaderButtons>
-        <OutlineWhiteButton>Login</OutlineWhiteButton>
-        <OutlineWhiteButton>Signup</OutlineWhiteButton>
+        <OutlineWhiteButton>
+          <NavLink to={"/login"}>Login</NavLink>
+        </OutlineWhiteButton>
+        <OutlineWhiteButton>
+          <NavLink to={"/signup"}>Signup</NavLink>
+        </OutlineWhiteButton>
       </HeaderButtons>
     </LandingHeaderWrapper>
   );
