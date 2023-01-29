@@ -1,4 +1,5 @@
 import React, { FC, PropsWithChildren } from "react";
+import styled from "styled-components";
 import {
   AuthBlock,
   AuthPageWrapper,
@@ -7,15 +8,35 @@ import ImageComponent from "../../_component/common/image/ImageComponent";
 
 const AuthPage: FC<
   PropsWithChildren<{
-    a: any;
+    banner?: string;
   }>
-> = ({ children }) => {
+> = ({ children, banner = "https://source.unsplash.com/random" }) => {
   return (
-    <AuthPageWrapper>
-      <ImageComponent src="https://source.unsplash.com/random"></ImageComponent>
-      <AuthBlock>{children}</AuthBlock>
-    </AuthPageWrapper>
+    <Page>
+      <PageBanner>
+        <img src={banner} alt="banner" />
+      </PageBanner>
+      {/* <ImageComponent src={banner}></ImageComponent> */}
+
+      {/* <AuthBlock>{children}</AuthBlock> */}
+      <FormSection>{children}</FormSection>
+    </Page>
   );
 };
+const PageBanner = styled.div`
+  flex: 35% 0 0;
+  height: 100vh;
+`;
+const FormSection = styled.div`
+  width: 100%;
+  padding: 2rem 4rem;
+  display: grid;
+  place-items: center;
+`;
+const Page = styled.div`
+  width: 100%;
+  display: flex;
+  position: relative;
+`;
 
 export default AuthPage;
