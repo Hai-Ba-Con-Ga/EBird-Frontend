@@ -1,6 +1,6 @@
 // config/jest/fileTransform.js
 "use strict";
-
+/* eslint-disable */
 const path = require("path");
 const camelcase = require("camelcase");
 
