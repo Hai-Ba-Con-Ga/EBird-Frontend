@@ -1,6 +1,7 @@
 // config/jest/setupTests.js
 import "@testing-library/jest-dom/extend-expect";
-
+/*global jest */
+/* eslint-disable */
 window.matchMedia = (query) => ({
   matches: false,
   media: query,
