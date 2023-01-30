@@ -5,6 +5,7 @@ import AppLayout from "./_component/layout/AppLayout";
 import ProtectedRoute from "./_component/layout/ProtectedRoute";
 import useAuth from "./_hook/useAuth";
 import LandingPage from "./_pages/LandingPage";
+import LoginPage from "./_pages/auth/LoginPage";
 
 function App() {
   const { user } = useAuth();
@@ -13,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route path="" element={<LandingPage />}></Route>
-          <Route path="/login" element=""></Route>
+          <Route path="login" element={<LoginPage />}></Route>
           <Route path="/signup" element=""></Route>
           <Route path="/forgot" element=""></Route>
         </Route>

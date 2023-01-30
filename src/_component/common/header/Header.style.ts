@@ -7,7 +7,12 @@ export const LandingHeaderWrapper = styled.div`
   height: 10rem;
   padding: 1rem 2rem;
   display: flex;
-  background-color: red;
+  background-color: transparent;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: var(--index-header);
 `;
 export const LandingHeaderNavBar = styled.ul`
   justify-content: center;
@@ -30,4 +35,9 @@ export const HeaderButtons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  button {
+    a {
+      color: var(--white);
+    }
+  }
 `;

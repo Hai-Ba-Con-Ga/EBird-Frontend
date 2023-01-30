@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import authAtom, { AuthState, User } from "../AuthAtom";
+import authAtom, { AuthState, User } from "../_atom/AuthAtom";
 import AuthApi from "../_api/auth/auth.api";
 
 const useAuth = () => {
