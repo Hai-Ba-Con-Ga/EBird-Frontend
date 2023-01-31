@@ -18,10 +18,12 @@ import {
   OauthButtons,
   OauthLink,
 } from "../auth/login/Login.style";
+import useAuth from "../../_hook/useAuth";
+import { LoginParams } from "../../_api/auth/auth.api";
 
 const loginSchema = yup
   .object({
-    email: yup.string().email().required(),
+    username: yup.string().required(),
     password: yup.string().required(),
   })
   .required();
@@ -35,24 +37,24 @@ const LoginForm = () => {
     mode: "onSubmit",
     resolver: yupResolver(loginSchema),
   });
-
+  const {login} = useAuth();
   return (
     <LoginFormWrapper
       onSubmit={handleSubmit((value) => {
         console.log(value);
-        //TODO : Login implement
+        login(value as LoginParams);
       })}
     >
       <h1>Sign in to Birdiverse</h1>
       <TextField
-        isValid={!errors.email}
+        isValid={!errors.username}
         theme={TextFieldTheme.BLACK}
         defaultTheme={TextFieldTheme.BLACK}
       >
-        <input type="text" {...register("email")} placeholder=" " />
-        <label htmlFor="">Email</label>
-        <FieldError isShown={!!errors.email}>
-          {errors?.email?.message?.toString()}
+        <input type="text" {...register("username")} placeholder=" " />
+        <label htmlFor="">Username</label>
+        <FieldError isShown={!!errors.username}>
+          {errors?.username?.message?.toString()}
         </FieldError>
       </TextField>
       <TextField
