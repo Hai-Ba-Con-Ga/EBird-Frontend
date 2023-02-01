@@ -8,15 +8,13 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
   children,
 }) => {
   const navigate = useNavigate();
-  const { closeLoading, isLoading } = useLoading();
   const LOCAlSTORAGE_TOKEN_KEY = "access_token";
-
+  const {isLoading,closeLoading,openLoading} = useLoading();
   const setToken = (token: string) => {
     localStorage.setItem(LOCAlSTORAGE_TOKEN_KEY, JSON.stringify(token));
   };
   useEffect(() => {
     const resInterceptor = (response: AxiosResponse) => {
-      console.log("in interceptor", response);
       if (response.data?.data?.accessToken) {
         setToken(response.data.data);
       }
@@ -25,17 +23,20 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
     };
 
     const errInterceptor = (error: AxiosError) => {
-      if (error.response?.status === 401) {
-        navigate("/login");
-      }
+      if (isLoading) closeLoading();
 
       return Promise.reject(error);
     };
     const reqInterceptor = axiosClient.interceptors.request.use(
       (config: any) => {
+        if(!isLoading) openLoading("FULL");
+        console.log("open")
         return config;
+        
       },
       (err) => {
+        console.log("open")
+        if(!isLoading) openLoading("FULL");
         return Promise.reject(err);
       }
     );

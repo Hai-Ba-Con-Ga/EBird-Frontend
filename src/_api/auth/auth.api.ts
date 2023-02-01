@@ -23,6 +23,7 @@ const AuthApi = {
   register: async (params: RegisterParams) => {
     const url = "/auth/signup";
     const response = await axiosClient.post(url, { ...params }, {});
+    return response.data;
   },
   login: async (params: LoginParams) => {
     const url = "/auth/login";

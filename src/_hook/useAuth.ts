@@ -1,34 +1,48 @@
 import React, { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import authAtom, { AuthState, User } from "../_atom/AuthAtom";
-import AuthApi, { LoginParams } from "../_api/auth/auth.api";
+import AuthApi, { LoginParams, RegisterParams } from "../_api/auth/auth.api";
 import { useNavigate } from "react-router-dom";
+import useLoading from "./useLoading";
 const useAuth = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const nav = useNavigate();
+  const {closeLoading,openLoading} = useLoading();
   const getMe = async () => {
     return await AuthApi.getMe();
   };
 
   useEffect(() => {
+    openLoading()
     getMe()
       .then((response) =>
         setAuth({ userInfomation: response.data, firstLoading: false })
       )
       .catch((err) => {
         setAuth({ userInfomation: null, firstLoading: false });
+      }).finally(()=>{
+        closeLoading();
       });
   }, []);
-  useEffect(() => {
-    console.log("useAuth", auth);
-  }, [auth]);
-  const registerNewAccount = useCallback(() => {
-    console.log("");
+
+  const registerNewAccount = useCallback(async (params:RegisterParams) => {
+    openLoading();
+    const data = await AuthApi.register(params).finally(()=>closeLoading())
+
+    if(data.success){
+      nav("/login");
+    }
+    
   }, []);
   const login = useCallback(async (params: LoginParams) => {
-    const data = await AuthApi.login(params);
+    openLoading()
+    const data = await AuthApi.login(params).then(res => {
+    
+      return res
+    }).finally(()=>{
+      closeLoading();
+    });
     if (data.success) {
-      console.log(data);
       nav("/app");
     }
   }, []);
@@ -36,6 +50,7 @@ const useAuth = () => {
     auth: auth as AuthState,
     getMe: getMe,
     login,
+    registerNewAccount
   };
 };
 export default useAuth;

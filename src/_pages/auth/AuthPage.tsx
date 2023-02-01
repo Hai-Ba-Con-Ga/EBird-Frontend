@@ -12,7 +12,10 @@ const AuthPage: FC<
   }>
 > = ({ children, banner = "https://source.unsplash.com/random" }) => {
   return (
-    <Page animate={{ y: 200 }}>
+    <Page 
+    initial={{opacity : 0,transform : "scale(0.5)"}} 
+    animate = {{opacity:1 ,transform: "scale(1)"}}
+    >
       <PageBanner>
         <img src={banner} alt="banner" />
       </PageBanner>

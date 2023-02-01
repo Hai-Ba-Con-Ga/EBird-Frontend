@@ -8,12 +8,13 @@ import AxiosInterceptor from "./_api/AxiosInterceptor";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <Router>
       <RecoilRoot>
+    <Router>
         <AxiosInterceptor>
         <App />
         </AxiosInterceptor>
-      </RecoilRoot>
     </Router>
+      </RecoilRoot>
+
   </React.StrictMode>
 );

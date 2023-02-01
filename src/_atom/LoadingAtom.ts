@@ -8,14 +8,13 @@ export interface CommonState {
     
 }
 export type LoadingType = "FULL" | "LOCAL";
- const loadingAtom = atom<CommonState>({
-    key: "common",
-    default : {
-
-            isShown:false,
-            type: "FULL",
-            loadingJobs: []
-    },
+const loadingAtom = atom<CommonState>({
+	key: "common",
+	default : {
+		isShown:false,
+		type: "FULL",
+		loadingJobs: [],
+	},
 })
 
 export default loadingAtom;

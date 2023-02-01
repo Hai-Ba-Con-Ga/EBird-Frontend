@@ -39,7 +39,9 @@ const LoginForm = () => {
   });
   const {login} = useAuth();
   return (
-    <LoginFormWrapper
+    <LoginFormWrapper 
+    initial={{opacity : 0,transform : "scale(0.5)"}} 
+    animate = {{opacity:1 ,transform: "scale(1)"}}
       onSubmit={handleSubmit((value) => {
         console.log(value);
         login(value as LoginParams);

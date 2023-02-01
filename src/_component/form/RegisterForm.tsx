@@ -21,6 +21,8 @@ import {
 } from "../common/form/TextField";
 import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 import * as yup from "yup";
+import useAuth from "../../_hook/useAuth";
+import { RegisterParams } from "../../_api/auth/auth.api";
 const registerSchema = yup.object({
   name: yup.string().required(),
   username: yup.string().required().min(6).max(25),
@@ -31,6 +33,7 @@ const registerSchema = yup.object({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 const RegisterForm = () => {
+  const {registerNewAccount} = useAuth()
   const {
     handleSubmit,
     register,
@@ -41,8 +44,11 @@ const RegisterForm = () => {
   });
   return (
     <LoginFormWrapper
+    initial={{opacity : 0,transform : "scale(0.5)"}} 
+    animate = {{opacity:1 ,transform: "scale(1)"}}
       onSubmit={handleSubmit((value) => {
         console.log(value);
+        registerNewAccount(value as RegisterParams)
         // TODO : Register implement
       })}
     >

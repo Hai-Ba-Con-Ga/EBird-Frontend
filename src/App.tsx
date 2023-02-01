@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import AppLayout from "./_component/layout/AppLayout";
@@ -13,10 +13,12 @@ import ForgotForm from "./_component/form/ForgotForm";
 import { useRecoilState } from "recoil";
 import authAtom from "./_atom/AuthAtom";
 import Homepage from "./_pages/Homepage";
+import FullLoading from "./_component/common/loading/FullLoading";
+import useLoading from "./_hook/useLoading";
 function App() {
-  // const { auth, getMe } = useAuth();
-  useAuth();
-  const [auth, setAuth] = useRecoilState(authAtom);
+  const {auth} = useAuth();
+  const {isLoading,loadingType,Loader}= useLoading();
+  
   return (
     <div className="App">
       {!auth.firstLoading && (
@@ -74,6 +76,7 @@ function App() {
           {/* TODO : Not found component */}
         </Routes>
       )}
+      {isLoading && Loader}
     </div>
   );
 }
