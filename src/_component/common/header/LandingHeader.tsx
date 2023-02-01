@@ -6,9 +6,10 @@ import {
   LandingHeaderNavBar,
   LandingHeaderWrapper,
 } from "./Header.style";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const LandingHeader = () => {
+  const nav = useNavigate();
   return (
     <LandingHeaderWrapper>
       <LandingHeaderNavBar>
@@ -29,11 +30,13 @@ const LandingHeader = () => {
         </li>
       </LandingHeaderNavBar>
       <HeaderButtons>
-        <OutlineWhiteButton>
-          <NavLink to={"/login"}>Login</NavLink>
+        <OutlineWhiteButton onClick={() => nav("/login")}>
+          {/* <NavLink to={"/login"}>Login</NavLink> */}
+          Login
         </OutlineWhiteButton>
-        <OutlineWhiteButton>
-          <NavLink to={"/signup"}>Signup</NavLink>
+        <OutlineWhiteButton onClick={() => nav("/signup")}>
+          {/* <NavLink to={"/signup"}>Signup</NavLink> */}
+          Signup
         </OutlineWhiteButton>
       </HeaderButtons>
     </LandingHeaderWrapper>

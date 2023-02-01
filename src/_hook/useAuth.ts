@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import authAtom, { AuthState, User } from "../_atom/AuthAtom";
-import AuthApi from "../_api/auth/auth.api";
+import AuthApi, { LoginParams } from "../_api/auth/auth.api";
 
 const useAuth = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
@@ -11,10 +11,19 @@ const useAuth = () => {
   useEffect(() => {
     getMe().then((user) => setAuth({ userInfomation: user }));
   }, []);
-
+  // const registerNewAccount = useCallback(
+   
+  // )
+  const login = useCallback(async(params : LoginParams)=>{
+      const data =  await AuthApi.login(params);
+      if(data.success) {
+        console.log(data)
+      }
+  },[])
   return {
     user: auth as AuthState,
     getMe: getMe(),
+    login 
   };
 };
 export default useAuth;

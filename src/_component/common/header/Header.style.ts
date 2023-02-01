@@ -36,6 +36,8 @@ export const HeaderButtons = styled.div`
   justify-content: center;
   align-items: center;
   button {
+    color: var(--white);
+    font-size: var(--text-2xl);
     a {
       color: var(--white);
     }
