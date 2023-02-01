@@ -1,15 +1,15 @@
 import axiosClient from "../axiosClient";
 export interface RegisterParams {
-  username : string;
-  email : string;
-  password : string;
-  firstname : string;
-  lastName : string;
-  desciption : string 
+  username: string;
+  email: string;
+  password: string;
+  firstname: string;
+  lastName: string;
+  desciption: string;
 }
 export interface LoginParams {
-  username : string;
-  password : string;
+  username: string;
+  password: string;
 }
 const AuthApi = {
   getMe: async () => {
@@ -18,16 +18,16 @@ const AuthApi = {
     console.log(response);
     // return response.data;
     // TODO: until BFCS-38 complete
-    return null;
-  },
-  register: async (params:RegisterParams)=>{
-    const url = "/auth/signup";
-    const response = await axiosClient.post(url,{...params},{})
-  },
-  login: async (params:LoginParams) => {
-    const url = "/auth/login";
-    const response = await axiosClient.post(url,{...params});
     return response.data;
-  }
+  },
+  register: async (params: RegisterParams) => {
+    const url = "/auth/signup";
+    const response = await axiosClient.post(url, { ...params }, {});
+  },
+  login: async (params: LoginParams) => {
+    const url = "/auth/login";
+    const response = await axiosClient.post(url, { ...params });
+    return response.data;
+  },
 };
 export default AuthApi;

@@ -5,14 +5,14 @@ import {
   AuthPageWrapper,
 } from "../../_component/auth/AuthPage.style";
 import ImageComponent from "../../_component/common/image/ImageComponent";
-
+import { motion } from "framer-motion";
 const AuthPage: FC<
   PropsWithChildren<{
     banner?: string;
   }>
 > = ({ children, banner = "https://source.unsplash.com/random" }) => {
   return (
-    <Page>
+    <Page animate={{ y: 200 }}>
       <PageBanner>
         <img src={banner} alt="banner" />
       </PageBanner>
@@ -33,7 +33,7 @@ const FormSection = styled.div`
   display: grid;
   place-items: center;
 `;
-const Page = styled.div`
+const Page = styled(motion.div)`
   width: 100%;
   display: flex;
   position: relative;
