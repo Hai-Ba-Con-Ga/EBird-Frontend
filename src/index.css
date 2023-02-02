@@ -415,3 +415,7 @@ button {
 * {
   box-sizing: border-box;
 }
+.Toastify {
+  position: absolute;
+  z-index: 100;
+}

@@ -24,7 +24,8 @@ import * as yup from "yup";
 import useAuth from "../../_hook/useAuth";
 import { RegisterParams } from "../../_api/auth/auth.api";
 const registerSchema = yup.object({
-  name: yup.string().required(),
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
   username: yup.string().required().min(6).max(25),
   email: yup.string().email().required(),
   password: yup.string().required().min(8),
@@ -48,6 +49,7 @@ const RegisterForm = () => {
     animate = {{opacity:1 ,transform: "scale(1)"}}
       onSubmit={handleSubmit((value) => {
         console.log(value);
+        value.description = "initial"
         registerNewAccount(value as RegisterParams)
         // TODO : Register implement
       })}
@@ -55,16 +57,28 @@ const RegisterForm = () => {
       <h1>Sign up to join Birdiverse</h1>
       <MultipleTextField>
         <TextField
-          isValid={!errors.name}
+          isValid={!errors.firstName}
           theme={TextFieldTheme.BLACK}
           defaultTheme={TextFieldTheme.BLACK}
         >
-          <input type="text" {...register("name")} placeholder=" " />
-          <label htmlFor="">Name</label>
-          <FieldError isShown={!!errors.name}>
-            {errors?.name?.message?.toString()}
+          <input type="text" {...register("firstName")} placeholder=" " />
+          <label htmlFor="">First Name</label>
+          <FieldError isShown={!!errors.firstName}>
+            {errors?.firstName?.message?.toString()}
           </FieldError>
         </TextField>
+        <TextField
+          isValid={!errors.lastName}
+          theme={TextFieldTheme.BLACK}
+          defaultTheme={TextFieldTheme.BLACK}
+        >
+          <input type="text" {...register("lastName")} placeholder=" " />
+          <label htmlFor="">Last Name</label>
+          <FieldError isShown={!!errors.lastName}>
+            {errors?.lastName?.message?.toString()}
+          </FieldError>
+        </TextField>
+      </MultipleTextField>
         <TextField
           isValid={!errors.username}
           theme={TextFieldTheme.BLACK}
@@ -76,7 +90,6 @@ const RegisterForm = () => {
             {errors?.username?.message?.toString()}
           </FieldError>
         </TextField>
-      </MultipleTextField>
       <TextField
         isValid={!errors.email}
         theme={TextFieldTheme.BLACK}
@@ -111,6 +124,7 @@ const RegisterForm = () => {
         </FieldError>
       </TextField>
       <ForgotLink to={"/forgot"}>Forgot password ?</ForgotLink>
+      {/* <input type="submit" value={"Sign up"} /> */}
       <AuthFormSubmitButton type="submit">Sign Up</AuthFormSubmitButton>
       <AuthFormOrDivider />
       <h2 style={{ textAlign: "center" }}>

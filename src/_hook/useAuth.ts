@@ -4,46 +4,56 @@ import authAtom, { AuthState, User } from "../_atom/AuthAtom";
 import AuthApi, { LoginParams, RegisterParams } from "../_api/auth/auth.api";
 import { useNavigate } from "react-router-dom";
 import useLoading from "./useLoading";
-const useAuth = () => {
+import useQuery from "../_api/useQuery";
+import { toast } from "react-toastify";
+const useAuth = (init?: boolean) => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const nav = useNavigate();
+  const {request} = useQuery()
   const {closeLoading,openLoading} = useLoading();
-  const getMe = async () => {
-    return await AuthApi.getMe();
-  };
+  const getMe = useCallback(async () => {
+    return await request(AuthApi.getMe)
+  },[]);
 
   useEffect(() => {
-    openLoading()
-    getMe()
+    if(init){
+      getMe()
       .then((response) =>
-        setAuth({ userInfomation: response.data, firstLoading: false })
+      setAuth({ userInfomation: response.data, firstLoading: false })
       )
       .catch((err) => {
         setAuth({ userInfomation: null, firstLoading: false });
-      }).finally(()=>{
-        closeLoading();
-      });
+      })
+    }
   }, []);
 
   const registerNewAccount = useCallback(async (params:RegisterParams) => {
-    openLoading();
-    const data = await AuthApi.register(params).finally(()=>closeLoading())
-
+    const data = await request(AuthApi.register,params);
     if(data.success){
-      nav("/login");
+      window.location.replace("/app") 
+    }else {
+      toast.error( data.message || "Cannot register new account! Try again later")
     }
     
   }, []);
   const login = useCallback(async (params: LoginParams) => {
-    openLoading()
-    const data = await AuthApi.login(params).then(res => {
-    
-      return res
-    }).finally(()=>{
-      closeLoading();
-    });
+    const data = await request(AuthApi.login,params);
     if (data.success) {
-      nav("/app");
+      getMe()
+      .then((response) =>{
+
+        setAuth({ userInfomation: response.data, firstLoading: false })
+        console.log("setauth successful",auth);
+        
+      }
+      )
+      .catch((err) => {
+        setAuth({ userInfomation: null, firstLoading: false });
+      }).finally(()=>{
+        nav("/app");
+      })
+    }else {
+      return data;
     }
   }, []);
   return {
