@@ -15,10 +15,13 @@ import authAtom from "./_atom/AuthAtom";
 import Homepage from "./_pages/Homepage";
 import FullLoading from "./_component/common/loading/FullLoading";
 import useLoading from "./_hook/useLoading";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
-  const {auth} = useAuth();
-  const {isLoading,loadingType,Loader}= useLoading();
-  
+  const { auth } = useAuth();
+  const { isLoading, loadingType, Loader } = useLoading();
+
   return (
     <div className="App">
       {!auth.firstLoading && (
@@ -77,6 +80,7 @@ function App() {
         </Routes>
       )}
       {isLoading && Loader}
+      <ToastContainer />
     </div>
   );
 }
