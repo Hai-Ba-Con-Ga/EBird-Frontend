@@ -9,6 +9,22 @@
           "informationUri": "https://eslint.org",
           "rules": [
             {
+              "id": "no-undef",
+              "helpUri": "https://eslint.org/docs/rules/no-undef",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow the use of undeclared variables unless mentioned in `/*global */` comments"
+              }
+            },
+            {
+              "id": "@typescript-eslint/no-var-requires",
+              "helpUri": "https://typescript-eslint.io/rules/no-var-requires",
+              "properties": {},
+              "shortDescription": {
+                "text": "Disallow `require` statements except in import statements"
+              }
+            },
+            {
               "id": "@typescript-eslint/no-unused-vars",
               "helpUri": "https://typescript-eslint.io/rules/no-unused-vars",
               "properties": {},
@@ -31,54 +47,729 @@
       "artifacts": [
         {
           "location": {
-            "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/src/App.tsx"
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/cssTransform.js"
           }
         },
         {
           "location": {
-            "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/src/_component/common/header/Header.tsx"
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/fileTransform.js"
           }
         },
         {
           "location": {
-            "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/src/main.tsx"
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/setupTests.js"
           }
         },
         {
           "location": {
-            "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/src/vite-env.d.ts"
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/jest.config.js"
           }
         },
         {
           "location": {
-            "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/vite.config.ts"
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/__test__/api/config.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/__test__/api/demo.api.test.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/AxiosInterceptor.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/auth/auth.api.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/axiosClient.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/useQuery.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_atom/AuthAtom.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_atom/LoadingAtom.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/auth/AuthPage.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/auth/login/Login.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/button/Button.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/form/TextField.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/header/ClientHeader.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/header/Header.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/header/LandingHeader.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/icon/index.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/image/Image.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/image/ImageComponent.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/image/SquareImageComponent.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/loading/FullLoading.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/theme/TextFieldTheme.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/form/ForgotForm.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/form/LoginForm.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/form/RegisterForm.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/intro/IntroSection.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/intro/IntroSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rank/RankSection.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rank/RankSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rule/RuleSection.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rule/RuleSection.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/AppLayout.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/ProtectedRoute.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/layout.style.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_feature/common/commonAtom.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_feature/common/useCommon.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useAuth.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useLoading.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/Homepage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/LandingPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/auth/AuthPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/auth/LoginPage.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/main.tsx"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/vite-env.d.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/vite.config.ts"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///home/wyvernp/Documents/Project/globird/client/vite.config.ts.js"
           }
         }
       ],
       "results": [
         {
-          "level": "warning",
+          "level": "error",
           "message": {
-            "text": "'props' is defined but never used."
+            "text": "'module' is not defined."
           },
           "locations": [
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/src/_component/common/header/Header.tsx",
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/cssTransform.js",
+                  "index": 0
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 1,
+                  "endLine": 7,
+                  "endColumn": 7
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 0,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Require statement not part of import statement."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/fileTransform.js",
                   "index": 1
                 },
                 "region": {
-                  "startLine": 3,
+                  "startLine": 4,
+                  "startColumn": 14,
+                  "endLine": 4,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-var-requires",
+          "ruleIndex": 1,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'require' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/fileTransform.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 14,
+                  "endLine": 4,
+                  "endColumn": 21
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 0,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "Require statement not part of import statement."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/fileTransform.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 19,
+                  "endLine": 5,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-var-requires",
+          "ruleIndex": 1,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'require' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/fileTransform.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 19,
+                  "endLine": 5,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 0,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'module' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/config/jest/fileTransform.js",
+                  "index": 1
+                },
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 1,
+                  "endLine": 10,
+                  "endColumn": 7
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 0,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "error",
+          "message": {
+            "text": "'module' is not defined."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/jest.config.js",
+                  "index": 3
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 1,
+                  "endLine": 2,
+                  "endColumn": 7
+                }
+              }
+            }
+          ],
+          "ruleId": "no-undef",
+          "ruleIndex": 0,
+          "suppressions": [
+            {
+              "kind": "inSource",
+              "justification": ""
+            }
+          ]
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'useEffect' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 1,
                   "startColumn": 17,
-                  "endLine": 3,
-                  "endColumn": 27
+                  "endLine": 1,
+                  "endColumn": 26
                 }
               }
             }
           ],
           "ruleId": "@typescript-eslint/no-unused-vars",
-          "ruleIndex": 0
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'useState' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 28,
+                  "endLine": 1,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'LoginPage' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 8,
+                  "endLine": 8,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'useRecoilState' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 10,
+                  "endLine": 13,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'authAtom' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 8,
+                  "endLine": 14,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'FullLoading' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 8,
+                  "endLine": 16,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'loadingType' is assigned a value but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/App.tsx",
+                  "index": 4
+                },
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 22,
+                  "endLine": 23,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'axios' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/__test__/api/demo.api.test.ts",
+                  "index": 6
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 8,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'App' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/__test__/api/demo.api.test.ts",
+                  "index": 6
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 8,
+                  "endLine": 2,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'response' is assigned a value but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/__test__/api/demo.api.test.ts",
+                  "index": 6
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 11,
+                  "endLine": 9,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'AxiosRequestConfig' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/AxiosInterceptor.tsx",
+                  "index": 7
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 22,
+                  "endLine": 3,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
         },
         {
           "level": "warning",
@@ -89,20 +780,716 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///C:/home/OneDrive%20-%20vardensolution/Desktop/globird/EBird-Frontend/src/_component/common/header/Header.tsx",
-                  "index": 1
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/AxiosInterceptor.tsx",
+                  "index": 7
                 },
                 "region": {
-                  "startLine": 3,
-                  "startColumn": 24,
-                  "endLine": 3,
-                  "endColumn": 27
+                  "startLine": 31,
+                  "startColumn": 16,
+                  "endLine": 31,
+                  "endColumn": 19
                 }
               }
             }
           ],
           "ruleId": "@typescript-eslint/no-explicit-any",
-          "ruleIndex": 1
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'React' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/useQuery.ts",
+                  "index": 10
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 8,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "Unexpected any. Specify a different type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_api/useQuery.ts",
+                  "index": 10
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 20,
+                  "endLine": 5,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'defaultTheme' is assigned a value but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/form/TextField.ts",
+                  "index": 16
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 9,
+                  "endLine": 49,
+                  "endColumn": 21
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'NavLink' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/header/LandingHeader.tsx",
+                  "index": 19
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 10,
+                  "endLine": 9,
+                  "endColumn": 17
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'IconBrandFacebook' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/common/icon/index.ts",
+                  "index": 20
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 10,
+                  "endLine": 1,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'useEffect' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/form/LoginForm.tsx",
+                  "index": 27
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 17,
+                  "endLine": 1,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'GradientGreenButton' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/form/LoginForm.tsx",
+                  "index": 27
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 10,
+                  "endLine": 2,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'ImageComponent' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rank/RankSection.tsx",
+                  "index": 32
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 8,
+                  "endLine": 2,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'RankingChampImage' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rank/RankSection.tsx",
+                  "index": 32
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 3,
+                  "endLine": 5,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'setRules' is assigned a value but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rule/RuleSection.tsx",
+                  "index": 34
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 17,
+                  "endLine": 6,
+                  "endColumn": 25
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "Unexpected any. Specify a different type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/landing/rule/RuleSection.tsx",
+                  "index": 34
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 38,
+                  "endLine": 6,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'Outlet' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/AppLayout.tsx",
+                  "index": 35
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 10,
+                  "endLine": 2,
+                  "endColumn": 16
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'Route' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/AppLayout.tsx",
+                  "index": 35
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 18,
+                  "endLine": 2,
+                  "endColumn": 23
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'Routes' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/AppLayout.tsx",
+                  "index": 35
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 25,
+                  "endLine": 2,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "Unexpected any. Specify a different type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/AppLayout.tsx",
+                  "index": 35
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 8,
+                  "endLine": 6,
+                  "endColumn": 11
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'Navigate' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/ProtectedRoute.tsx",
+                  "index": 36
+                },
+                "region": {
+                  "startLine": 2,
+                  "startColumn": 10,
+                  "endLine": 2,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'AuthState' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_component/layout/ProtectedRoute.tsx",
+                  "index": 36
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 10,
+                  "endLine": 3,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "Unexpected any. Specify a different type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_feature/common/commonAtom.ts",
+                  "index": 38
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 16,
+                  "endLine": 4,
+                  "endColumn": 19
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "Unexpected any. Specify a different type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_feature/common/commonAtom.ts",
+                  "index": 38
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 17,
+                  "endLine": 5,
+                  "endColumn": 20
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "Unexpected any. Specify a different type."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_feature/common/useCommon.ts",
+                  "index": 39
+                },
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 46,
+                  "endLine": 6,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-explicit-any",
+          "ruleIndex": 3
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'React' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useAuth.ts",
+                  "index": 40
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 8,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'User' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useAuth.ts",
+                  "index": 40
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 31,
+                  "endLine": 3,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'err' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useAuth.ts",
+                  "index": 40
+                },
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 15,
+                  "endLine": 21,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'React' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useLoading.ts",
+                  "index": 41
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 8,
+                  "endLine": 1,
+                  "endColumn": 13
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'Component' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useLoading.ts",
+                  "index": 41
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 17,
+                  "endLine": 1,
+                  "endColumn": 26
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'jobName' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_hook/useLoading.ts",
+                  "index": 41
+                },
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 72,
+                  "endLine": 21,
+                  "endColumn": 87
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'AuthBlock' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/auth/AuthPage.tsx",
+                  "index": 44
+                },
+                "region": {
+                  "startLine": 4,
+                  "startColumn": 3,
+                  "endLine": 4,
+                  "endColumn": 12
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'AuthPageWrapper' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/auth/AuthPage.tsx",
+                  "index": 44
+                },
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 3,
+                  "endLine": 5,
+                  "endColumn": 18
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
+        },
+        {
+          "level": "warning",
+          "message": {
+            "text": "'ImageComponent' is defined but never used."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/wyvernp/Documents/Project/globird/client/src/_pages/auth/AuthPage.tsx",
+                  "index": 44
+                },
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 8,
+                  "endLine": 7,
+                  "endColumn": 22
+                }
+              }
+            }
+          ],
+          "ruleId": "@typescript-eslint/no-unused-vars",
+          "ruleIndex": 2
         }
       ]
     }
