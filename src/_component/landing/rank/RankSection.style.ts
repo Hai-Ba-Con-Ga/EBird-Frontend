@@ -6,6 +6,8 @@ export const RankSectionWrapper = styled.section`
   min-height: 100vh;
   background-color: var(--white);
   padding-bottom: 5rem;
+  scroll-snap-align: start;
+
 `;
 
 export const SectionTransitionGradient = styled.div`

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-export const ClientHeaderWrapper = styled.div``;
-
 export const LandingHeaderWrapper = styled.div`
   width: 100%;
   height: 10rem;
@@ -36,8 +34,16 @@ export const HeaderButtons = styled.div`
   justify-content: center;
   align-items: center;
   button {
+    color: var(--white);
+    font-size: var(--text-2xl);
     a {
       color: var(--white);
     }
   }
+`;
+
+export const ClientHeaderWrapper = styled.div`
+  width: 100%;
+  height: 8rem;
+  background-color: var(--white);
 `;

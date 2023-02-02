@@ -12,6 +12,7 @@ export const IntroSectionWrapper = styled.section`
   padding: 1rem 3rem;
   padding-top: 10rem;
   align-items: center;
+  scroll-snap-align: start;
 `;
 
 export const IntroBlock = styled.div`

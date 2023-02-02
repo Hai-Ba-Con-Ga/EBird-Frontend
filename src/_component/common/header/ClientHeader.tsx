@@ -1,9 +1,10 @@
 import React from "react";
+import { ClientHeaderWrapper } from "./Header.style";
 
 // type Props = {}
 
 const ClientHeader = () => {
-  return <div>ClientHeader</div>;
+  return <ClientHeaderWrapper></ClientHeaderWrapper>;
 };
 
 export default ClientHeader;

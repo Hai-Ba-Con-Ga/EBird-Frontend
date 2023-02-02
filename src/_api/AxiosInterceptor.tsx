@@ -1,0 +1,56 @@
+import React, { PropsWithChildren, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axiosClient from "./axiosClient";
+import useLoading from "../_hook/useLoading";
+
+const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
+  children,
+}) => {
+  const navigate = useNavigate();
+  const LOCAlSTORAGE_TOKEN_KEY = "access_token";
+  const {isLoading,closeLoading,openLoading} = useLoading();
+  const setToken = (token: string) => {
+    localStorage.setItem(LOCAlSTORAGE_TOKEN_KEY, JSON.stringify(token));
+  };
+  useEffect(() => {
+    const resInterceptor = (response: AxiosResponse) => {
+      if (response.data?.data?.accessToken) {
+        setToken(response.data.data);
+      }
+      if (isLoading) closeLoading();
+      return response;
+    };
+
+    const errInterceptor = (error: AxiosError) => {
+      if (isLoading) closeLoading();
+
+      return Promise.reject(error);
+    };
+    const reqInterceptor = axiosClient.interceptors.request.use(
+      (config: any) => {
+        if(!isLoading) openLoading("FULL");
+        console.log("open")
+        return config;
+        
+      },
+      (err) => {
+        console.log("open")
+        if(!isLoading) openLoading("FULL");
+        return Promise.reject(err);
+      }
+    );
+    const interceptor = axiosClient.interceptors.response.use(
+      resInterceptor,
+      errInterceptor
+    );
+
+    return () => {
+      axiosClient.interceptors.response.eject(interceptor);
+      axiosClient.interceptors.request.eject(reqInterceptor);
+    };
+  }, [navigate]);
+  return <>{children}</>;
+};
+
+export default AxiosInterceptor;

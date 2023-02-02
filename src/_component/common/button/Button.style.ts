@@ -12,10 +12,13 @@ export const OutlineWhiteButton = styled(ButtonCommon)`
 `;
 export const GradientGreenButton = styled(ButtonCommon)`
   color: var(--white);
-  background: linear-gradient(#36755e, #6faf98);
-  border-radius: var(--roundedMedium);
+  background: linear-gradient(270deg, #36755e, #6faf98);
+  border-radius: var(--roundedLarge);
+  box-shadow: 1px 2px 10px -5px #6faf98;
   border: none;
+  transition: all 0.2s linear;
   &:hover {
     opacity: 0.9;
+    box-shadow: 1px 2px 10px -2.5px #6faf98;
   }
 `;

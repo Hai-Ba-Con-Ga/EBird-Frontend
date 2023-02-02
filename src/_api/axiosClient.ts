@@ -1,22 +1,19 @@
 import axios from "axios";
-
-const LOCAlSTORAGE_TOKEN_KEY = "access_token";
-export const setToken = (rawToken: string) => {
-  const token = rawToken.split(" ")[1];
-  localStorage.setItem(LOCAlSTORAGE_TOKEN_KEY, token);
+const getToken = () => {
+  const token = localStorage.getItem("access_token")
+    ? localStorage.getItem("access_token")
+    : "";
+  return token ? JSON.parse(token) : "";
 };
-export const getToken = () => {
-  const token = localStorage.getItem(LOCAlSTORAGE_TOKEN_KEY);
-  return token;
-};
-
-const BASE_URL = "";
+const BASE_URL = "https://localhost:7137";
 const axiosClient = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  // withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${getToken()}`,
+    "Access-Control-Allow-Origin": "*",
+    Authorization: `Bearer ${getToken().accessToken}`,
   },
 });
+
 export default axiosClient;

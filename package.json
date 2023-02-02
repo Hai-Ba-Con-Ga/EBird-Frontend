@@ -3,22 +3,29 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "lint": "npx eslint . --config .eslintrc.cjs --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@microsoft/eslint-formatter-sarif": "^3.0.0",
+    "@tabler/icons-react": "^2.1.2",
     "@types/styled-components": "^5.1.26",
+    "add": "^2.0.6",
     "axios": "^1.2.2",
+    "framer-motion": "^8.5.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.5",
-    "react-query": "^3.39.2",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.6.2",
+    "react-toastify": "^9.1.1",
     "recoil": "^0.7.6",
     "styled-components": "^5.3.6",
+    "yarn": "^1.22.19",
     "yup": "^0.32.11"
   },
   "devDependencies": {

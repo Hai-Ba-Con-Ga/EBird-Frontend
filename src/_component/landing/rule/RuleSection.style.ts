@@ -6,6 +6,8 @@ export const RuleSectionWrapper = styled.section`
   margin-top: 5rem;
   /* padding: 5rem 2rem; */
   display: flex;
+  scroll-snap-align: start;
+
 `;
 export const RuleBlockWrapper = styled.div`
   width: 100%;
