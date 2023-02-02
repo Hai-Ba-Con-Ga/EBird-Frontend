@@ -10,11 +10,11 @@ const ProtectedRoute = ({ user }: Props) => {
   const nav = useNavigate();
   useEffect(() => {
     console.log(user);
-    if (!user) {
-      nav("/login");
-    }
+   
   }, [user]);
-
+  if (!user) {
+   return <Navigate to={"/login"}></Navigate>
+  }
   return <Outlet />;
 };
 

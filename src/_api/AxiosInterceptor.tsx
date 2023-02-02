@@ -13,6 +13,12 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
   const setToken = (token: string) => {
     localStorage.setItem(LOCAlSTORAGE_TOKEN_KEY, JSON.stringify(token));
   };
+  const getToken = () => {
+    const token = localStorage.getItem("access_token")
+      ? localStorage.getItem("access_token")
+      : "";
+    return token ? JSON.parse(token) : "";
+  };
   useEffect(() => {
     const resInterceptor = (response: AxiosResponse) => {
       if (response.data?.data?.accessToken) {
@@ -24,12 +30,12 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
 
     const errInterceptor = (error: AxiosError) => {
       if (isLoading) closeLoading();
-
-      return Promise.reject(error);
+      return Promise.resolve(error.response);
     };
     const reqInterceptor = axiosClient.interceptors.request.use(
       (config: any) => {
         if(!isLoading) openLoading("FULL");
+        config.headers = {...config.headers, Authorization: `Bearer ${getToken().accessToken}`}
         console.log("open")
         return config;
         

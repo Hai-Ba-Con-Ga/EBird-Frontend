@@ -20,6 +20,7 @@ import {
 } from "../auth/login/Login.style";
 import useAuth from "../../_hook/useAuth";
 import { LoginParams } from "../../_api/auth/auth.api";
+import { toast } from "react-toastify";
 
 const loginSchema = yup
   .object({
@@ -33,6 +34,7 @@ const LoginForm = () => {
     handleSubmit,
     register,
     formState: { errors },
+    reset
   } = useForm({
     mode: "onSubmit",
     resolver: yupResolver(loginSchema),
@@ -42,9 +44,12 @@ const LoginForm = () => {
     <LoginFormWrapper 
     initial={{opacity : 0,transform : "scale(0.5)"}} 
     animate = {{opacity:1 ,transform: "scale(1)"}}
-      onSubmit={handleSubmit((value) => {
-        console.log(value);
-        login(value as LoginParams);
+      onSubmit={handleSubmit(async (value) => {
+        const data = await login(value as LoginParams);
+        if(!data.sucess) {
+          toast.error("Username or password was incorrect");
+          reset();
+        }
       })}
     >
       <h1>Sign in to Birdiverse</h1>

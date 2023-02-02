@@ -7,9 +7,9 @@ interface RequestParams {
 
 const useQuery = () => {
   const { closeLoading, openLoading } = useLoading();
-  const request = useCallback(async ({ requestFunction }: RequestParams) => {
+  const request = useCallback(async (requestFunction : any,params?:any,data?:any) => {
     openLoading();
-    return await requestFunction().finally(() => closeLoading());
+    return await requestFunction(params,data).finally(() => closeLoading());
   }, []);
   return { request };
 };

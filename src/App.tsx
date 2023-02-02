@@ -16,15 +16,26 @@ import Homepage from "./_pages/Homepage";
 import FullLoading from "./_component/common/loading/FullLoading";
 import useLoading from "./_hook/useLoading";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/scss/main.scss";
+import AuthApi from "./_api/auth/auth.api";
 
 function App() {
-  const { auth } = useAuth();
+  // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
-
+  const [auth, setAuth] = useRecoilState(authAtom);
+  const {closeLoading} = useLoading()
+  useEffect(()=>{
+    AuthApi.getMe()
+      .then((response) =>
+      setAuth({ userInfomation: response.data, firstLoading: false })
+      )
+      .catch((err) => {
+        setAuth({ userInfomation: null, firstLoading: false });
+      }).finally(()=>closeLoading())
+  },[])
   return (
-    <div className="App">
-      {!auth.firstLoading && (
+    <div className="App" style={{position:"relative"}}>
+      {/* {!auth.firstLoading && ( */}
         <Routes>
           <Route path="/">
             <Route path="" element={<LandingPage />}></Route>
@@ -78,9 +89,8 @@ function App() {
           <Route path="/*" element="Not found"></Route>
           {/* TODO : Not found component */}
         </Routes>
-      )}
+      {/* )} */}
       {isLoading && Loader}
-      <ToastContainer />
     </div>
   );
 }
