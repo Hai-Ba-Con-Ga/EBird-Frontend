@@ -34,7 +34,7 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
     };
     const reqInterceptor = axiosClient.interceptors.request.use(
       (config: any) => {
-        if(!isLoading) openLoading("FULL");
+        // if(!isLoading) openLoading("FULL");
         config.headers = {...config.headers, Authorization: `Bearer ${getToken().accessToken}`}
         console.log("open")
         return config;
@@ -42,7 +42,7 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
       },
       (err) => {
         console.log("open")
-        if(!isLoading) openLoading("FULL");
+        // if(!isLoading) openLoading("FULL");
         return Promise.reject(err);
       }
     );

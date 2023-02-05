@@ -11,6 +11,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  /* COLOR */
   --black: #000;
   --dark: #4f4e4e;
   --gray: #838383;
@@ -18,7 +20,43 @@
   --dangerous: #c57c7c;
   --pink-neon: #ea4c89;
   --gold-primary: #c8aa6e;
+  --color-coffee : #f0e7db;
+  --lighter-dark :#202023;
   --white: #fff;
+  --dark-blue :#34495e;
+
+  /* Palette 1 */
+  --background-color: #e6e2d3;
+  --dark-gray: #484848;
+  --medium-gray: #707070;
+  --light-gray: #a8a8a8;
+  --off-white: #f0f0f0;
+  --bright-red: #ff6b6b;
+  --bright-green: #54ff9f;
+  --primary-color: #6200ee;
+  --secondary-color: #f7f1e3;
+  --accent-color: #ff9f1c;
+ /* aethestic */
+  --primary-color: #e74c3c;
+  --secondary-color: #3498db;
+  --accent-color: #f1c40f;
+/* Pallete two */
+  --background-color: #f0e7db;
+  --primary-color: #9b59b6;
+  --secondary-color: #3498db;
+  --accent-color: #f1c40f;
+  --light-gray: #c7c7c7;
+  --dark-gray: #484848;
+  --off-white: #f0f0f0;
+  /* COMMON SIZING  */
+  --header-height : 10rem;
+
+  /* PADDING & MARGIN */
+
+  --header--padding : 1rem 5rem;
+  
+
+  /* TYPO */
   --text-medium: 1rem;
   --text-small: 0.75rem;
   --text-large: 1.25rem;

@@ -84,6 +84,22 @@ function App() {
                 </AppLayout>
               }
             ></Route>
+            <Route
+              path="group"
+              element={
+                <AppLayout>
+                  <h1>Group</h1>
+                </AppLayout>
+              }
+            ></Route>
+            <Route
+              path="ranking"
+              element={
+                <AppLayout>
+                  <h1>Ranking</h1>
+                </AppLayout>
+              }
+            ></Route>
           </Route>
           <Route path="/admin"></Route>
           <Route path="/*" element="Not found"></Route>
