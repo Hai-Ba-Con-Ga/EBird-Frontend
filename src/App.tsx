@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import AppLayout from "./_component/layout/AppLayout";
-import ProtectedRoute from "./_component/layout/ProtectedRoute";
-import useAuth from "./_hook/useAuth";
-import LandingPage from "./_pages/LandingPage";
-import LoginPage from "./_pages/auth/LoginPage";
-import AuthPage from "./_pages/auth/AuthPage";
-import LoginForm from "./_component/form/LoginForm";
-import RegisterForm from "./_component/form/RegisterForm";
-import ForgotForm from "./_component/form/ForgotForm";
-import { useRecoilState } from "recoil";
-import authAtom from "./_atom/AuthAtom";
-import Homepage from "./_pages/Homepage";
-import FullLoading from "./_component/common/loading/FullLoading";
-import useLoading from "./_hook/useLoading";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/scss/main.scss";
-import AuthApi from "./_api/auth/auth.api";
+import { useRecoilState } from "recoil";
+import "./App.css";
+import React from "react";
+import AuthApi from "./components/auth/auth.api";
+import authAtom from "./components/auth/AuthAtom";
+import useLoading from "./components/useLoading";
+import AuthPage from "./page/auth/AuthPage";
+import Homepage from "./page/Homepage";
+import LandingPage from "./page/LandingPage";
+import LoginForm from "./components/auth/LoginForm";
+import RegisterForm from "./components/auth/RegisterForm";
+import ForgotForm from "./components/auth/ForgotForm";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
+import AppLayout from "./components/layout/AppLayout";
+import useModal from "./components/common/modal/useModal";
+import CommonModal from "./components/common/modal/CommonModal";
 
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
+  const {isModalShown,modalType,ModalComponent} = useModal();
   const [auth, setAuth] = useRecoilState(authAtom);
   const {closeLoading} = useLoading()
   useEffect(()=>{
@@ -107,6 +107,7 @@ function App() {
         </Routes>
       {/* )} */}
       {isLoading && Loader}
+      {isModalShown  && modalType == "common" && <CommonModal/> }
     </div>
   );
 }

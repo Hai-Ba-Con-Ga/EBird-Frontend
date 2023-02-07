@@ -2,7 +2,8 @@ import React, { PropsWithChildren, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import axiosClient from "./axiosClient";
-import useLoading from "../_hook/useLoading";
+import useLoading from "../components/useLoading";
+
 
 const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
   children,

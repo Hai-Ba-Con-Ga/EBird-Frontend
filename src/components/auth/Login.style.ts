@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { GradientGreenButton } from "../../common/button/Button.style";
+import { GradientGreenButton } from "../common/button/Button.style";
 
 export const LoginFormWrapper = styled(motion.form)`
   max-width: 50rem;

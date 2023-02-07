@@ -3,8 +3,8 @@ import styled from "styled-components";
 import {
   AuthBlock,
   AuthPageWrapper,
-} from "../../_component/auth/AuthPage.style";
-import ImageComponent from "../../_component/common/image/ImageComponent";
+} from "../../_feature/auth/AuthPage.style";
+import ImageComponent from "../../_feature/common/image/ImageComponent";
 import { motion } from "framer-motion";
 const AuthPage: FC<
   PropsWithChildren<{

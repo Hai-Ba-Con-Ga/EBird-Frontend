@@ -14,7 +14,7 @@ import {
   LoginFormWrapper,
   OauthButtons,
   OauthLink,
-} from "../auth/login/Login.style";
+} from "./Login.style";
 import { FieldError, TextField } from "../common/form/TextField";
 import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 const forgotSchema = yup.object({

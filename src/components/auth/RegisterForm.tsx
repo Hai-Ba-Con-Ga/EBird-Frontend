@@ -13,16 +13,13 @@ import {
   LoginFormWrapper,
   OauthButtons,
   OauthLink,
-} from "../auth/login/Login.style";
-import {
-  TextField,
-  MultipleTextField,
-  FieldError,
-} from "../common/form/TextField";
-import { TextFieldTheme } from "../common/theme/TextFieldTheme";
+} from "./Login.style";
+
 import * as yup from "yup";
-import useAuth from "../../_hook/useAuth";
-import { RegisterParams } from "../../_api/auth/auth.api";
+import useAuth from "./useAuth";
+import { RegisterParams } from "./auth.api";
+import { FieldError, MultipleTextField, TextField } from "../common/form/TextField";
+import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 const registerSchema = yup.object({
   firstName: yup.string().required(),
   lastName: yup.string().required(),

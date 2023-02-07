@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axiosClient from "../../../_api/axiosClient";
-import useAuth from "../../../_hook/useAuth";
+import axiosClient from "../../../api/axiosClient";
+import useAuth from "../../auth/useAuth";
 import HeaderPlayButton from "../button/HeaderPlayButton";
 import Select from "../select/Select";
 import { SelectOption } from "../select/Select.style";

@@ -1,5 +1,6 @@
 import React, { useCallback } from "react";
-import useLoading from "../_hook/useLoading";
+import useLoading from "../components/useLoading";
+
 
 interface RequestParams {
   requestFunction: any;

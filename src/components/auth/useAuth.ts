@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import authAtom, { AuthState, User } from "../_atom/AuthAtom";
-import AuthApi, { LoginParams, RegisterParams } from "../_api/auth/auth.api";
+import authAtom, { AuthState, User } from "./AuthAtom";
+import AuthApi, { LoginParams, RegisterParams } from "./auth.api";
 import { useNavigate } from "react-router-dom";
-import useLoading from "./useLoading";
-import useQuery from "../_api/useQuery";
+import useLoading from "../useLoading";
+import useQuery from "../../api/useQuery";
 import { toast } from "react-toastify";
 const useAuth = (init?: boolean) => {
   const [auth, setAuth] = useRecoilState(authAtom);

@@ -1,7 +1,7 @@
 import React, { Component, useCallback, useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import commonAtom, { LoadingType } from '../_atom/LoadingAtom'
-import FullLoading from '../_component/common/loading/FullLoading';
+import commonAtom, { LoadingType } from './LoadingAtom'
+import FullLoading from './common/loading/FullLoading';
 
 const useLoading = () => {
     const [loading,setLoading] = useRecoilState(commonAtom);

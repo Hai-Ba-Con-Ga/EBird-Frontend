@@ -1,7 +1,4 @@
 import React, { useEffect } from "react";
-import { GradientGreenButton } from "../common/button/Button.style";
-import { TextField, FieldError } from "../common/form/TextField";
-import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -17,10 +14,12 @@ import {
   LoginFormWrapper,
   OauthButtons,
   OauthLink,
-} from "../auth/login/Login.style";
-import useAuth from "../../_hook/useAuth";
-import { LoginParams } from "../../_api/auth/auth.api";
+} from "./Login.style";
+import useAuth from "./useAuth";
+import { LoginParams } from "./auth.api";
 import { toast } from "react-toastify";
+import { FieldError, TextField } from "../common/form/TextField";
+import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 
 const loginSchema = yup
   .object({
@@ -46,7 +45,7 @@ const LoginForm = () => {
     animate = {{opacity:1 ,transform: "scale(1)"}}
       onSubmit={handleSubmit(async (value) => {
         const data = await login(value as LoginParams);
-        if(!data.sucess) {
+        if(!data?.sucess) {
           toast.error("Username or password was incorrect");
           reset();
         }
