@@ -1,10 +1,5 @@
 import React, { FC, PropsWithChildren } from "react";
 import styled from "styled-components";
-import {
-  AuthBlock,
-  AuthPageWrapper,
-} from "../../_feature/auth/AuthPage.style";
-import ImageComponent from "../../_feature/common/image/ImageComponent";
 import { motion } from "framer-motion";
 const AuthPage: FC<
   PropsWithChildren<{
@@ -12,9 +7,9 @@ const AuthPage: FC<
   }>
 > = ({ children, banner = "https://source.unsplash.com/random" }) => {
   return (
-    <Page 
-    initial={{opacity : 0,transform : "scale(0.5)"}} 
-    animate = {{opacity:1 ,transform: "scale(1)"}}
+    <Page
+      initial={{ opacity: 0, transform: "scale(0.5)" }}
+      animate={{ opacity: 1, transform: "scale(1)" }}
     >
       <PageBanner>
         <img src={banner} alt="banner" />
