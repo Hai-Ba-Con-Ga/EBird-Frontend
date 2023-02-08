@@ -11,6 +11,7 @@ import {
 } from "./layout.style";
 import useApp from "../app/common/useApp";
 import useModal from "../common/modal/useModal";
+import RoomSelectForm from "../app/room/RoomSelectForm";
 type Props = {
   yo?: any;
 };
@@ -21,7 +22,7 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
   const { openModal } = useModal();
   useEffect(() => {
     if (!currentRoom) {
-      openModal({ payload: null, component: <div>OK MODAL</div> });
+      openModal({ payload: null, component: <RoomSelectForm/> ,closable :false });
       console.log("no room", currentRoom);
     } else {
       console.log("room");

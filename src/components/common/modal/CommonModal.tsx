@@ -27,7 +27,7 @@ const CommonModal: React.FC = () => {
             <IconX color="var(--dark-blue)" />
           </button>
         )}
-        <div>{ModalComponent}</div>
+        {ModalComponent}
       </CommonModalMain>
     </CommonModalWrapper>
   );

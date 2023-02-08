@@ -1,3 +1,5 @@
+import { AppState } from "../components/app/common/app.atom";
+
 // TODO : return type Bird
 export const getCurrentBird = () => {
   if (sessionStorage.getItem("app")) {
@@ -11,6 +13,9 @@ export const getCurrentRoom = () => {
   }
   return null;
 };
+export const setAppState = (app:AppState) => {
+  sessionStorage.setItem("app",JSON.stringify(app))
+}
 export const setToken = (token: string) => {
   localStorage.setItem("access_token", JSON.stringify(token));
 };

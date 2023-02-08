@@ -26,7 +26,7 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
         setToken(response.data.data);
       }
       if (isLoading) closeLoading();
-      return response;
+      return response.data;
     };
 
     const errInterceptor = (error: AxiosError) => {

@@ -10,11 +10,12 @@ export const CommonModalMain = styled.div`
     box-shadow: 1px 1px 10px -3px var(--dark-blue);
     button{ 
         padding : .5rem;
-        position: absolute;
+        position: sticky;
         right : .5rem;
         top: .5rem;;
     }
-    `
+    overflow-y:auto;
+`
 export const CommonModalWrapper = styled.div`
 z-index: var(--z-index-modal);
     width: 100vw;
@@ -26,4 +27,5 @@ z-index: var(--z-index-modal);
     box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
     backdrop-filter: blur( 4.5px );-webkit-backdrop-filter: blur( 4.5px );border-radius: 10px;
     /* background-color: red; */
+
 `

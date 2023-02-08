@@ -19,10 +19,10 @@ const useAuth = (init?: boolean) => {
     if(init){
       getMe()
       .then((response) =>
-      setAuth({ userInfomation: response.data, firstLoading: false })
+      setAuth({ userInfomation: response.data, firstLoading: false,isAuthenticated:true })
       )
       .catch((err) => {
-        setAuth({ userInfomation: null, firstLoading: false });
+        setAuth({ userInfomation: null, firstLoading: false,isAuthenticated:false });
       })
     }
   }, []);
@@ -42,13 +42,13 @@ const useAuth = (init?: boolean) => {
       getMe()
       .then((response) =>{
 
-        setAuth({ userInfomation: response.data, firstLoading: false })
+        setAuth({ userInfomation: response.data, firstLoading: false,isAuthenticated : true })
         console.log("setauth successful",auth);
         
       }
       )
       .catch((err) => {
-        setAuth({ userInfomation: null, firstLoading: false });
+        setAuth({ userInfomation: null, firstLoading: false ,isAuthenticated:false});
       }).finally(()=>{
         nav("/app");
       })
