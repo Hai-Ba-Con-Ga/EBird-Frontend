@@ -9,14 +9,13 @@ import { ToastContainer } from "react-toastify";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
-      <RecoilRoot>
+  <RecoilRoot>
     <Router>
-        <AxiosInterceptor>
+      <AxiosInterceptor>
         <App />
         <ToastContainer />
-        </AxiosInterceptor>
+      </AxiosInterceptor>
     </Router>
-      </RecoilRoot>
-
+  </RecoilRoot>
   // </React.StrictMode>
 );

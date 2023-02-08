@@ -13,12 +13,14 @@ export interface User {
 export interface AuthState {
   userInfomation?: User | null;
   firstLoading?: boolean;
+  isAuthenticated: boolean;
 }
 const authAtom = atom<AuthState>({
   key: "auth",
   default: {
     userInfomation: null,
     firstLoading: true,
+    isAuthenticated: true,
   },
 });
 
