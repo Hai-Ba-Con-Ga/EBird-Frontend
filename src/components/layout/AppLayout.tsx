@@ -8,6 +8,8 @@ import {
   ScreenWrapper,
   SidebarWrapper,
   SidebarToggleButton,
+  SidebarBackdrop,
+  DecorCircle,
 } from "./layout.style";
 import useApp from "../app/common/useApp";
 import useModal from "../common/modal/useModal";
@@ -37,7 +39,11 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
           <SidebarToggleButton onClick={() => setToggle(!toggle)}>
             <IconChevronsRight color="yellow" />
           </SidebarToggleButton>
+          <SidebarBackdrop>
           Content
+          </SidebarBackdrop>
+
+          <DecorCircle/>
         </SidebarWrapper>
       </AppContentWrapper>
     </AppLayoutWrapper>
