@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import styled from 'styled-components'
 
-const ButtonStyle = styled.button`
+const HeaderPlayButton = styled.button`
     width:12rem;
     aspect-ratio: 1;
     background-color: var(--green);
@@ -15,10 +15,10 @@ const ButtonStyle = styled.button`
     }
 `
 
-const HeaderPlayButton = () => {
-  return (
-    <ButtonStyle>Find Request</ButtonStyle>
-  )
-}
+// const HeaderPlayButton = () => {
+//   return (
+//     <ButtonStyle>Find Request</ButtonStyle>
+//   )
+// }
 
-export default memo(HeaderPlayButton)
+export default HeaderPlayButton

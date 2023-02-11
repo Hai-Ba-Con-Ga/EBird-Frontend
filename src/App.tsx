@@ -8,8 +8,8 @@ import AuthApi from "./components/auth/auth.api";
 import authAtom from "./components/auth/AuthAtom";
 import useLoading from "./components/useLoading";
 import AuthPage from "./page/auth/AuthPage";
-import Homepage from "./page/Homepage";
-import LandingPage from "./page/LandingPage";
+import Homepage from "./page/app/Homepage";
+import LandingPage from "./page/app/LandingPage";
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
 import ForgotForm from "./components/auth/ForgotForm";
@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/layout/ProtectedRoute";
 import AppLayout from "./components/layout/AppLayout";
 import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
+import Lobby from "./page/app/Lobby";
 
 function App() {
   // const { auth } = useAuth(true);
@@ -106,6 +107,14 @@ function App() {
             element={
               <AppLayout>
                 <h1>Ranking</h1>
+              </AppLayout>
+            }
+          ></Route>
+          <Route
+            path="lobby"
+            element={
+              <AppLayout>
+                <Lobby/>
               </AppLayout>
             }
           ></Route>

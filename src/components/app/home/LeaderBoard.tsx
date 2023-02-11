@@ -1,28 +1,57 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Bird } from './home.api';
+import { LeaderboardTable, SeeMoreRankLink } from './homepage.style';
 export interface Props {
-    ranks : any[];
+    ranks : Bird[];
 }
-const LeaderBoard = (props : Props ) => {
+const LeaderBoard = ({ranks} : Props ) => {
+    useEffect(() => {
+      console.log(ranks);
+    
+    }, [ranks])
+    
   return (
-    <table>
+    <LeaderboardTable>
         <thead>
-            <th>
-                <td>#</td>
-                <td>Bird name</td>
-                <td>Owner</td>
-                <td>Elo</td>
-            </th>
+            <tr>
+                <th>#</th>
+                <th>Bird name</th>
+                <th>Type</th>
+                <th>Owner</th>
+                <th>Elo</th>
+            </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            {ranks?.map((bird,i) =>(<tr key={bird?.id}>
+                <td>{i+1}</td>
+                <td>{bird?.name}</td>
+                <td>{"bird?.birdTypeId"}</td>
+                <td>{"bird?.ownerId"}</td>
+                <td>{bird?.elo}</td>
+            </tr>))}
+            {/* <tr>
+                <td>1</td>
+                <td>Louis Vuitton</td>
+                <td>Type</td>
+                <td>xWyvernPx</td>
+                <td>1600</td>
             </tr>
+            <tr>
+                <td>1</td>
+                <td>Louis Vuitton</td>
+                <td>Type</td>
+                <td>xWyvernPx</td>
+                <td>1600</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Louis Vuitton</td>
+                <td>Type</td>
+                <td>xWyvernPx</td>
+                <td>1600</td>
+            </tr> */}
         </tbody>
-    </table>
+    </LeaderboardTable>
   )
 }
 
