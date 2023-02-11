@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import authAtom, { AuthState, User } from "../_atom/AuthAtom";
+import authAtom, { AuthState, User } from "../_atom/AuthAtom";////1
 import AuthApi, { LoginParams, RegisterParams } from "../_api/auth/auth.api";
 import { useNavigate } from "react-router-dom";
 import useLoading from "./useLoading";
@@ -36,6 +36,7 @@ const useAuth = (init?: boolean) => {
     }
     
   }, []);
+  
   const login = useCallback(async (params: LoginParams) => {
     const data = await request(AuthApi.login,params);
     if (data.success) {
