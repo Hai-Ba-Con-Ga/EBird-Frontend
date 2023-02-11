@@ -9,7 +9,7 @@ export const AppLayoutWrapper = styled.div`
 `;
 export const AppContentWrapper = styled.div`
   display: flex;
-  height: 100%;
+  height: calc(100% - var(--header-height))
 `;
 
 export const ScreenWrapper =styled.div`
@@ -18,12 +18,13 @@ export const ScreenWrapper =styled.div`
   overflow: hidden;
 `
 export const SidebarWrapper = styled.div`
-  background-color: black;
   /* flex : 0 0 0px; */
   width: 300px;
   /* overflow: hidden; */
   position: relative;
   transition: all 0.3s linear;
+  box-shadow: -2px 0px 10px 0px  var(--dark-green);
+  z-index: 3;
   &.sidebar-deactive {
     /* flex: 0 0 30rem; */
   
@@ -41,18 +42,41 @@ export const SidebarWrapper = styled.div`
 `
 
 export const SidebarToggleButton = styled.button`
-  width: 4rem;
+  width: 6rem;
   display: grid;
   place-items: center;
   aspect-ratio: 1;
   position: absolute;
   top: 50%;
   left : 0;
-  transform: translate(-50%,-50%);
+  transform: translate(-60%,-50%);
   border-radius: var(--roundedFull);
-  border: yellow 2px solid;
+  /* border: yellow 2px solid; */
+  border:none;
   transition: all 0.2s linear;
   & svg {
     transition: all 0.4s linear;
   }
+  background-color: var(--dark-green);
+  
+`
+
+export const SidebarBackdrop = styled.div`
+  /* display: absolute; */
+  width: 100%;
+  height: 100%;
+  background-color:rgba(52, 69, 61,0.8);
+  backdrop-filter: blur( 16.5px );-webkit-backdrop-filter: blur( 16.5px );
+  z-index: 5;
+`
+export const DecorCircle = styled.div`
+  width: 7rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  aspect-ratio: 1;
+  background-color: rgba(236,202,110,255);
+  /* background-color: red; */
+  border-radius: var(--roundedFull) ;
 `

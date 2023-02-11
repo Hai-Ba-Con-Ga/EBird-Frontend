@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../api/axiosClient";
 import useAuth from "../../auth/useAuth";
 import HeaderPlayButton from "../button/HeaderPlayButton";
@@ -11,15 +12,8 @@ import { AppHeader, AppLogo, BirdSelectArea, ClientHeaderWrapper, LogoWrapper, M
 
 const ClientHeader = () => {
   const [birds,setBirds] = useState<any[]>([])
-  const {auth} = useAuth();
   const [currentBirds,setCurrentBird]= useState<any>();
   const [test,setTest] = useState(false);
-  useEffect(()=>{
-    axiosClient.get("/bird/owner").then(resp => {
-        setBirds(resp.data?.data)
-        console.log(resp.data.data)
-    })
-  },[test])
 
   return <ClientHeaderWrapper>
     <AppHeader>
@@ -37,7 +31,7 @@ const ClientHeader = () => {
       <MainNavigationBar>
         <NavBarItem to={"/app/profile"} >Profile</NavBarItem>
         <NavBarItem to={"/app/group"} >Group</NavBarItem>
-        <NavBarItem to={"#"}  onClick={()=>setTest(!test)} className="nav-play-button"><HeaderPlayButton/></NavBarItem>
+        <NavBarItem to={"/app/lobby"} className="nav-play-button"><HeaderPlayButton type="button">Find request</HeaderPlayButton></NavBarItem>
         <NavBarItem to={"/app/ranking"} >Ranking</NavBarItem>
         <NavBarItem to={"/app/match"} >Match</NavBarItem>
       </MainNavigationBar>

@@ -2,10 +2,10 @@ import React from "react";
 
 
 import styled from "styled-components";
-import LandingHeader from "../components/common/header/LandingHeader";
-import IntroSection from "../components/landing/intro/IntroSection";
-import RankSection from "../components/landing/rank/RankSection";
-import RuleSection from "../components/landing/rule/RuleSection";
+import LandingHeader from "../../components/common/header/LandingHeader";
+import IntroSection from "../../components/landing/intro/IntroSection";
+import RankSection from "../../components/landing/rank/RankSection";
+import RuleSection from "../../components/landing/rule/RuleSection";
 
 const Wrapper = styled.div`
   width: 100%;

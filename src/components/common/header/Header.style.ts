@@ -74,7 +74,7 @@ export const MainNavigationBar = styled.div`
   flex:  1;
   /* background-color: green; */
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
   /* transform: translateX(-5rem); */
