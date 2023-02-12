@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const CommonModalMain = styled.div`
@@ -16,7 +17,7 @@ export const CommonModalMain = styled.div`
     }
     overflow-y:auto;
 `
-export const CommonModalWrapper = styled.div`
+export const CommonModalWrapper = styled(motion.div)`
     width: 100vw;
     height: 100vh;
     position: fixed;

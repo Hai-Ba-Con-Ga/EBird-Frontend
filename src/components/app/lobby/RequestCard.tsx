@@ -1,7 +1,7 @@
 import { IconClock, IconLocation, IconMapPin } from '@tabler/icons-react'
 import React from 'react'
 import { Bird, MatchRequest } from '../../../utils/types'
-import { BirdImage, BirdInformations, RequestBirdContainer, RequestBirdWrapper, RequestCardInfomationField, RequestCardWrapper } from './lobby.style'
+import { BirdImage, BirdInformations, JoinButton, RequestBirdContainer, RequestBirdWrapper, RequestCardInfomationField, RequestCardWrapper } from './lobby.style'
 
 const RequestCard = ({request } : {
     request: MatchRequest
@@ -21,7 +21,8 @@ const RequestCard = ({request } : {
       <RequestBird bird={request?.primaryBird} isOwner={true}/> 
       <RequestBird bird={request?.secondaryBird} isOwner={false}/> 
       </RequestBirdContainer>
-      RequestCard</RequestCardWrapper>
+      <JoinButton type='button'>Join</JoinButton>
+      </RequestCardWrapper>
   )
 }
 const RequestBird = ({bird,isOwner}:{bird: Bird,isOwner : boolean}) => {
