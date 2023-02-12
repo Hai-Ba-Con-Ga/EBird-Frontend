@@ -10,6 +10,8 @@ const HeaderPlayButton = styled.button`
     color: white;
     font-weight: 600;
     font-size: var(--text-3xl);
+    position: relative;
+    /* z-index: 100; */
     &:hover {
         opacity: .98;
     }
