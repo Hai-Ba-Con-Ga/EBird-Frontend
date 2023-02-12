@@ -49,6 +49,8 @@ export const ClientHeaderWrapper = styled.div`
   background-color: var(--color-coffee);
   padding:0.5rem;
   border-bottom : 2.5px groove var(--dark-blue);
+  position: relative;
+  z-index: 5;
 `;
 export const AppHeader = styled.div`
   backdrop-filter: blur(4px);
