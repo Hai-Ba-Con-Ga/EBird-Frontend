@@ -4,8 +4,8 @@ import React from "react";
 import styled from "styled-components";
 import { GradientGreenButton } from "../../common/button/Button.style";
 import { IntroBlock, IntroSectionWrapper } from "./IntroSection.style";
-import Phoenix from "./Phoenix";
-import LandingScene from "./Scene";
+// import Phoenix from "./Phoenix";
+// import LandingScene from "./Scene";
 /* eslint-disable */
 const IntroSection = () => {
   return (
