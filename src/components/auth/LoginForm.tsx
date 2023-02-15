@@ -45,10 +45,7 @@ const LoginForm = () => {
     animate = {{opacity:1 ,transform: "scale(1)"}}
       onSubmit={handleSubmit(async (value) => {
         const data = await login(value as LoginParams);
-        if(!data?.sucess) {
-          toast.error("Username or password was incorrect");
-          reset();
-        }
+        
       })}
     >
       <h1>Sign in to Birdiverse</h1>

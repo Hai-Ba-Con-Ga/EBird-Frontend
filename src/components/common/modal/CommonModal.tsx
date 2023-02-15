@@ -30,7 +30,7 @@ const CommonModal: React.FC = () => {
     >
       <CommonModalMain>
         {!isModalClosable && (
-          <button onClick={() => closeModal()}>
+          <button id="close-modal-button" onClick={() => closeModal()}>
             <IconX color="var(--dark-blue)" />
           </button>
         )}

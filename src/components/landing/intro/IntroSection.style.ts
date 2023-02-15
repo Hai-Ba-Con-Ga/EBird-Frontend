@@ -18,6 +18,8 @@ export const IntroSectionWrapper = styled.section`
 
 export const IntroBlock = styled.div`
   width: 50%;
+  position: relative;
+  z-index: 4;
   h1 {
     color: var(--white);
     text-transform: uppercase;

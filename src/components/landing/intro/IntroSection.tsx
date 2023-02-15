@@ -1,8 +1,9 @@
-import { OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React from "react";
 import styled from "styled-components";
 import { GradientGreenButton } from "../../common/button/Button.style";
+import Bird1 from "./210604_Colibri";
 import { IntroBlock, IntroSectionWrapper } from "./IntroSection.style";
 import Phoenix from "./Phoenix";
 import LandingScene from "./Scene";
@@ -10,8 +11,18 @@ import LandingScene from "./Scene";
 const IntroSection = () => {
   return (
     <IntroSectionWrapper id="about">
+      <IntroBlock>
+        <h1>your own story in Globird</h1>
+        <h4>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+          fuga nesciunt, autem ea doloribus veniam?
+        </h4>
+        <GradientGreenButton>Join now</GradientGreenButton>
+      </IntroBlock>
       {/* TODO : 3D */}
+
       <StyledCanvas shadows>
+        <cubeTexture ></cubeTexture>
         <ambientLight/>
         <OrbitControls/>
         {/* <mesh>
@@ -25,26 +36,20 @@ const IntroSection = () => {
         shadow-mapSize-height={1024}
       />
       <group position={[0, -1, 0]}>
-        {/* <LandingScene/> */}
+        {/* {<Bird1/>} */}
         <Phoenix/>
       </group>
-         <mesh
+         {/* <mesh
         rotation={[-0.5 * Math.PI, 0, 0]}
         position={[0, -1, 0]}
         receiveShadow
       >
-        <planeBufferGeometry args={[10, 10, 1, 1]} />
-        <shadowMaterial transparent opacity={0.2} />
-      </mesh>
+        <planeGeometry args={[10, 10, 1, 1]} />
+      </mesh> */}
+      <Environment files={"/models/landing/enviroment.hdr"} background />
+
       </StyledCanvas>
-      <IntroBlock>
-        <h1>your own story in Globird</h1>
-        <h4>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          fuga nesciunt, autem ea doloribus veniam?
-        </h4>
-        <GradientGreenButton>Join now</GradientGreenButton>
-      </IntroBlock>
+      
     </IntroSectionWrapper>
   );
 };

@@ -9,11 +9,15 @@ Title: phoenix bird
 */
 
 import React, { useRef } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
-
+import { useGLTF, useAnimations, useTexture } from '@react-three/drei'
+import colorTextureUri from "../../../../public/models/landing/textures/MatI_Ride_FengHuang_01a_baseColor.png"
 export function LandingScene(props:any) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('./models/landing/scene.gltf') as any 
+  const colorTexture = useTexture(colorTextureUri,(texture)=>{
+    texture.flipY = false
+    <Texture></Texture>
+  });
   const { actions } = useAnimations(animations, group)
   return (
     <group ref={group} {...props} dispose={null}>
@@ -26,7 +30,9 @@ export function LandingScene(props:any) {
                   <primitive object={nodes._rootJoint} />
                   <group name="Object_6" rotation={[-Math.PI / 2, 0, 0]} />
                   <group name="AMesh_Ride_FengHuang_01" rotation={[-Math.PI / 2, 0, 0]} />
-                  <skinnedMesh castShadow name="Object_7" geometry={nodes.Object_7.geometry} material={materials.MatI_Ride_FengHuang_01a} skeleton={nodes.Object_7.skeleton} />
+                  <skinnedMesh castShadow name="Object_7" geometry={nodes.Object_7.geometry} material={materials.MatI_Ride_FengHuang_01a} skeleton={nodes.Object_7.skeleton} > 
+                  <meshStandardMaterial map={colorTexture} /> 
+                  </skinnedMesh>
                   <skinnedMesh name="Object_8" castShadow geometry={nodes.Object_8.geometry} material={materials.MatI_Ride_FengHuang_01b} skeleton={nodes.Object_8.skeleton} />
                 </group>
               </group>

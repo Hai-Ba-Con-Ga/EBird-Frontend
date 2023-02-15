@@ -14,7 +14,7 @@ const RoomSelectForm = () => {
   const { getAllRooms, setCurrentRoom } = useRoom();
   const { closeModal } = useModal();
   useEffect(() => {
-    getAllRooms().then((rooms: any) => setRooms(rooms));
+    // getAllRooms().then((rooms: any) => setRooms(rooms));
   }, []);
   const onSelectRoom = useCallback((room: any) => {
     setCurrentRoom(room);
