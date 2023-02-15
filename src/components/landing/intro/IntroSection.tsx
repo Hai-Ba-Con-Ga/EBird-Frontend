@@ -11,13 +11,13 @@ const IntroSection = () => {
   return (
     <IntroSectionWrapper id="about">
       {/* TODO : 3D */}
-      <StyledCanvas shadows>
+      {/* <StyledCanvas shadows>
         <ambientLight />
         <OrbitControls />
-        {/* <mesh>
+        <mesh>
           <boxBufferGeometry/>
           <meshNormalMaterial/>
-        </mesh> */}
+        </mesh>
         <directionalLight
           position={[-5, 5, 5]}
           castShadow
@@ -25,8 +25,8 @@ const IntroSection = () => {
           shadow-mapSize-height={1024}
         />
         <group position={[0, -1, 0]}>
-          {/* <LandingScene/> */}
-          {/* <Phoenix/> */}
+          <LandingScene/>
+          <Phoenix/>
         </group>
         <mesh
           rotation={[-0.5 * Math.PI, 0, 0]}
@@ -36,7 +36,7 @@ const IntroSection = () => {
           <planeBufferGeometry args={[10, 10, 1, 1]} />
           <shadowMaterial transparent opacity={0.2} />
         </mesh>
-      </StyledCanvas>
+      </StyledCanvas> */}
       <IntroBlock>
         <h1>your own story in Globird</h1>
         <h4>
