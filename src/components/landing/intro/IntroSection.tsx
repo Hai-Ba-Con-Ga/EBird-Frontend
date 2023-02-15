@@ -12,30 +12,30 @@ const IntroSection = () => {
     <IntroSectionWrapper id="about">
       {/* TODO : 3D */}
       <StyledCanvas shadows>
-        <ambientLight/>
-        <OrbitControls/>
+        <ambientLight />
+        <OrbitControls />
         {/* <mesh>
           <boxBufferGeometry/>
           <meshNormalMaterial/>
         </mesh> */}
-          <directionalLight
-        position={[-5, 5, 5]}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-      />
-      <group position={[0, -1, 0]}>
-        {/* <LandingScene/> */}
-        <Phoenix/>
-      </group>
-         <mesh
-        rotation={[-0.5 * Math.PI, 0, 0]}
-        position={[0, -1, 0]}
-        receiveShadow
-      >
-        <planeBufferGeometry args={[10, 10, 1, 1]} />
-        <shadowMaterial transparent opacity={0.2} />
-      </mesh>
+        <directionalLight
+          position={[-5, 5, 5]}
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+        <group position={[0, -1, 0]}>
+          {/* <LandingScene/> */}
+          {/* <Phoenix/> */}
+        </group>
+        <mesh
+          rotation={[-0.5 * Math.PI, 0, 0]}
+          position={[0, -1, 0]}
+          receiveShadow
+        >
+          <planeBufferGeometry args={[10, 10, 1, 1]} />
+          <shadowMaterial transparent opacity={0.2} />
+        </mesh>
       </StyledCanvas>
       <IntroBlock>
         <h1>your own story in Globird</h1>
@@ -53,6 +53,5 @@ const StyledCanvas = styled(Canvas)`
   inset: 0;
   height: 100%;
   width: 100%;
-
-`
+`;
 export default IntroSection;

@@ -39,6 +39,8 @@
   --dark: #4f4e4e;
   --gray: #838383;
   --active: #7cc5b7;
+  --warning: #f1c40f;
+
   --dangerous: #c57c7c;
   --pink-neon: #ea4c89;
   --gold-primary: #c8aa6e;
@@ -49,7 +51,7 @@
   --green : #87b6a1;
   --dark-green : #34453d;
   --gold-secondary : rgb(236 202 110);
-
+  --purple-primary : #805ad5;
   /* Palette 1 */
   --background-color: #e6e2d3;
   --dark-gray: #484848;

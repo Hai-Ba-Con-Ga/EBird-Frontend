@@ -7,9 +7,9 @@ type Props = {
 };
 
 const ProtectedRoute = ({ isAuthenticated }: Props) => {
-  if (!isAuthenticated) {
-    return <Navigate to={"/login"}></Navigate>;
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to={"/login"}></Navigate>;
+  // }
   return <Outlet />;
 };
 
