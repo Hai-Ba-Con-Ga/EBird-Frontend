@@ -18,6 +18,7 @@ import AppLayout from "./components/layout/AppLayout";
 import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
+import MatchPage from "./page/app/MatchPage";
 
 function App() {
   // const { auth } = useAuth(true);
@@ -114,10 +115,18 @@ function App() {
             path="lobby"
             element={
               <AppLayout>
-                <Lobby/>
+                <Lobby />
               </AppLayout>
             }
           ></Route>
+          <Route
+            path="match"
+            element={
+              <AppLayout>
+                <MatchPage />
+              </AppLayout>
+            }
+          />
         </Route>
         <Route path="/admin"></Route>
         <Route path="/*" element="Not found"></Route>

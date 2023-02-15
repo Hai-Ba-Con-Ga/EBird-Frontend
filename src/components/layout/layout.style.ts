@@ -70,7 +70,7 @@ export const SidebarBackdrop = styled.div`
   z-index: 5;
 `
 export const DecorCircle = styled.div`
-  width: 7rem;
+  width: 1rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -79,4 +79,5 @@ export const DecorCircle = styled.div`
   background-color: rgba(236,202,110,255);
   /* background-color: red; */
   border-radius: var(--roundedFull) ;
+  box-shadow: 0px 0px 50px 50px rgba(236,202,110,255);
 `
