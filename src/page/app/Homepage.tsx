@@ -26,10 +26,12 @@ const Homepage = () => {
           spaceBetween={50}
           slidesPerView={1}
           // autoHeight={true}
+          loop={true}
           autoplay={{
-            delay: 1000,
-            disableOnInteraction: false,
+            delay:4000  
           }}
+          
+          loopedSlides={1}
           modules={[ Pagination]}
           pagination={{ clickable: true }}
           onSlideChange={() => console.log('slide change')}
