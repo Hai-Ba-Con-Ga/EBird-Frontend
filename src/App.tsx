@@ -20,6 +20,8 @@ import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
 import MatchPage from "./page/app/MatchPage";
 
+import GroupPage from "./page/app/GroupPage";
+
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -99,7 +101,7 @@ function App() {
             path="group"
             element={
               <AppLayout>
-                <h1>Group</h1>
+                <GroupPage></GroupPage>
               </AppLayout>
             }
           ></Route>
