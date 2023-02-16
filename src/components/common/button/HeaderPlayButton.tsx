@@ -8,7 +8,8 @@ const HeaderPlayButton = styled.button`
     border: 2px var(--dark-green) solid;
     border-radius: var(--roundedFull);
     color: white;
-    font-weight: 600;
+    font-weight: 800;
+    text-transform: capitalize;
     font-size: var(--text-3xl);
     position: relative;
     /* z-index: 100; */

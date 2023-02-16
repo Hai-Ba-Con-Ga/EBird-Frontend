@@ -42,8 +42,6 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
           <SidebarBackdrop>
           Content
           </SidebarBackdrop>
-
-          <DecorCircle/>
         </SidebarWrapper>
       </AppContentWrapper>
     </AppLayoutWrapper>

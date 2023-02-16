@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import "react-toastify/scss/main.scss";
 import { useRecoilState } from "recoil";
 import "./App.css";
@@ -18,7 +18,13 @@ import AppLayout from "./components/layout/AppLayout";
 import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
+<<<<<<< HEAD
 import MatchPage from "./page/app/MatchPage";
+import MatchTable from "./components/app/table/Table";
+=======
+import Table from "./components/app/table/Table";
+import MatchTable from "./components/app/table/Table";
+>>>>>>> feature/BFCS-105
 
 function App() {
   // const { auth } = useAuth(true);
@@ -114,19 +120,12 @@ function App() {
           <Route
             path="lobby"
             element={
-              <AppLayout>
-                <Lobby />
-              </AppLayout>
+              <AppLayout><Outlet/></AppLayout>
             }
-          ></Route>
-          <Route
-            path="match"
-            element={
-              <AppLayout>
-                <MatchPage />
-              </AppLayout>
-            }
-          />
+          >
+            <Route path="" element={<Lobby/>}></Route>
+            <Route path="table/:id" element={<MatchTable/>} ></Route>
+          </Route>
         </Route>
         <Route path="/admin"></Route>
         <Route path="/*" element="Not found"></Route>
