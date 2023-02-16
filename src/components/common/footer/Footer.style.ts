@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 
 export const LandingFooterWrapper = styled.div`
@@ -39,6 +39,11 @@ export const FooterRow = styled.div`
     }
 
 `
+
+export const FooterLogo = styled.div`
+  width: 6rem;
+  aspect-ratio: 1;
+`;
 
 
 
