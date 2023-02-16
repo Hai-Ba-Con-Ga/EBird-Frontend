@@ -10,9 +10,10 @@ type Props = {
 export const TableBirdWrapper = styled.div`
     display: flex;
     gap : 2rem;
+    align-items: center;
 `
 export const BirdImage = styled.div`
-    width: 10rem;
+    width: 20rem;
     aspect-ratio: 1;
     border-radius:var(--roundedFull);
     img {width: 100%;
@@ -21,7 +22,10 @@ export const BirdImage = styled.div`
     overflow: hidden;
 `
 export const BirdInformations = styled.div`
+    font-size: var(--text-5xl);
     display: flex;
+    align-items:center;
+    gap: 0.75rem;
     flex-direction: column;
 `
 const TableBird = ({bird,kickable}: Props) => {
@@ -40,4 +44,4 @@ const TableBird = ({bird,kickable}: Props) => {
   )
 }
 
-export default TableBird
+export default TableBird;
