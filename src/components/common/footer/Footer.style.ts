@@ -40,11 +40,6 @@ export const FooterRow = styled.div`
 
 `
 
-export const FooterLogo = styled.div`
-  width: 6rem;
-  aspect-ratio: 1;
-`;
-
 
 
 
