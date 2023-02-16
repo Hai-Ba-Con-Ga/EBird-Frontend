@@ -20,7 +20,14 @@ const CommonModal: React.FC = () => {
   }, []);
 
   return (
-    <CommonModalWrapper>
+    <CommonModalWrapper initial={{
+      transform: "scale(0.3)"
+    }}
+    animate={{
+      transform: "scale(1)"
+    }}
+    exit={{transform:  "scale(0.3)"}}
+    >
       <CommonModalMain>
         {!isModalClosable && (
           <button onClick={() => closeModal()}>

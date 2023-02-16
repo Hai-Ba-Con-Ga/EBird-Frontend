@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const HomepageWrapper = styled.div`
-     width: 100%;
-     height: 100%; 
-    padding: 5rem 2rem;
+    width: 100%;
+    height: 100%; 
+    padding: var(--page-padding);
     /* max-width: 155rem; */
     /* background-color: red; */
 `
