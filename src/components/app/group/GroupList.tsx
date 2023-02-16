@@ -41,8 +41,8 @@ const AllGroup = ({ranks} : Props ) => {
             {ranks?.map((bird,i) =>(<tr key={bird?.id}>
                 <td>{i+1}</td>
                 <td>{bird?.name}</td>
-                <td>{"bird?.birdTypeId"}</td>
-                <td>{"bird?.ownerId"}</td>
+                <td>{"group?.birdTypeId"}</td>
+                <td>{"group?.ownerId"}</td>
                 <td>{bird?.elo}</td>
             </tr>))}
             {/* <tr>
