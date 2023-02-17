@@ -14,10 +14,10 @@ export const GroupApi = {
     getGroupList : async ():Promise<Response<Group[]>> => {
         const url = "/group/all";
         const response  = await axiosClient.get(url,{
-            // params : {
-            //     PageSize : 4 ,
-            //     CurrentPage : 1
-            // }
+            params : {
+                PageSize : 5 ,
+                CurrentPage : 1
+            }
         });
         return response.data
     }

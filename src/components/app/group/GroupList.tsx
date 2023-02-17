@@ -22,14 +22,14 @@ const AllGroup = ({groups} : Props ) => {
             </thead>
 
             <tbody>
-                {groups?.map((group,index) =>(<tr key={index}>
+                {groups?.map((group,i) =>(<tr key={group?.id}>
                     <td>{group?.name}</td>
                     <td>{group?.minELO}</td>
                     <td>{group?.maxELO}</td>
                     <td><GroupLink to={"/app"}></GroupLink></td>
                     {/* BỔ SUNG GROUP LINK */}
                 </tr>))}
-                <tr>
+                {/* <tr>
                     <td>COMMON</td>
                     <td>1010</td>
                     <td>1200</td>
@@ -46,7 +46,7 @@ const AllGroup = ({groups} : Props ) => {
                     <td>1410</td>
                     <td>1600</td>
                     <td><GroupLink to={"/app"}>JOIN</GroupLink></td>
-                </tr>
+                </tr> */}
             </tbody>
         </GroupTable>    
         )
