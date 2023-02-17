@@ -30,6 +30,10 @@ export const IntroBlock = styled.div`
     color: var(--white);
     font-size: var(--text-5xl);
   }
+  h2 {
+    color: var(--white);
+    font-size: var(--text-5xl);
+  }
   button {
     font-size: var(--text-2xl);
     padding: 1.5rem 4rem;

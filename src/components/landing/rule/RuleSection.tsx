@@ -7,17 +7,17 @@ const RuleSection = () => {
     {
       id: 1,
       content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur voluptatem dolores excepturi reiciendis voluptatum quam quaerat incidunt quae cumque eaque expedita, veritatis eum explicabo",
+        "As an official member of Globird, you must agree to all our rules and conditions regarding Fair Play and our Privacy Policy. Once you have accepted Globird policies, further account creation should be proceeded, choose an appropriate username and enjoy your journey.",
     },
     {
       id: 2,
       content:
-        "ipsum repellendus necessitatibus fuga quisquam minus impedit eveniet repellat. Nulla neque similique nam sequi veritatis illo voluptates quaerat. Reprehenderit quos molestiae, recusandae tenetur nam excepturi error?",
+        "Your username will represent your online identity. You cannot use chosen usernames and it must not be vulgar, or bearing inappropriate intentions, as well as violating our Terms of Service. False information is not allowed in the signing in process.",
     },
     {
       id: 3,
       content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur voluptatem dolores excepturi reiciendis voluptatum quam quaerat incidunt quae cumque eaque expedita, veritatis eum explicabo",
+        "Cheating is prohibited under all circumstances. If violations of the Fair Play Policies are discovered, we will confiscate your Elo points accordingly. Further violations will result in account suspension or be banned from participating future tournaments.",
     },
   ]);
   return (

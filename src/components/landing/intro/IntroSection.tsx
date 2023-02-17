@@ -39,11 +39,20 @@ const IntroSection = () => {
         </mesh>
       </StyledCanvas> */}
       <IntroBlock>
-        <h1>your own story in Globird</h1>
+        <h1>WRITE YOU OWN IMPECCABLE STORY</h1>
         <h4>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          fuga nesciunt, autem ea doloribus veniam?
+        Together we fly
         </h4>
+        <h4>
+        But only one remains at the beak
+        </h4>
+        <h4>
+        Do you dare to try?
+        </h4>
+        <h2>
+        Find the glory you always seek
+        </h2>
+        <h2>GLOBIRD.</h2>
         <GradientGreenButton>Join now</GradientGreenButton>
       </IntroBlock>
       {/* TODO : 3D */}
