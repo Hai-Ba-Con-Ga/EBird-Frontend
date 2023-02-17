@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Group } from './group.api';
 import { GroupTable } from './grouppage.style';
 // import {
 //   AllMatchTabSide,
@@ -9,63 +10,56 @@ import { GroupTable } from './grouppage.style';
 // import MatchCard from "./MatchCard";
 
 // type Props = {};
-const groups = [
-    "COMMON",
-    "BEGINNER",
-    "SEMI PRO",
-    "PROFESSIONAL"
-]
+
 export interface Props {
-    ranks : Bird[];
+    groups : Group[];
 }
 
-const AllGroup = ({ranks} : Props ) => {
+const AllGroup = ({groups} : Props ) => {
     useEffect(() => {
-        console.log(ranks);
-      
-      }, [ranks])
+        console.log(groups);
+      }, [groups])
 
     return (
-        
             <GroupTable>
         <thead>
             <tr>
-                <th>#</th>
-                <th>Bird name</th>
-                <th>Type</th>
-                <th>Owner</th>
-                <th>Elo</th>
+                <th>NAME</th>
+                <th>ELO</th>
+                <th>MAX ELO</th>
             </tr>
+            
         </thead>
+        
         <tbody>
-            {ranks?.map((bird,i) =>(<tr key={bird?.id}>
-                <td>{i+1}</td>
-                <td>{bird?.name}</td>
-                <td>{"group?.birdTypeId"}</td>
-                <td>{"group?.ownerId"}</td>
-                <td>{bird?.elo}</td>
+            {groups?.map((group,index) =>(<tr key={index}>
+                
+                <td>{group?.name}</td>
+                <td>{group?.minELO}</td>
+                <td>{group?.maxELO}</td>
+                <td><button
+                    // onClick={}
+                >JOIN</button></td>
             </tr>))}
-            {/* <tr>
-                <td>1</td>
-                <td>Louis Vuitton</td>
-                <td>Type</td>
-                <td>xWyvernPx</td>
-                <td>1600</td>
+            <tr>
+                <td>COMMON</td>
+                <td>1010</td>
+                <td>1200</td>
+                <td><button>JOIN</button></td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>Louis Vuitton</td>
-                <td>Type</td>
-                <td>xWyvernPx</td>
-                <td>1600</td>
+                <td>BEGINNER</td>
+                <td>1210</td>
+                <td>1400</td>
+                <td><button>JOIN</button></td>
             </tr>
             <tr>
-                <td>1</td>
-                <td>Louis Vuitton</td>
-                <td>Type</td>
-                <td>xWyvernPx</td>
+                <td>SEMI PRO</td>
+                <td>1410</td>
                 <td>1600</td>
-            </tr> */}
+                <td><button>JOIN</button></td>
+            </tr>
+            
         </tbody>
     </GroupTable>
 

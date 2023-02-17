@@ -14,7 +14,7 @@ import MatchCard from "../../components/app/match/MatchCard";
 
 
 const GroupPage = () => {
-  const {groupList} = useGrouppage()
+  // const {leaderboard} = useHomepage()
   return (
     <GroupPageWrapper>
       <GroupList/>

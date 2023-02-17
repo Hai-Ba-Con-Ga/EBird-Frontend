@@ -1,21 +1,16 @@
-//Call API
+
 import axiosClient from "../../../api/axiosClient";
 import {Response} from '../../../api/index';
 
 //check swagger
 export interface Group {
-    "id": string
-   "name": string,
-   "age": number,
-   "weight": number,
-   "elo": number,
-   "status": string,
-   "description": string,
-   "color": string,
-   "birdTypeId": string,
-   "ownerId":string,
-   "createdDatetime": Date,
-   "resourceList": any[]
+    "id": string,
+    "name": string,
+    "maxELO": number,
+    "minELO": number,
+    "status": string,
+    "createDatetime": Date,
+    "createdById": string
 }
 
 export const GroupApi = {
