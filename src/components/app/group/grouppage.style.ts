@@ -1,10 +1,6 @@
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { MatchStatus } from "../../../utils/types";
-import {
-  BirdImage,
-  BirdInformations,
-  RequestCardInfomationField,
-} from "../lobby/lobby.style";
+
 
 export const GroupPageWrapper = styled.div`
   flex : 0 0 80%;
@@ -19,7 +15,6 @@ export const GroupPageWrapper = styled.div`
     font-size: var(--text-7xl);
   }
 `;
-
 export const GroupTable = styled.table `
     margin : 10rem auto;
     border : 3px solid;
@@ -29,20 +24,26 @@ export const GroupTable = styled.table `
     
     & tr th {
         font-size: var(--text-5xl);
-        
     }
     & tr td:first-child{
-        padding-top: 1rem        
+        padding-top: 1rem;
+        font-size: var(--text-4xl);   
+        font-weight: 600;  
     }
     & tr th ,&  tr td {
-        /* display: inline-block; */
-        /* min-width: 12rem; */
         padding: 1rem  2rem 2rem 2rem;
         text-align : center;
-        
-        
-    }
-`
+        }
+`;
+export const GroupLink  = styled(NavLink)`
+    color : var(--dark-green);
+    font-weight: 600;
+    width: 100%;
+    margin : 0 auto;
+    text-align:center;
+    font-size: var(--text-4xl);
+    display: block;
+`;
 
 
 

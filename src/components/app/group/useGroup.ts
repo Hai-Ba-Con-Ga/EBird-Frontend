@@ -4,7 +4,7 @@ import { GroupApi } from './group.api'
 import {Response} from '../../../api/index'
 
 
-const useGrouppage = () => {
+const useGroupPage = () => {
     const [groupList,setGroupList] = useState<any[]>([]);
     useEffect(() => {
       getGroupList().then(groupList => setGroupList(groupList));
@@ -14,8 +14,6 @@ const useGrouppage = () => {
         const response = await GroupApi.getGroupList() ;
         console.log("GROUPLIST",response.data )
         return response.data;
-
-        
     },[])
   return (
    {
@@ -24,4 +22,4 @@ const useGrouppage = () => {
   )
 }
 
-export default useGrouppage
+export default useGroupPage

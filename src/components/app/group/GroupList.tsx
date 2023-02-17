@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Group } from './group.api';
-import { GroupTable } from './grouppage.style';
+import { GroupLink, GroupTable } from './grouppage.style';
 // import {
 //   AllMatchTabSide,
 //   AllMatchWrapper,
@@ -37,28 +37,27 @@ const AllGroup = ({groups} : Props ) => {
                 <td>{group?.name}</td>
                 <td>{group?.minELO}</td>
                 <td>{group?.maxELO}</td>
-                <td><button
-                    // onClick={}
-                >JOIN</button></td>
+                <td><GroupLink to={"/app"}></GroupLink></td>
+                {/* BỔ SUNG GROUP LINK */}
             </tr>))}
-            <tr>
+            {/* <tr>
                 <td>COMMON</td>
                 <td>1010</td>
                 <td>1200</td>
-                <td><button>JOIN</button></td>
+                <td><GroupLink to={"/app"}>JOIN</GroupLink></td>
             </tr>
             <tr>
                 <td>BEGINNER</td>
                 <td>1210</td>
                 <td>1400</td>
-                <td><button>JOIN</button></td>
+                <td><GroupLink to={"/app"}>JOIN</GroupLink></td>
             </tr>
             <tr>
                 <td>SEMI PRO</td>
                 <td>1410</td>
                 <td>1600</td>
-                <td><button>JOIN</button></td>
-            </tr>
+                <td><GroupLink to={"/app"}>JOIN</GroupLink></td>
+            </tr> */}
             
         </tbody>
     </GroupTable>
