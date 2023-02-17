@@ -1,21 +1,12 @@
-<<<<<<< HEAD
-import { OrbitControls } from "@react-three/drei";
-=======
 import { Environment, OrbitControls } from "@react-three/drei";
->>>>>>> feature/BFCS-105
-import { Canvas } from "@react-three/fiber";
+// import { Canvas } from "@react-three/fiber";
 import React from "react";
 import styled from "styled-components";
 import { GradientGreenButton } from "../../common/button/Button.style";
 import Bird1 from "./210604_Colibri";
 import { IntroBlock, IntroSectionWrapper } from "./IntroSection.style";
-<<<<<<< HEAD
 // import Phoenix from "./Phoenix";
 // import LandingScene from "./Scene";
-=======
-import Phoenix from "./Phoenix";
-import LandingScene from "./Scene";
->>>>>>> feature/BFCS-105
 /* eslint-disable */
 const IntroSection = () => {
   return (
@@ -57,14 +48,14 @@ const IntroSection = () => {
       </IntroBlock>
       {/* TODO : 3D */}
 
-      <StyledCanvas shadows>
+      {/* <StyledCanvas shadows>
         <cubeTexture ></cubeTexture>
         <ambientLight/>
         <OrbitControls/>
-        {/* <mesh>
+        <mesh>
           <boxBufferGeometry/>
           <meshNormalMaterial/>
-        </mesh> */}
+        </mesh>
           <directionalLight
         position={[-5, 5, 5]}
         castShadow
@@ -72,9 +63,9 @@ const IntroSection = () => {
         shadow-mapSize-height={1024}
       />
       <group position={[0, -1, 0]}>
-        {/* {<Bird1/>} */}
+        {<Bird1/>}
         <Phoenix/>
-      </group>
+      </group> */}
          {/* <mesh
         rotation={[-0.5 * Math.PI, 0, 0]}
         position={[0, -1, 0]}
@@ -82,22 +73,18 @@ const IntroSection = () => {
       >
         <planeGeometry args={[10, 10, 1, 1]} />
       </mesh> */}
-      <Environment files={"/models/landing/enviroment.hdr"} background />
+      {/* <Environment files={"/models/landing/enviroment.hdr"} background /> */}
 
-      </StyledCanvas>
+      {/* </StyledCanvas> */}
       
     </IntroSectionWrapper>
   );
 };
-const StyledCanvas = styled(Canvas)`
-  position: absolute !important;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-<<<<<<< HEAD
-`;
-=======
+// const StyledCanvas = styled(Canvas)`
+//   position: absolute !important;
+//   inset: 0;
+//   height: 100%;
+//   width: 100%;
 
-`
->>>>>>> feature/BFCS-105
+// `
 export default IntroSection;

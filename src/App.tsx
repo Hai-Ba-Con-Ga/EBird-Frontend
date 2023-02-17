@@ -18,14 +18,9 @@ import AppLayout from "./components/layout/AppLayout";
 import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
-<<<<<<< HEAD
 import MatchPage from "./page/app/MatchPage";
 import MatchTable from "./components/app/table/Table";
-=======
 import Table from "./components/app/table/Table";
-import MatchTable from "./components/app/table/Table";
->>>>>>> feature/BFCS-105
-
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
