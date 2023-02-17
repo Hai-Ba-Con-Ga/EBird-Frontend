@@ -20,6 +20,5 @@ export const GroupApi = {
             // }
         });
         return response.data
-
     }
 }

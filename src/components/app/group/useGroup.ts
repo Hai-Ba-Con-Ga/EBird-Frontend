@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 import { GroupApi } from './group.api'
 import {Response} from '../../../api/index'
 
-
 const useGroupPage = () => {
     const [groupList,setGroupList] = useState<any[]>([]);
     useEffect(() => {
@@ -21,5 +20,4 @@ const useGroupPage = () => {
    }
   )
 }
-
 export default useGroupPage

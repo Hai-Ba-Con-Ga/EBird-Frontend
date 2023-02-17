@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-
 export const GroupPageWrapper = styled.div`
   flex : 0 0 80%;
   height: 100%;
