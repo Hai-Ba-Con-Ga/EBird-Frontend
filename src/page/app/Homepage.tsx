@@ -44,7 +44,7 @@ const Homepage = () => {
           </CustomSwiper>
           <RankingBoard>
             <h1>leaderboard</h1>
-            <LeaderBoard ranks={leaderboard}/>
+            {/* <LeaderBoard ranks={leaderboard}/> */}
             <SeeMoreRankLink to="/app/ranking">See more</SeeMoreRankLink>
           </RankingBoard>
       </HomepageMainContent>

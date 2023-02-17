@@ -38,12 +38,14 @@ const useAuth = (init?: boolean) => {
   }, []);
   const login = useCallback(async (params: LoginParams) => {
     const data = await request(AuthApi.login,params);
-    if (data.success) {
-      getMe()
+    
+      await getMe()
       .then((response) =>{
+        console.log(response)
 
         setAuth({ userInfomation: response.data, firstLoading: false,isAuthenticated : true })
         console.log("setauth successful",auth);
+      window.location.replace("/app") 
         
       }
       )
@@ -52,9 +54,6 @@ const useAuth = (init?: boolean) => {
       }).finally(()=>{
         nav("/app");
       })
-    }else {
-      return data;
-    }
   }, []);
   return {
     auth: auth as AuthState,

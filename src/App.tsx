@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import "react-toastify/scss/main.scss";
 import { useRecoilState } from "recoil";
 import "./App.css";
@@ -19,9 +19,14 @@ import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
 import MatchPage from "./page/app/MatchPage";
+<<<<<<< HEAD
 
 import GroupPage from "./page/app/GroupPage";
 
+=======
+import MatchTable from "./components/app/table/Table";
+import Table from "./components/app/table/Table";
+>>>>>>> 34b5640a5407145c87bf5e3009cb202abedb92d1
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -116,19 +121,12 @@ function App() {
           <Route
             path="lobby"
             element={
-              <AppLayout>
-                <Lobby />
-              </AppLayout>
+              <AppLayout><Outlet/></AppLayout>
             }
-          ></Route>
-          <Route
-            path="match"
-            element={
-              <AppLayout>
-                <MatchPage />
-              </AppLayout>
-            }
-          />
+          >
+            <Route path="" element={<Lobby/>}></Route>
+            <Route path="table/:id" element={<MatchTable/>} ></Route>
+          </Route>
         </Route>
         <Route path="/admin"></Route>
         <Route path="/*" element="Not found"></Route>
