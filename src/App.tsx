@@ -115,12 +115,22 @@ function App() {
           <Route
             path="lobby"
             element={
-              <AppLayout><Outlet/></AppLayout>
+              <AppLayout>
+                <Outlet />
+              </AppLayout>
             }
           >
-            <Route path="" element={<Lobby/>}></Route>
-            <Route path="table/:id" element={<MatchTable/>} ></Route>
+            <Route path="" element={<Lobby />}></Route>
+            <Route path="table/:id" element={<MatchTable />}></Route>
           </Route>
+          <Route
+            path="match"
+            element={
+              <AppLayout>
+                <MatchPage />
+              </AppLayout>
+            }
+          ></Route>
         </Route>
         <Route path="/admin"></Route>
         <Route path="/*" element="Not found"></Route>

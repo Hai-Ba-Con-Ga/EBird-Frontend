@@ -26,7 +26,6 @@ export const MatchApi = {
   matchConfirm: async (matchId: string) => {
     const url = "/match/confirm/" + matchId;
     const res = await axiosClient.put(url);
-
     return res?.data;
   },
   getMatchFilter: async ({
@@ -39,5 +38,10 @@ export const MatchApi = {
     const url = `/match/owner/${role}/${matchStatus}`;
     const response = await axiosClient.get(url);
     return response.data;
+  },
+  updateResult: async ({ matchId, birdId, result }: any) => {
+    const url = "/match-bird/result/" + matchId;
+    const res = await axiosClient.put(url, { result, birdId });
+    return res.data;
   },
 };

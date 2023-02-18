@@ -64,8 +64,8 @@ const RequestCard = ({ request }: { request: any }) => {
         <span>{request?.matchDatetime || "00:00"}</span>
       </RequestCardInfomationField>
       <RequestBirdContainer>
-        <RequestBird bird={null} isOwner={true} />
-        <RequestBird bird={null} isOwner={false} />
+        <RequestBird bird={request?.matchBirdList?.[0]?.bird} isOwner={true} />
+        <RequestBird bird={request?.matchBirdList?.[1]?.bird} isOwner={false} />
       </RequestBirdContainer>
       <JoinButton isOwner={isOwner} onClick={onJoinClickHandler} type="button">
         {isOwner ? "View" : "Join"}
@@ -93,9 +93,9 @@ const RequestBird = ({
         />
       </BirdImage>
       <BirdInformations isOwner={isOwner}>
-        <h1>Louis Vuitton</h1>
-        <h1>ELO</h1>
-        <h1>Owner</h1>
+        <h1>{bird?.name || "NaN"}</h1>
+        <h1>{bird?.elo || "NaN"}</h1>
+        <h1>{"Owner"}</h1>
       </BirdInformations>
     </RequestBirdWrapper>
   );

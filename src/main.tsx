@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Suspense fallback={<FullLoading />}>
         <AxiosInterceptor>
           <App />
-          <ToastContainer />
+          <ToastContainer autoClose={1500} pauseOnHover={false} />
         </AxiosInterceptor>
       </Suspense>
     </Router>

@@ -1,4 +1,5 @@
 export enum MatchStatus {
+  Waiting,
   Pending,
   During,
   Completed,
@@ -12,6 +13,7 @@ export interface MatchRequest {
 }
 export interface Bird {
   id: string;
+  ratio: string;
   name: string;
   age: number;
   weight: number;

@@ -15,14 +15,17 @@ const AuthApi = {
   getMe: async () => {
     const url = "/auth/me";
     const response = await axiosClient.get(url);
-    console.log(response);
     // return response.data;
     // TODO: until BFCS-38 complete
     return response.data;
   },
   register: async (params: RegisterParams) => {
     const url = "/auth/signup";
-    const response = await axiosClient.post(url, { ...params,desciption : "init" }, {});
+    const response = await axiosClient.post(
+      url,
+      { ...params, desciption: "init" },
+      {}
+    );
     return response.data;
   },
   login: async (params: LoginParams) => {
