@@ -4,13 +4,12 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import axiosClient from "./axiosClient";
 import useLoading from "../components/useLoading";
 
-
 const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
   children,
 }) => {
   const navigate = useNavigate();
   const LOCAlSTORAGE_TOKEN_KEY = "access_token";
-  const {isLoading,closeLoading,openLoading} = useLoading();
+  const { isLoading, closeLoading, openLoading } = useLoading();
   const setToken = (token: string) => {
     localStorage.setItem(LOCAlSTORAGE_TOKEN_KEY, JSON.stringify(token));
   };
@@ -26,7 +25,7 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
         setToken(response.data.data);
       }
       if (isLoading) closeLoading();
-      return response.data;
+      return response;
     };
 
     const errInterceptor = (error: AxiosError) => {
@@ -36,13 +35,15 @@ const AxiosInterceptor: React.FC<PropsWithChildren<{ key?: string }>> = ({
     const reqInterceptor = axiosClient.interceptors.request.use(
       (config: any) => {
         // if(!isLoading) openLoading("FULL");
-        config.headers = {...config.headers, Authorization: `Bearer ${getToken().accessToken}`}
-        console.log("open")
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${getToken().accessToken}`,
+        };
+        console.log("open");
         return config;
-        
       },
       (err) => {
-        console.log("open")
+        console.log("open");
         // if(!isLoading) openLoading("FULL");
         return Promise.reject(err);
       }

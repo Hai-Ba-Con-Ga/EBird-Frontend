@@ -11,11 +11,14 @@ import { toast } from "react-toastify";
 
 const RoomSelectForm = () => {
   const [rooms, setRooms] = useState<any[]>([]);
-  const { getAllRooms, setCurrentRoom } = useRoom();
+  const { currentRoom, getAllRooms, setCurrentRoom } = useRoom();
   const { closeModal } = useModal();
   useEffect(() => {
     getAllRooms().then((rooms: any) => setRooms(rooms));
   }, []);
+  useEffect(() => {
+    console.log("Current room changed", currentRoom);
+  }, [currentRoom]);
   const onSelectRoom = useCallback((room: any) => {
     setCurrentRoom(room);
     toast.success(`You changed to room ${room?.name} `);

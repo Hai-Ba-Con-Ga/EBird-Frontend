@@ -12,6 +12,7 @@ const useApp = () => {
     [appState]
   );
   return {
+    setCurrentBird,
     currentBird: appState.currentBird,
     currentRoom: appState.currentRoom,
   };

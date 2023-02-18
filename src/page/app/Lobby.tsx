@@ -1,55 +1,131 @@
-import { IconRefresh } from '@tabler/icons-react'
-import React, { useCallback, useEffect, useState } from 'react'
-import { ActionArea, ActionButton, BackdropVideo, LobbyBackground, LobbyWrapper, PageMain, PageTitle, RequestActions, RequestGrid } from '../../components/app/lobby/lobby.style'
-import RequestCard from '../../components/app/lobby/RequestCard'
-import CreateRequestForm from '../../components/common/form/CreateRequestForm'
-import useModal from '../../components/common/modal/useModal'
-import Select from '../../components/common/select/Select'
-import { DecorCircle } from '../../components/layout/layout.style'
+import { IconRefresh } from "@tabler/icons-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axiosClient from "../../api/axiosClient";
+import useApp from "../../components/app/common/useApp";
+import {
+  ActionArea,
+  ActionButton,
+  BackdropVideo,
+  LobbyBackground,
+  LobbyWrapper,
+  PageMain,
+  PageTitle,
+  RequestActions,
+  RequestGrid,
+} from "../../components/app/lobby/lobby.style";
+import { MatchApi } from "../../components/app/lobby/match.api";
+import RequestCard from "../../components/app/lobby/RequestCard";
+import useAuth from "../../components/auth/useAuth";
+import CreateRequestForm from "../../components/common/form/CreateRequestForm";
+import useModal from "../../components/common/modal/useModal";
+import Select from "../../components/common/select/Select";
+import { DecorCircle } from "../../components/layout/layout.style";
 
 const Lobby = () => {
   const requestFilter = [
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO DESC' , value:  'elo_desc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-  ]
-  const {openModal} = useModal();
-  const createRequestHandler = useCallback(()=>{
+    { name: "ELO ASC", value: "elo_asc" },
+    { name: "ELO DESC", value: "elo_desc" },
+    { name: "ELO ASC", value: "elo_asc" },
+    { name: "ELO ASC", value: "elo_asc" },
+    { name: "ELO ASC", value: "elo_asc" },
+    { name: "ELO ASC", value: "elo_asc" },
+  ];
+  const { openModal, closeModal } = useModal();
+  const { currentRoom, currentBird } = useApp();
+
+  const createRequestHandler = useCallback(() => {
     openModal({
-      closable : true,
-      component : <CreateRequestForm/>,
-      payload : null
-    })
-  },[]);
+      closable: true,
+      component: (
+        <CreateRequestForm handleCreateRequest={handleCreateRequest} />
+      ),
+      payload: null,
+    });
+  }, []);
+  const { auth } = useAuth();
+
+  const handleCreateRequest = useCallback(
+    async (data: any) => {
+      console.log("submit create request");
+      const { userInfomation } = auth;
+      if (!currentBird) {
+        toast.error("Please select bird");
+      } else {
+        const place = {
+          address: "Default",
+          name: data.location,
+          longitude: "null",
+          latitude: "null",
+        };
+        const params = {
+          matchStatus: 0,
+          matchDatetime: data?.time,
+          hostId: userInfomation?.id,
+          birdHostId: currentBird?.id,
+          roomId: currentRoom?.id,
+          place,
+        };
+        const result = await MatchApi.createMatch(params);
+        console.log("Create match result = ", result);
+        if (result.success) {
+          toast.success(
+            "Create match successfully! Refresh list manually please"
+          );
+          getListMatch();
+          closeModal();
+        }
+        // console.log(params);
+      }
+    },
+    [currentBird, auth, currentRoom]
+  );
+  const [matches, setMatches] = useState<any[]>([]);
+  useEffect(() => {
+    getListMatch();
+  }, []);
+  const getListMatch = useCallback(async () => {
+    const params = {
+      MatchStatus: 0,
+    };
+    const result = (await axiosClient
+      .get("/match/all", {
+        params,
+      })
+      .then((res) => res.data)) as any;
+    if (result.success) {
+      setMatches(result.data);
+      console.log(result.data);
+    }
+  }, [matches]);
   return (
     <LobbyWrapper>
       {/* <BackdropVideo src="/smoke.mp4" muted autoPlay loop></BackdropVideo> */}
-      <LobbyBackground/>
+      <LobbyBackground />
       <PageMain>
         <PageTitle>
           <h3>Lobby</h3>
-          <button type='button'><IconRefresh color='var(--gold-primary)'/></button>
+          <button type="button" onClick={() => getListMatch()}>
+            <IconRefresh color="var(--gold-primary)" />
+          </button>
         </PageTitle>
         <RequestGrid>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
+          {matches?.map((match) => (
+            <RequestCard key={match?.id} request={match as any} />
+          ))}
+          {/* <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} />
+          <RequestCard request={{} as any} /> */}
         </RequestGrid>
       </PageMain>
       <ActionArea>
         <RequestActions>
-          <ActionButton>
-            Quick Match
-          </ActionButton>
+          <ActionButton>Quick Match</ActionButton>
           <ActionButton onClick={createRequestHandler}>
             Create Request
           </ActionButton>
@@ -57,7 +133,7 @@ const Lobby = () => {
       </ActionArea>
       {/* <DecorCircle/> */}
     </LobbyWrapper>
-  )
-}
+  );
+};
 
-export default Lobby
+export default Lobby;

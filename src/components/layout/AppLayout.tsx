@@ -24,7 +24,11 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
   const { openModal } = useModal();
   useEffect(() => {
     if (!currentRoom) {
-      openModal({ payload: null, component: <RoomSelectForm/> ,closable :false });
+      openModal({
+        payload: null,
+        component: <RoomSelectForm />,
+        closable: false,
+      });
       console.log("no room", currentRoom);
     } else {
       console.log("room");
@@ -39,11 +43,7 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
           <SidebarToggleButton onClick={() => setToggle(!toggle)}>
             <IconChevronsRight color="yellow" />
           </SidebarToggleButton>
-          <SidebarBackdrop>
-          Content
-          </SidebarBackdrop>
-
-          <DecorCircle/>
+          <SidebarBackdrop>Content</SidebarBackdrop>
         </SidebarWrapper>
       </AppContentWrapper>
     </AppLayoutWrapper>

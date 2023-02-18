@@ -30,11 +30,12 @@ export const LobbyBackground = styled.div`
   backdrop-filter: blur(16.5px);
   -webkit-backdrop-filter: blur(16.5px);
 `;
-export const PageTitle = styled.h1`
+export const PageTitle = styled.div`
   font-size: var(--text-7xl);
   color: var(--gold-secondary);
   text-transform: uppercase;
   margin-top: 0;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
   h3 {
@@ -129,7 +130,7 @@ export const RequestBirdWrapper = styled.div`
 export const BirdImage = styled.div`
   width: 8rem;
   aspect-ratio: 1;
-  /* height: 8rem; */
+  height: 8rem;
   border-radius: var(--roundedFull);
   overflow: hidden;
   img {
@@ -155,7 +156,10 @@ export const RequestBirdContainer = styled.div`
   justify-content: center;
 `;
 export const JoinButton = styled(ButtonCommon)`
-  background-color: var(--green);
+  background-color: var(
+    ${({ isOwner }: { isOwner: boolean }) =>
+      isOwner ? "--green" : "--warning"}
+  );
   color: var(--white);
   font-weight: 600;
   padding: 1.5rem 0;

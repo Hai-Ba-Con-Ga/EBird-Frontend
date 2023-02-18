@@ -9,7 +9,7 @@ export const CommonModalMain = styled.div`
     border:  var(--dark-blue) 3px groove;
     border-radius: var(--roundedSmall);
     box-shadow: 1px 1px 10px -3px var(--dark-blue);
-    button{ 
+    button#close-modal-button{ 
         padding : .5rem;
         position: sticky;
         right : .5rem;
