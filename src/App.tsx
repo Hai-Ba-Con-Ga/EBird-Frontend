@@ -19,6 +19,7 @@ import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
 import MatchPage from "./page/app/MatchPage";
+import GroupPage from "./page/app/GroupPage";
 import MatchTable from "./components/app/table/Table";
 import Table from "./components/app/table/Table";
 function App() {
@@ -100,7 +101,7 @@ function App() {
             path="group"
             element={
               <AppLayout>
-                <h1>Group</h1>
+                <GroupPage></GroupPage>
               </AppLayout>
             }
           ></Route>
