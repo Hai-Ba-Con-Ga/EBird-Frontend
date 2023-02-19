@@ -19,14 +19,21 @@ import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
 import Lobby from "./page/app/Lobby";
 import MatchPage from "./page/app/MatchPage";
-<<<<<<< HEAD
-
 import GroupPage from "./page/app/GroupPage";
-
-=======
 import MatchTable from "./components/app/table/Table";
 import Table from "./components/app/table/Table";
->>>>>>> 34b5640a5407145c87bf5e3009cb202abedb92d1
+import AdminLayout from "./components/layout/AdminLayout";
+import { ThemeProvider } from "@mui/material";
+import ThemeComponent from "./components/admin/@core/theme/ThemeComponent";
+import themeConfig from "./components/admin/configs/themeConfig";
+import themeOptions from "./components/admin/@core/theme/ThemeOptions";
+import { Settings } from "./components/admin/@core/context/settingsContext";
+import Dashboard from "./page/admin/Dashboard";
+const initialSettings: Settings = {
+  themeColor: 'primary',
+  mode: themeConfig.mode,
+  contentWidth: themeConfig.contentWidth
+}
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -121,14 +128,34 @@ function App() {
           <Route
             path="lobby"
             element={
-              <AppLayout><Outlet/></AppLayout>
+              <AppLayout>
+                <Outlet />
+              </AppLayout>
             }
           >
-            <Route path="" element={<Lobby/>}></Route>
-            <Route path="table/:id" element={<MatchTable/>} ></Route>
+            <Route path="" element={<Lobby />}></Route>
+            <Route path="table/:id" element={<MatchTable />}></Route>
           </Route>
+          <Route
+            path="match"
+            element={
+              
+              <AppLayout >
+                <MatchPage />
+              </AppLayout>
+                
+            }
+          ></Route>
         </Route>
-        <Route path="/admin"></Route>
+        <Route path="/admin" element={
+          <ThemeComponent settings={initialSettings} >
+           <AdminLayout>
+            <Outlet/>
+          </AdminLayout>
+          </ThemeComponent >
+          }>
+          <Route path="" element={<Dashboard/>} />
+        </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}
       </Routes>

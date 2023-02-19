@@ -26,7 +26,7 @@ const AllGroup = ({groups} : Props ) => {
                     <td>{group?.name}</td>
                     <td>{group?.minELO}</td>
                     <td>{group?.maxELO}</td>
-                    <td><GroupLink to={"/app"}></GroupLink></td>
+                    <td><GroupLink to={"/app"}>JOIN</GroupLink></td>
                     {/* BỔ SUNG GROUP LINK */}
                 </tr>))}
                 {/* <tr>

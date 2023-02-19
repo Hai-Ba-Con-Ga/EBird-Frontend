@@ -10,7 +10,7 @@ const AppAtom = atom<AppState>({
   key: "appState",
   default: {
     currentBird: getCurrentBird(),
-    currentRoom: getCurrentRoom(),
+    currentRoom: null,
   },
 });
 
