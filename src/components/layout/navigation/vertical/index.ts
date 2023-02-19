@@ -9,6 +9,7 @@ import CreditCardOutline from 'mdi-material-ui/CreditCardOutline'
 import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
+import Account from 'mdi-material-ui/Account'
 
 // ** Type import
 import { VerticalNavItemsType } from '../../../admin/@core/layouts/types'
@@ -19,6 +20,11 @@ const navigation = (): any => {
       title: 'Dashboard',
       icon: HomeOutline,
       path: '/admin'
+    },
+    {
+      title: 'Account Management',
+      icon: Account,
+      path: '/admin/account'
     },
     {
       title: 'Account Settings',

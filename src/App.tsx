@@ -29,6 +29,7 @@ import themeConfig from "./components/admin/configs/themeConfig";
 import themeOptions from "./components/admin/@core/theme/ThemeOptions";
 import { Settings } from "./components/admin/@core/context/settingsContext";
 import Dashboard from "./page/admin/Dashboard";
+import AccountPage from "./page/admin/AccountPage";
 const initialSettings: Settings = {
   themeColor: 'primary',
   mode: themeConfig.mode,
@@ -156,6 +157,7 @@ function App() {
           </ThemeComponent >
           }>
           <Route path="" element={<Dashboard/>} />
+          <Route path="account" element={<AccountPage/>} />
         </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}
