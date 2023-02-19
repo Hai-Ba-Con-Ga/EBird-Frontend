@@ -34,7 +34,6 @@ const initialSettings: Settings = {
   mode: themeConfig.mode,
   contentWidth: themeConfig.contentWidth
 }
-
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
