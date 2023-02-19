@@ -22,6 +22,19 @@ import MatchPage from "./page/app/MatchPage";
 import GroupPage from "./page/app/GroupPage";
 import MatchTable from "./components/app/table/Table";
 import Table from "./components/app/table/Table";
+import AdminLayout from "./components/layout/AdminLayout";
+import { ThemeProvider } from "@mui/material";
+import ThemeComponent from "./components/admin/@core/theme/ThemeComponent";
+import themeConfig from "./components/admin/configs/themeConfig";
+import themeOptions from "./components/admin/@core/theme/ThemeOptions";
+import { Settings } from "./components/admin/@core/context/settingsContext";
+import Dashboard from "./page/admin/Dashboard";
+const initialSettings: Settings = {
+  themeColor: 'primary',
+  mode: themeConfig.mode,
+  contentWidth: themeConfig.contentWidth
+}
+
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -127,13 +140,23 @@ function App() {
           <Route
             path="match"
             element={
-              <AppLayout>
+              
+              <AppLayout >
                 <MatchPage />
               </AppLayout>
+                
             }
           ></Route>
         </Route>
-        <Route path="/admin"></Route>
+        <Route path="/admin" element={
+          <ThemeComponent settings={initialSettings} >
+           <AdminLayout>
+            <Outlet/>
+          </AdminLayout>
+          </ThemeComponent >
+          }>
+          <Route path="" element={<Dashboard/>} />
+        </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}
       </Routes>
