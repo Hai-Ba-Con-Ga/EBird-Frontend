@@ -161,19 +161,7 @@ export interface Report{
   handleById:string;
   handleBy:Account;
 }
-export enum MatchStatus {
-  Waiting,
-  Pending,
-  During,
-  Completed,
-  Cancelled,
-}
-export interface MatchRequest {
-  primaryBird: Bird;
-  time: string;
-  place: string;
-  secondaryBird: Bird;
-}
+
 //19 Request
 //20
 export interface Resource{
@@ -218,6 +206,26 @@ export interface Rule {
   
 // }
 
+//ENUM CONVENTION
+export enum RequestStatus {
+  Waiting,
+  Matched
+}
+export enum MatchStatus {
+  Pending,
+  During,
+  Completed,
+  Approved ,
+  Cancelled
+}
+export enum MatchDetailStatus {
+  NotReady,
+  Ready,
+  Win,
+  Lose ,
+  Drawn
+}
+////////////////////////////////////
 /// NOT YET
 
 // export enum TypeChatRoom {
@@ -226,11 +234,22 @@ export interface Rule {
 // }
 
 ///
+
+export interface MatchRequest {
+  primaryBird: Bird;
+  time: string;
+  place: string;
+  secondaryBird: Bird;
+}
+//9
 export interface Match{
   id: string;
   isDeleted: boolean;
 }
+//8
 export interface MatchBird{
   id: string;
   isDeleted:	boolean;
 }
+//10 MatchResoure
+//19 Request Entity
