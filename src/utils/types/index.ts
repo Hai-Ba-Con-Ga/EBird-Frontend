@@ -21,10 +21,6 @@ export interface AccountResource {
   resourceId: string;
   resource: Resource;
 }
-
-
-
-
 //3
 export interface Bird {
   id: string;
@@ -224,10 +220,10 @@ export interface Rule {
 
 /// NOT YET
 
-export enum TypeChatRoom {
-  no,
-  yes
-}
+// export enum TypeChatRoom {
+//   no,
+//   yes
+// }
 
 ///
 export interface Match{
