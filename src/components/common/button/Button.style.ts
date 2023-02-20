@@ -22,3 +22,32 @@ export const GradientGreenButton = styled(ButtonCommon)`
     box-shadow: 1px 2px 10px -2.5px #6faf98;
   }
 `;
+
+export const ActionButton = styled.button`
+  width : ${(props:{variant : 'sm' | 'md' |'lg'})=> {
+    switch(props.variant) {
+      case 'sm' : return '3rem;';
+      case 'md' : return '4rem;';
+      case 'lg' : return '5rem;';
+    }
+  }};
+  height : ${(props:{variant : 'sm' | 'md' |'lg'})=> {
+    switch(props.variant) {
+      case 'sm' : return '3rem;';
+      case 'md' : return '4rem;';
+      case 'lg' : return '5rem;';
+    }
+  }};
+  aspect-ratio:1;
+  border:  2px solid var(--dark-blue);
+  color : var(--dark-blue);
+  background-color: var(--color-coffee);
+  border-radius : var(--roundedFull);
+  display: grid;
+  place-items: center;
+  &:hover {
+    svg {
+      
+    }
+  }
+` 

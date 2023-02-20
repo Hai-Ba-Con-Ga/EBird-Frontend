@@ -29,6 +29,8 @@ import themeConfig from "./components/admin/configs/themeConfig";
 import themeOptions from "./components/admin/@core/theme/ThemeOptions";
 import { Settings } from "./components/admin/@core/context/settingsContext";
 import Dashboard from "./page/admin/Dashboard";
+import ProfilePage from "./page/app/profile";
+import ProfileBird, { ProfileBirdPage } from "./page/app/profile/ProfileBird";
 const initialSettings: Settings = {
   themeColor: 'primary',
   mode: themeConfig.mode,
@@ -106,10 +108,14 @@ function App() {
             path="profile"
             element={
               <AppLayout>
-                <h1>Profile</h1>
+                <Outlet/>
               </AppLayout>
             }
-          ></Route>
+          >
+            <Route path="" element={<ProfilePage/>}/>
+            <Route path="birds" element={<ProfileBird/>}/>
+            {/* <Route path=""/> */}
+          </Route>
           <Route
             path="group"
             element={
@@ -140,7 +146,6 @@ function App() {
           <Route
             path="match"
             element={
-              
               <AppLayout >
                 <MatchPage />
               </AppLayout>
