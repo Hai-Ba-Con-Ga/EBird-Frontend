@@ -37,7 +37,7 @@ const Homepage = () => {
           onSwiper={(swiper) => console.log(swiper)}
         >
           <CustomeSlide>
-            <img src="https://source.unsplash.com/random" alt="" />
+            <img src="https://firebasestorage.googleapis.com/v0/b/globird-5efaf.appspot.com/o/Cute-Red-Bird-Drawing.webp" alt="" />
           </CustomeSlide>
           <CustomeSlide>
             <img src="https://source.unsplash.com/random" alt="" />
