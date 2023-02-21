@@ -1,179 +1,96 @@
-import { IconClock, IconMapPin } from "@tabler/icons-react";
-import React, { useEffect,useState,useRef } from "react";
+import React, { useEffect } from "react";
+import { IconMapPin } from "@tabler/icons-react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { CustomMap } from "../map/map.style";
+import mapStyle from "../map/mapStyle.json";
+import useMap from "../map/useMapAutoComplete";
 import {
   CreateButton,
   CreateRequestFormWrapper,
-  FormTitle,
+  FormTitle
 } from "./createRequest.style";
-import { TextField, TextFieldBlock } from "./TextField";
-import { useForm } from "react-hook-form";
-import useModal from "../modal/useModal";
-import useApp from "../../app/common/useApp";
-import useAuth from "../../auth/useAuth";
-import { toast } from "react-toastify";
-import { MatchApi } from "../../app/lobby/match.api";
-import GoogleMapReact,{} from 'google-map-react';
-const mapStyle = [
-  {
-      "featureType": "landscape.natural",
-      "elementType": "geometry.fill",
-      "stylers": [
-          {
-              "visibility": "on"
-          },
-          {
-              "color": "#e0efef"
-          }
-      ]
-  },
-  {
-      "featureType": "poi",
-      "elementType": "geometry.fill",
-      "stylers": [
-          {
-              "visibility": "on"
-          },
-          {
-              "hue": "#1900ff"
-          },
-          {
-              "color": "#c0e8e8"
-          }
-      ]
-  },
-  {
-      "featureType": "road",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "lightness": 100
-          },
-          {
-              "visibility": "simplified"
-          }
-      ]
-  },
-  {
-      "featureType": "road",
-      "elementType": "labels",
-      "stylers": [
-          {
-              "visibility": "off"
-          }
-      ]
-  },
-  {
-      "featureType": "transit.line",
-      "elementType": "geometry",
-      "stylers": [
-          {
-              "visibility": "on"
-          },
-          {
-              "lightness": 700
-          }
-      ]
-  },
-  {
-      "featureType": "water",
-      "elementType": "all",
-      "stylers": [
-          {
-              "color": "#7dcdcd"
-          }
-      ]
-  }
-];
-const Map = () => {
-  const [selectedLocation, setSelectedLocation] = useState<any>(null);
-  
-  const handleMapClick = (event:any) => {
-    const lat = event.lat;
-    const lng = event.lng;
-    const win = window as any
-    // Use Google Maps API to retrieve the place name
-    const geocoder = new win.google.maps.Geocoder() as any;
-    geocoder.geocode({ location: { lat, lng } }, (results:any, status:any) => {
-      if (status === 'OK') {
-        const placeName = results[0].formatted_address;
-        setSelectedLocation({ lat, lng, placeName });
-      }
-    });
-  };
+import { TextFieldBlock } from "./TextField";
+import Select from "../select/Select";
+import { SelectOption } from "../select/Select.style";
 
-  return (
-    <div style={{ height: '400px', width: '100%' }}>
-      <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyDDs0_xinQtlrLDxpY6VSLfThWELV7BmWY' }}
-        defaultCenter={{ lat: 37.7749, lng: -122.4194 }}
-        defaultZoom={12}
-        options={{styles:mapStyle}}
-        onClick={handleMapClick}
-      >
-        {selectedLocation && (
-          <Marker
-            lat={selectedLocation.lat}
-            lng={selectedLocation.lng}
-            placeName={selectedLocation.placeName}
-          />
-        )}
-      </GoogleMapReact>
-    </div>
-  );
-};
 
-const Marker = ({ placeName }:any) => (
+const Marker = ({ placeName }: any) => (
   <div>
-    <div style={{ backgroundColor: 'white', padding: '5px', borderRadius: '5px' }}>
-      {placeName}
+    <div>
+      <IconMapPin color="var(--dangerous)" style={{transform:'scale:1.4'}}/>
     </div>
-    <img src="/marker.svg" alt="Map Marker" />
   </div>
 );
-const FieldMaxLimit = styled.div`
-  width: 30rem;
-`;
 
 const CreateRequestForm = ({
   handleCreateRequest,
 }: {
   handleCreateRequest: (data: any) => void;
 }) => {
-  const { handleSubmit, register } = useForm();
-  const { closeModal } = useModal();
-  const { currentRoom, currentBird } = useApp();
-  const { auth } = useAuth();
+  const [location, setLocation] = useState<any>();
+  const [center, setCenter] = useState({ lat: 10.8326, lng: 106.6581 });
+  const { handleSubmit, register ,setValue} = useForm();
+  const [time,setTime] = useState<string>(()=>{
+    setValue("time","AM");
+    return "Morning";
+  });
   const inputRef = useRef<any>(null);
-  const [location,setLocation] = useState<any>();
+  useMap(inputRef, (place) => {
+    setLocation({
+      name: place.name,
+      address: place.formatted_address,
+      latitude: place.geometry.location.lat(),
+      longitude: place.geometry.location.lng(),
+    });
+  });
   useEffect(() => {
-    const wd = window as any;
-    const autocomplete = new wd.google.maps.places.Autocomplete(inputRef.current, {
-      types: ['geocode'],
-    });
+    if(location){
+      setCenter({lat:location?.latitude,lng:location?.longitude});
+      setValue("location",location);
+    }
+    
+  }, [location])
   
-    autocomplete.addListener('place_changed', () => {
-      const place = autocomplete.getPlace();
-      if (!place.geometry) {
-        console.log("No details available for input: '" + place.name + "'");
-        return;
+  // *** hanler *//
+  const handleMapClick = (event: any) => {
+    const lat = event.lat;
+    const lng = event.lng;
+    const win = window as any;
+    // Use Google Maps API to retrieve the place name
+    const geocoder = new win.google.maps.Geocoder() as any;
+    const placesService = new win.google.maps.places.PlacesService( document.createElement("div"));
+    geocoder.geocode(
+      { location: { lat, lng } },
+      (results: any, status: any) => {
+        if (status === "OK") {
+          placesService.nearbySearch(
+            {
+              location: { lat, lng },
+              rankBy: win.google.maps.places.RankBy.DISTANCE,
+              type: ["establishment"],
+            },
+            (place: any, status: any) => {
+              if (status === "OK") {
+                const placeName = place[0].name;
+                setLocation({ lat, lng, placeName,address: place[0].formatted_address });
+              }
+            }
+          );
+        }
       }
-  
-      // Update state with selected location
-      setLocation({
-        name: place.name,
-        address: place.formatted_address,
-        latitude: place.geometry.location.lat(),
-        longitude: place.geometry.location.lng(),
-      });
-    });
-  }, []);
+    );
+  };
   return (
-    <CreateRequestFormWrapper onSubmit={handleSubmit((data)=>handleCreateRequest({...data,location}))}>
+    <CreateRequestFormWrapper
+      onSubmit={handleSubmit((data) =>
+        handleCreateRequest({ ...data, location })
+      )} >
       <FormTitle>create request</FormTitle>=
       <FieldMaxLimit>
         <TextFieldBlock>
-          <label htmlFor="" >Location</label>
+          <label htmlFor="">Location</label>
           <input
             ref={inputRef}
             type="text"
@@ -186,22 +103,65 @@ const CreateRequestForm = ({
           {/* <IconMapPin/> */}
         </TextFieldBlock>
         <TextFieldBlock>
-          <label htmlFor="">Time</label>
+          <label htmlFor="">Date</label>
           <input
-            {...register("time")}
-            type="datetime-local"
+            {...register("date")}
+            type="date"
             style={{
               color: "var(--dark-blue)",
             }}
-            placeholder="Time"
+            placeholder="Date"
           />
+        </TextFieldBlock>
+        <TextFieldBlock>
+          <label htmlFor="">Time</label>
+         <Select value={time}>
+          <SelectOption onClick={()=>{setValue("time","AM"); setTime("Morning")}}>Morning</SelectOption>
+          <SelectOption onClick={()=>{
+            setValue("time","PM")
+            setTime("Noon")
+            }}>Noon</SelectOption>
+         </Select>
           {/* <IconClock/> */}
         </TextFieldBlock>
-        <Map/>
+        <div
+      style={{
+        aspectRatio: "3/4",
+        width: "100%",
+        border: "2px solid var(--dark-blue)",
+        borderRadius: "var(--roundedSmall)",
+        overflow: "hidden",
+      }}
+    >
+      <CustomMap
+        bootstrapURLKeys={{ key: "AIzaSyDDs0_xinQtlrLDxpY6VSLfThWELV7BmWY" }}
+        center={center}
+        defaultZoom={15}
+        options={{
+          styles: mapStyle,
+          zoomControl: false,
+          clickableIcons: false,
+          mapTypeControl: false,
+          streetViewControl: false,
+        }}
+        onClick={handleMapClick}
+      >
+        {location && (
+          <Marker
+            lat={location.latitude}
+            lng={location.longitude}
+            placeName={location.name}
+          />
+        )}
+      </CustomMap>
+    </div>
       </FieldMaxLimit>
       <CreateButton type="submit">Create</CreateButton>
     </CreateRequestFormWrapper>
   );
 };
+const FieldMaxLimit = styled.div`
+  width: 40rem;
+`;
 
 export default CreateRequestForm;

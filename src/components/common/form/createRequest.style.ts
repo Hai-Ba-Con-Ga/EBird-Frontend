@@ -16,6 +16,7 @@ export const FormTitle = styled.h1`
 
 ` 
 export const CreateButton = styled(ButtonCommon)`
+    margin-top : 2rem;
     color : var(--white);
     background-color : var(--dark-blue);
     font-size: var(--text-4xl);

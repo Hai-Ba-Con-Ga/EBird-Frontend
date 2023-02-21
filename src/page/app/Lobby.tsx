@@ -50,34 +50,29 @@ const Lobby = () => {
       console.log("submit create request");
       console.log(data);
       const { userInfomation } = auth;
-      // if (!currentBird) {
-      //   toast.error("Please select bird");
-      // } else {
-      //   const place = {
-      //     address: "Default",
-      //     name: data.location,
-      //     longitude: "null",
-      //     latitude: "null",
-      //   };
-      //   const params = {
-      //     matchStatus: 0,
-      //     matchDatetime: data?.time,
-      //     hostId: userInfomation?.id,
-      //     birdHostId: currentBird?.id,
-      //     roomId: currentRoom?.id,
-      //     place,
-      //   };
-      //   const result = await MatchApi.createMatch(params);
-      //   console.log("Create match result = ", result);
-      //   if (result.success) {
-      //     toast.success(
-      //       "Create match successfully! Refresh list manually please"
-      //     );
-      //     getListMatch();
-      //     closeModal();
-      //   }
-      //   // console.log(params);
-      // }
+      if (!currentBird) {
+        toast.error("Please select bird");
+      } else {
+        const place = data.location
+        const params = {
+          matchStatus: 0,
+          matchDatetime: data.date,
+          hostId: userInfomation?.id,
+          birdHostId: currentBird?.id,
+          roomId: currentRoom?.id,
+          place,
+        };
+        const result = await MatchApi.createMatch(params);
+        console.log("Create match result = ", result);
+        if (result.success) {
+          toast.success(
+            "Create match successfully! Refresh list manually please"
+          );
+          getListMatch();
+          closeModal();
+        }
+        // console.log(params);
+      }
     },
     [currentBird, auth, currentRoom]
   );
