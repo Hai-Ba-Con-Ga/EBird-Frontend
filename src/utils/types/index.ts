@@ -1,4 +1,4 @@
-export interface Account {//còn thiếu nhiều
+export interface Account {//request, match
   id:	string;
   isDeleted:	boolean;
   password: string;
@@ -7,11 +7,26 @@ export interface Account {//còn thiếu nhiều
   firstName: string;
   lastName: string;
   roleString: string;
-  // role: 	Roleinteger($int32)
-  // Enum:
-  // [ 0, 1 ]
+  role: RoleAccount;
   username: string
   description: string
+  refreshTokens: RefreshToken[];
+  groups: Group[];
+  rooms: Room[];
+  birds: Bird[];
+  rules: Rule[];
+  resources: Resource[];
+  accountResources: AccountResource[];
+  participants: Participant[];
+  messages: Message[];
+  hostRequests: RequestEntity[];
+  challengerRequests: RequestEntity[];
+  notifications: Notification[];
+  reportCreates: Report[];
+  reportHandles: Report[];
+  matchesWithHost: Match[];
+  matchesWithChallenger: Match[];
+
 }
 export interface AccountResource {
   id:	string;
@@ -21,10 +36,10 @@ export interface AccountResource {
   resourceId: string;
   resource: Resource;
 }
-//3
-export interface Bird {
+export interface Bird {//request
   id: string;
-  isDeleted:	boolean;
+  isDeleted: boolean;
+  number: number;
   name: string;
   age: number;
   weight: number;
@@ -37,18 +52,19 @@ export interface Bird {
   birdType: BirdType;
   ownerId: string;
   owner: Account;
-  birdResources: any[];
-  matchBirds: MatchBird;
+  birdResources: BirdResource[];
+  hostRequests: RequestEntity[];
+  challengerRequests: RequestEntity[];
+  matchBirds: MatchDetail[];
 }
-//4
 export interface BirdResource {
   id:	string;
   isDeleted:	boolean;
   birdId: string;
   bird: Bird; 
   resourceId: string;
+  resource: Resource;
 }
-//5
 export interface BirdType{
   id: string;
   isDeleted:	boolean;
@@ -57,18 +73,16 @@ export interface BirdType{
   createdDatetime: Date;
   birds: Bird[];
 }
-//6
 export interface ChatRoom{
   id: string;
-  isDeleted:	boolean;
+  isDeleted: boolean;
   name: string;
-  typeString:string;
+  typeString: string;
   typeChatRoom: TypeChatRoom;
   participants:Participant[];
   messages: Message[];
 }
-//7
-export interface Group{
+export interface Group{ //request, match
   id: string;
   isDeleted: boolean;
   name: string;
@@ -77,15 +91,19 @@ export interface Group{
   status: string;
   createDatetime: Date;
   createdById: string;
-  matches:Match[];
+  requests: RequestEntity[];
+  matches: Match[];
 }
-//11
 export interface Message{
   id: string;
   isDeleted: boolean;
   content: string;
+  chatRoomId: string;
+  chatRoom: ChatRoom;
+  senderId: string;
+  sender: Account;
+  timestamp: Date;
 }
-//12
 export interface Notification{
   id: string;
   isDeleted: boolean;
@@ -94,22 +112,15 @@ export interface Notification{
   accountId: string;
   notificatoinTypeId: string;
 }
-//13 ?? khong biet dung khong 
-export interface NotificationType{
-  typeCode:string;
-  typeName:string;
-}
-//14
 export interface Participant {//chat room
   id: string;
   isDeleted: boolean;
-  accountId:string;
-  account:Account;
+  accountId: string;
+  account: Account;
   chatRoomId: string;
-  chatRoom:ChatRoom;
+  chatRoom: ChatRoom;
 }
-//15
-export interface Place{//chat room
+export interface Place{//request, match
   id: string;
   isDeleted: boolean;
   address: string;
@@ -117,23 +128,22 @@ export interface Place{//chat room
   longitude: string;
   latitude: string;
   createdDate: Date;
+  requests: RequestEntity[];
   matches: Match[];
 }
-//16
 export interface Post{////
   id: string;
   isDeleted: boolean;
   content: string;
-  title:string;
+  title: string;
   createDateTime: Date;
   createById: string;
   createBy: Account;
   thumbnailId: string;
-  thumbnail: any[]/////////////////
+  thumbnail: Resource;
 
 }
-//17
-export interface RefreshTokenEntity{
+export interface RefreshToken{
   id: string;
   isDeleted: boolean;
   accountId: string;
@@ -144,10 +154,7 @@ export interface RefreshTokenEntity{
   isRevoked:boolean;
   issuedAt:Date;
   expiredAt:Date;
-  groups:Group;
-
 }
-//18
 export interface Report{
   id: string;
   isDeleted: boolean;
@@ -161,10 +168,7 @@ export interface Report{
   handleById:string;
   handleBy:Account;
 }
-
-//19 Request
-//20
-export interface Resource{
+export interface Resource{//match
   id: string;
   isDeleted: boolean;
   createById: string;
@@ -172,13 +176,12 @@ export interface Resource{
   dataLink: string;
   description: string;
   createDate: Date;
-  accountResources:string;
-  birdResources:string;
-  matchResources:string;
+  accountResources: AccountResource[];
+  birdResources: BirdResource[];
+  matchResources: Match[];
   post: Post;
 }
-//21
-export interface Room {
+export interface Room {//request, match
   id: string;
   isDeleted: boolean;
   name: string;
@@ -187,26 +190,38 @@ export interface Room {
   createDateTime: Date;
   createById:string;
   createBy: Account;
+  requests: RequestEntity[];
   matches: Match[];
 }
-//22
 export interface Rule {
   id: string;
   isDeleted: boolean;
-  createByI: string;
+  createById: string;
   account: Account;
   content: string;
   title: string;
   createDateTime: Date;
 }
-//23
+
 // export interface VerificationStore {
 //   id: string;
 //   isDeleted: boolean;
   
 // }
 
+///**
+
+ 
+
 //ENUM CONVENTION
+
+export enum TypeChatRoom{
+  Private, Group
+}
+export enum RolePlayer{
+  Host,
+  Challenger
+}
 export enum RequestStatus {
   Waiting,
   Matched
@@ -225,31 +240,47 @@ export enum MatchDetailStatus {
   Lose ,
   Drawn
 }
-////////////////////////////////////
-/// NOT YET
-
-// export enum TypeChatRoom {
-//   no,
-//   yes
-// }
-
-///
-
-export interface MatchRequest {
-  primaryBird: Bird;
-  time: string;
-  place: string;
-  secondaryBird: Bird;
+export enum RoleAccount {
+  Admin,
+  User
 }
-//9
-export interface Match{
+
+//////////////////////////////////// NOT YET
+//13 ?? khong biet dung khong 
+export interface NotificationType{
+  typeCode:string;
+  typeName:string;
+}
+
+/// MATCH
+export interface MatchDetail {
   id: string;
   isDeleted: boolean;
+  birdId: string;
+  bird: Bird;
+  matchId: string;
+  match: Match;
+  result: MatchDetailStatus;
+  afterElo: number;
+  beforeElo: number;
+  updateDatetime: Date;
+  role: RolePlayer;
+  matchResources: MatchResource[];
 }
-//8
-export interface MatchBird{
-  id: string;
-  isDeleted:	boolean;
-}
-//10 MatchResoure
-//19 Request Entity
+// export interface MatchResource{}
+// export interface Match{}
+// export interface MatchBird{}
+
+////REQUEST
+// export interface MatchRequest {
+//   primaryBird: Bird;
+//   time: string;
+//   place: string;
+//   secondaryBird: Bird;
+// }
+
+// export interface MatchResoure {}
+// export interface RequestEntity{}
+
+
+
