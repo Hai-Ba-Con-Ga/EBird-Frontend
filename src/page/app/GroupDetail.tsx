@@ -116,11 +116,7 @@ const Lobby = () => {
           <RequestCard request={{} as any} />
           <RequestCard request={{} as any} />
           <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
+          
         </RequestGrid>
       </PageMain>
       <ActionArea>
