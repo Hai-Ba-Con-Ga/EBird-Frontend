@@ -104,7 +104,7 @@ const Lobby = () => {
       <LobbyBackground />
       <PageMain>
         <PageTitle>
-          <h3>Lobby</h3>
+          <h3>GROUP DETAIL</h3>
           <button type="button" onClick={() => getListMatch()}>
             <IconRefresh color="var(--gold-primary)" />
           </button>
