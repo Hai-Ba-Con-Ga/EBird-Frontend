@@ -44,6 +44,45 @@ export const GroupLink  = styled(NavLink)`
     display: block;
 `;
 
+export const GroupDetailWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  /* background-color: #34453d; */
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+`
+export const GroupDetailMainContent = styled.div`
+  display: flex;
+  gap: 2rem;
+  height: 100%;
+`;
+
+export const Online = styled.div`
+  width: 400px;
+  color: white;
+  border: 1px solid white;
+  
+`;
+export const OnlineMember = styled.div`
+  width: 100%;
+  height: 40%;
+  color: white;
+  border: 1px solid white;
+  text-align: center;
+
+  
+`;
+export const ChatGroup = styled.div`
+  width: 100%;
+  height: 60%;
+  color: white;
+  border: 1px solid white;
+  text-align: center;
+  
+`;
+
+
 
 
 

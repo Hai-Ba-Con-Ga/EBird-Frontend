@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axiosClient from "../../api/axiosClient";
 import useApp from "../../components/app/common/useApp";
+import { ChatGroup, GroupDetailMainContent, GroupDetailWrapper, Online, OnlineMember } from "../../components/app/group/grouppage.style";
 import {
   ActionArea,
   ActionButton,
@@ -99,9 +100,15 @@ const Lobby = () => {
     }
   }, [matches]);
   return (
-    <LobbyWrapper>
+    <GroupDetailWrapper>
       {/* <BackdropVideo src="/smoke.mp4" muted autoPlay loop></BackdropVideo> */}
       <LobbyBackground />
+      <GroupDetailMainContent>
+        <Online>
+          <OnlineMember><h1>Online Member</h1></OnlineMember>
+          <ChatGroup><h1>Chat Group</h1></ChatGroup>
+        </Online>
+        <div>
       <PageMain>
         <PageTitle>
           <h3>GROUP DETAIL</h3>
@@ -121,14 +128,20 @@ const Lobby = () => {
       </PageMain>
       <ActionArea>
         <RequestActions>
-          <ActionButton>Quick Match</ActionButton>
+          
           <ActionButton onClick={createRequestHandler}>
             Create Request
           </ActionButton>
         </RequestActions>
       </ActionArea>
+        </div>
+      </GroupDetailMainContent>
+
+      
+      
+      
       {/* <DecorCircle/> */}
-    </LobbyWrapper>
+    </GroupDetailWrapper>
   );
 };
 
