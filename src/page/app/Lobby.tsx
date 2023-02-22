@@ -48,19 +48,15 @@ const Lobby = () => {
   const handleCreateRequest = useCallback(
     async (data: any) => {
       console.log("submit create request");
+      console.log(data);
       const { userInfomation } = auth;
       if (!currentBird) {
         toast.error("Please select bird");
       } else {
-        const place = {
-          address: "Default",
-          name: data.location,
-          longitude: "null",
-          latitude: "null",
-        };
+        const place = data.location
         const params = {
           matchStatus: 0,
-          matchDatetime: data?.time,
+          matchDatetime: data.date,
           hostId: userInfomation?.id,
           birdHostId: currentBird?.id,
           roomId: currentRoom?.id,

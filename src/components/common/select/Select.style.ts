@@ -68,7 +68,7 @@ export const OptionsList = styled.div`
 
     border: 2px solid var(--black);
     border-top: none !important;
-    z-index: -1;
+    z-index: 3;
     background-color: var(--color-coffee);
     border-radius: 0 0 var(--roundedSmall) var(--roundedSmall);
     min-height: 3rem;
