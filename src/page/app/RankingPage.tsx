@@ -1,13 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useHomepage from "../../components/app/home/useHomepage";
-import { RankingWrapper,RankingMainContent,RankingBoard
-,MyRanking,HeaderRanking,MatchTab } from "../../components/app/rank/rank.style";
+import {
+  RankingWrapper,
+  RankingMainContent,
+  RankingBoard,
+  MyRanking,
+  HeaderRanking,
+  MatchTab
+} from "../../components/app/rank/rank.style";
 import LeaderBoard from "../../components/app/home/LeaderBoard";
+import RankingLeaderBoard from "../../components/app/rank/RankingLeaderBoard";
 
 const tabs = [
   {
     value: 1,
-    show: "All",
+    show: "ALL",
   },
   {
     value: 2,
@@ -20,7 +27,7 @@ const tabs = [
 ];
 
 const RankingPage = () => {
-  const { leaderboard } = useHomepage();
+  const { leaderboard } = useHomepage();//BIRD[]
   const [tab, setTab] = useState<number>(1);
   useEffect(() => {
     console.log("TAB", tab);
@@ -28,13 +35,12 @@ const RankingPage = () => {
   return (
     <RankingWrapper>
       <RankingMainContent>
-        
-        
           <RankingBoard>
             {/* <HeaderRanking>
               <h1>FIND PLAYER</h1>
               <h1>SELECT</h1>
             </HeaderRanking> */}
+
             {tabs?.map((navTab) => (
               <MatchTab
                 key={navTab.value}
@@ -43,17 +49,15 @@ const RankingPage = () => {
                 setTab(navTab.value);
                 }, [])}
               >
-            {navTab.show}
+                {navTab.show}
               </MatchTab>
             ))}
+
             <h1>RANKING BOARD</h1>
             <h1>{tabs.find((tb)=>tb.value==tab)?.show || "unknow"}</h1>
-              
 
+            <RankingLeaderBoard tab={tab} ranks={leaderboard} />
 
-
-            
-            {/* <LeaderBoard tab= ranks={leaderboard} /> */}
           </RankingBoard>
         
 
