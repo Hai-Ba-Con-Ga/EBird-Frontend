@@ -11,11 +11,11 @@ const tabs = [
   },
   {
     value: 2,
-    show: "CHAO MAO",
+    show: "HO CHI MINH",
   },
   {
     value: 3,
-    show: "CHIM SE",
+    show: "HA NOI",
   },
 ];
 
@@ -36,18 +36,24 @@ const RankingPage = () => {
               <h1>SELECT</h1>
             </HeaderRanking> */}
             {tabs?.map((navTab) => (
-          <MatchTab
-            key={navTab.value}
-            active={navTab.value === tab}
-            onClick={useCallback(() => {
-              setTab(navTab.value);
-            }, [])}
-          >
+              <MatchTab
+                key={navTab.value}
+                active={navTab.value === tab}
+                onClick={useCallback(() => {
+                setTab(navTab.value);
+                }, [])}
+              >
             {navTab.show}
-          </MatchTab>
-        ))}
+              </MatchTab>
+            ))}
             <h1>RANKING BOARD</h1>
-            <LeaderBoard ranks={leaderboard} />
+            <h1>{tabs.find((tb)=>tb.value==tab)?.show || "unknow"}</h1>
+              
+
+
+
+            
+            {/* <LeaderBoard tab= ranks={leaderboard} /> */}
           </RankingBoard>
         
 
