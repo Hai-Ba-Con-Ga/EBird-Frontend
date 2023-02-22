@@ -1,36 +1,25 @@
 import { IconRefresh } from "@tabler/icons-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axiosClient from "../../api/axiosClient";
 import useApp from "../../components/app/common/useApp";
 import {
   ActionArea,
-  ActionButton,
-  BackdropVideo,
-  LobbyBackground,
+  ActionButton, LobbyBackground,
   LobbyWrapper,
   PageMain,
   PageTitle,
   RequestActions,
-  RequestGrid,
+  RequestGrid
 } from "../../components/app/lobby/lobby.style";
 import { MatchApi } from "../../components/app/lobby/match.api";
 import RequestCard from "../../components/app/lobby/RequestCard";
 import useAuth from "../../components/auth/useAuth";
 import CreateRequestForm from "../../components/common/form/CreateRequestForm";
 import useModal from "../../components/common/modal/useModal";
-import Select from "../../components/common/select/Select";
-import { DecorCircle } from "../../components/layout/layout.style";
 
 const Lobby = () => {
-  const requestFilter = [
-    { name: "ELO ASC", value: "elo_asc" },
-    { name: "ELO DESC", value: "elo_desc" },
-    { name: "ELO ASC", value: "elo_asc" },
-    { name: "ELO ASC", value: "elo_asc" },
-    { name: "ELO ASC", value: "elo_asc" },
-    { name: "ELO ASC", value: "elo_asc" },
-  ];
+
   const { openModal, closeModal } = useModal();
   const { currentRoom, currentBird } = useApp();
 
@@ -58,7 +47,7 @@ const Lobby = () => {
           matchStatus: 0,
           matchDatetime: data.date,
           hostId: userInfomation?.id,
-          birdHostId: currentBird?.id,
+          hostBirdId: currentBird?.id,
           roomId: currentRoom?.id,
           place,
         };
@@ -109,14 +98,6 @@ const Lobby = () => {
           {matches?.map((match) => (
             <RequestCard key={match?.id} request={match as any} />
           ))}
-          {/* <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} /> */}
         </RequestGrid>
       </PageMain>
       <ActionArea>
