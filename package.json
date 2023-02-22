@@ -7,7 +7,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "jest --passWithNoTests",
-    "lint": "npx eslint . --config .eslintrc.cjs --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif"
+    "lint": "npx eslint . --config .eslintrc.cjs --ext .js,.jsx,.ts,.tsx --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif",
+    "lang": "ts-node src/utils/lang/lang_sync.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.5",
@@ -25,6 +26,7 @@
     "@react-three/fiber": "^8.11.0",
     "@tabler/icons-react": "^2.1.2",
     "@types/google-one-tap": "^1.2.2",
+    "@types/mssql": "^8.1.2",
     "@types/react-datepicker": "^4.8.0",
     "@types/styled-components": "^5.1.26",
     "@types/three": "^0.149.0",
@@ -34,9 +36,11 @@
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
     "framer-motion": "^8.5.5",
+    "global": "^4.4.0",
     "google-map-react": "^2.2.0",
     "google-one-tap": "^1.0.6",
     "mdi-material-ui": "^7.6.0",
+    "mssql": "^9.1.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-datepicker": "^4.10.0",

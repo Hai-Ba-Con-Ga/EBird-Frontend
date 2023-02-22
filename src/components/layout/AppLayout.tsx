@@ -20,7 +20,7 @@ type Props = {
 
 const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
   const [toggle, setToggle] = useState(true);
-  const { currentBird, currentRoom } = useApp();
+  const { currentBird, currentRoom } = useApp({useSelection:false});
   const { openModal } = useModal();
   useEffect(() => {
     if (!currentRoom) {

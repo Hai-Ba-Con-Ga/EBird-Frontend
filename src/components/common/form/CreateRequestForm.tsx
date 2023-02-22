@@ -9,17 +9,17 @@ import useMap from "../map/useMapAutoComplete";
 import {
   CreateButton,
   CreateRequestFormWrapper,
-  FormTitle
+  FormTitle,
 } from "./createRequest.style";
 import { TextFieldBlock } from "./TextField";
 import Select from "../select/Select";
 import { SelectOption } from "../select/Select.style";
-
+import useApp from "../../app/common/useApp";
 
 const Marker = ({ placeName }: any) => (
   <div>
     <div>
-      <IconMapPin color="var(--dangerous)" style={{transform:'scale:1.4'}}/>
+      <IconMapPin color="var(--dangerous)" style={{ transform: "scale:1.4" }} />
     </div>
   </div>
 );
@@ -31,11 +31,12 @@ const CreateRequestForm = ({
 }) => {
   const [location, setLocation] = useState<any>();
   const [center, setCenter] = useState({ lat: 10.8326, lng: 106.6581 });
-  const { handleSubmit, register ,setValue} = useForm();
-  const [time,setTime] = useState<string>(()=>{
-    setValue("time","AM");
+  const { handleSubmit, register, setValue } = useForm();
+  const [time, setTime] = useState<string>(() => {
+    setValue("time", "AM");
     return "Morning";
   });
+  const  {SelectBird,currentBird} = useApp({useSelection:true});
   const inputRef = useRef<any>(null);
   useMap(inputRef, (place) => {
     setLocation({
@@ -46,13 +47,12 @@ const CreateRequestForm = ({
     });
   });
   useEffect(() => {
-    if(location){
-      setCenter({lat:location?.latitude,lng:location?.longitude});
-      setValue("location",location);
+    if (location) {
+      setCenter({ lat: location?.latitude, lng: location?.longitude });
+      setValue("location", location);
     }
-    
-  }, [location])
-  
+  }, [location]);
+
   // *** hanler *//
   const handleMapClick = (event: any) => {
     const lat = event.lat;
@@ -60,7 +60,9 @@ const CreateRequestForm = ({
     const win = window as any;
     // Use Google Maps API to retrieve the place name
     const geocoder = new win.google.maps.Geocoder() as any;
-    const placesService = new win.google.maps.places.PlacesService( document.createElement("div"));
+    const placesService = new win.google.maps.places.PlacesService(
+      document.createElement("div")
+    );
     geocoder.geocode(
       { location: { lat, lng } },
       (results: any, status: any) => {
@@ -74,7 +76,12 @@ const CreateRequestForm = ({
             (place: any, status: any) => {
               if (status === "OK") {
                 const placeName = place[0].name;
-                setLocation({ lat, lng, placeName,address: place[0].formatted_address });
+                setLocation({
+                  latitude:lat,
+                  longitude : lng,
+                  placeName,
+                  address: place[0].formatted_address,
+                });
               }
             }
           );
@@ -85,8 +92,9 @@ const CreateRequestForm = ({
   return (
     <CreateRequestFormWrapper
       onSubmit={handleSubmit((data) =>
-        handleCreateRequest({ ...data, location })
-      )} >
+        handleCreateRequest({ ...data, location,currentBirdId: currentBird?.id })
+      )}
+    >
       <FormTitle>create request</FormTitle>=
       <FieldMaxLimit>
         <TextFieldBlock>
@@ -95,6 +103,8 @@ const CreateRequestForm = ({
             ref={inputRef}
             type="text"
             // {...register("location")}
+            value={location?.placeName}
+            onChange={(e)=>setLocation({...location,placeName : e.target.value})}
             style={{
               color: "var(--dark-blue)",
             }}
@@ -102,6 +112,39 @@ const CreateRequestForm = ({
           />
           {/* <IconMapPin/> */}
         </TextFieldBlock>
+        <div
+          style={{
+            aspectRatio: "3/4",
+            width: "100%",
+            border: "2px solid var(--dark-blue)",
+            borderRadius: "var(--roundedSmall)",
+            overflow: "hidden",
+          }}
+        >
+          <CustomMap
+            bootstrapURLKeys={{
+              key: "AIzaSyDDs0_xinQtlrLDxpY6VSLfThWELV7BmWY",
+            }}
+            center={center}
+            defaultZoom={15}
+            options={{
+              styles: mapStyle,
+              zoomControl: false,
+              clickableIcons: false,
+              mapTypeControl: false,
+              streetViewControl: false,
+            }}
+            onClick={handleMapClick}
+          >
+            {location && (
+              <Marker
+                lat={location.latitude}
+                lng={location.longitude}
+                placeName={location.name}
+              />
+            )}
+          </CustomMap>
+        </div>
         <TextFieldBlock>
           <label htmlFor="">Date</label>
           <input
@@ -115,46 +158,31 @@ const CreateRequestForm = ({
         </TextFieldBlock>
         <TextFieldBlock>
           <label htmlFor="">Time</label>
-         <Select value={time}>
-          <SelectOption onClick={()=>{setValue("time","AM"); setTime("Morning")}}>Morning</SelectOption>
-          <SelectOption onClick={()=>{
-            setValue("time","PM")
-            setTime("Noon")
-            }}>Noon</SelectOption>
-         </Select>
+          <Select value={time}>
+            <SelectOption
+              onClick={() => {
+                setValue("time", "AM");
+                setTime("Morning");
+              }}
+            >
+              Morning
+            </SelectOption>
+            <SelectOption
+              onClick={() => {
+                setValue("time", "PM");
+                setTime("Noon");
+              }}
+            >
+              Noon
+            </SelectOption>
+          </Select>
           {/* <IconClock/> */}
         </TextFieldBlock>
-        <div
-      style={{
-        aspectRatio: "3/4",
-        width: "100%",
-        border: "2px solid var(--dark-blue)",
-        borderRadius: "var(--roundedSmall)",
-        overflow: "hidden",
-      }}
-    >
-      <CustomMap
-        bootstrapURLKeys={{ key: "AIzaSyDDs0_xinQtlrLDxpY6VSLfThWELV7BmWY" }}
-        center={center}
-        defaultZoom={15}
-        options={{
-          styles: mapStyle,
-          zoomControl: false,
-          clickableIcons: false,
-          mapTypeControl: false,
-          streetViewControl: false,
-        }}
-        onClick={handleMapClick}
-      >
-        {location && (
-          <Marker
-            lat={location.latitude}
-            lng={location.longitude}
-            placeName={location.name}
-          />
-        )}
-      </CustomMap>
-    </div>
+        <TextFieldBlock>
+          <label htmlFor="">Select your bird</label>
+
+        {SelectBird}
+        </TextFieldBlock>
       </FieldMaxLimit>
       <CreateButton type="submit">Create</CreateButton>
     </CreateRequestFormWrapper>
