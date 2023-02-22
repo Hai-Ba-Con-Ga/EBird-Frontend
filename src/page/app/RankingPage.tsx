@@ -10,6 +10,7 @@ import {
 } from "../../components/app/rank/rank.style";
 import LeaderBoard from "../../components/app/home/LeaderBoard";
 import RankingLeaderBoard from "../../components/app/rank/RankingLeaderBoard";
+import useRank from "../../components/app/rank/useRank";
 
 const tabs = [
   {
@@ -27,8 +28,10 @@ const tabs = [
 ];
 
 const RankingPage = () => {
-  const { leaderboard } = useHomepage();//BIRD[]
+  const { leaderboard } = useHomepage();
+  const { leaderboardSearch } = useRank(textBird);
   const [tab, setTab] = useState<number>(1);
+  const [textBird, setTextBird] = useState<string>('')
   useEffect(() => {
     console.log("TAB", tab);
   }, [tab]);
