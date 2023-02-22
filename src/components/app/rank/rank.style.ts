@@ -43,7 +43,7 @@ export const MyRanking = styled.div`
 export const HeaderRanking = styled.div`
   
   height: 10%;
-  border: 3px solid var(--dark-green);
+  /* border: 3px solid var(--dark-green); */
   overflow-y: auto;
   border-radius: var(--roundedSmall);
   display: flex;
@@ -62,6 +62,7 @@ export const HeaderRanking = styled.div`
     margin: 1rem auto;
     text-align: center;
     font-size: var(--text-7xl);
+    border: 3px solid var(--dark-green);
   }
 `;
 

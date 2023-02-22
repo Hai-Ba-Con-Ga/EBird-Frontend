@@ -4,22 +4,22 @@ import {RankApi} from './rank.api'
 import {Response} from '../../../api/index'
 
 
-const useRank = (search:string) => {
-    const [leaderboardSearch,setLeaderboard] = useState<any[]>([]);
+const useRank = () => {
+    const [rank,setRank] = useState<any[]>([]);
     useEffect(() => {
-      getLeaderboard().then(leaderboardSearch => setLeaderboard(leaderboardSearch));
+      getRank().then(rank => setRank(rank));
     }, [])
     
-    const getLeaderboard = useCallback( async ()=>{
-        const response = await RankApi.getLeaderboardBirdsBySearch(search) ;
-        console.log("LEADERBOARD",response.data )
+    const getRank = useCallback( async ()=>{
+        const response = await RankApi.getRankBySearch(search) ;
+        console.log("RANK",response.data )
         return response.data;
 
         
     },[])
   return (
    {
-    getLeaderboard,leaderboardSearch
+    getRank,rank
    }
   )
 }
