@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useHomepage from "../../components/app/home/useHomepage";
 import { RankingWrapper,RankingMainContent,RankingBoard
-,MyRanking,HeaderRanking } from "../../components/app/rank/rank.style";
+,MyRanking,HeaderRanking,MatchTab } from "../../components/app/rank/rank.style";
 import LeaderBoard from "../../components/app/home/LeaderBoard";
+
+const tabs = [
+  {
+    value: 1,
+    show: "All",
+  },
+  {
+    value: 2,
+    show: "CHAO MAO",
+  },
+  {
+    value: 3,
+    show: "CHIM SE",
+  },
+];
 
 const RankingPage = () => {
   const { leaderboard } = useHomepage();
+  const [tab, setTab] = useState<number>(1);
+  useEffect(() => {
+    console.log("TAB", tab);
+  }, [tab]);
   return (
     <RankingWrapper>
       <RankingMainContent>
         
         
           <RankingBoard>
-            <HeaderRanking>
+            {/* <HeaderRanking>
               <h1>FIND PLAYER</h1>
               <h1>SELECT</h1>
-            </HeaderRanking>
+            </HeaderRanking> */}
+            {tabs?.map((navTab) => (
+          <MatchTab
+            key={navTab.value}
+            active={navTab.value === tab}
+            onClick={useCallback(() => {
+              setTab(navTab.value);
+            }, [])}
+          >
+            {navTab.show}
+          </MatchTab>
+        ))}
             <h1>RANKING BOARD</h1>
             <LeaderBoard ranks={leaderboard} />
           </RankingBoard>

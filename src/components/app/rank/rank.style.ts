@@ -65,4 +65,16 @@ export const HeaderRanking = styled.div`
   }
 `;
 
+export const MatchTab = styled.span`
+  font-size: var(--text-5xl);
+  color: var(--dark-green);
+  cursor: pointer;
+  font-weight: 600;
+  /* opacity: 0.6; */
+  opacity: ${({ active }: { active: boolean }) => {
+    return active ? "0.6;" : "1;";
+  }};
+  transition: all 0.25s linear;
+`;
+
 
