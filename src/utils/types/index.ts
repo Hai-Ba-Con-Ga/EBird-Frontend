@@ -1,6 +1,5 @@
-export interface Account {//request, match
+export interface Account {//DONE
   id:	string;
-  isDeleted:	boolean;
   password: string;
   email: string;
   createDateTime:Date;
@@ -8,27 +7,10 @@ export interface Account {//request, match
   lastName: string;
   roleString: string;
   role: RoleAccount;
-  username: string
-  description: string
-  refreshTokens: RefreshToken[];
-  groups: Group[];
-  rooms: Room[];
-  birds: Bird[];
-  rules: Rule[];
-  resources: Resource[];
-  accountResources: AccountResource[];
-  participants: Participant[];
-  messages: Message[];
-  hostRequests: RequestEntity[];
-  challengerRequests: RequestEntity[];
-  notifications: Notification[];
-  reportCreates: Report[];
-  reportHandles: Report[];
-  matchesWithHost: Match[];
-  matchesWithChallenger: Match[];
-
+  username: string;
+  description: string;
 }
-export interface AccountResource {
+export interface AccountResource {//DONE
   id:	string;
   isDeleted:	boolean;
   accountId: string;
@@ -36,44 +18,41 @@ export interface AccountResource {
   resourceId: string;
   resource: Resource;
 }
-export interface Bird {//request
+export interface Bird {//DONE
   id: string;
-  isDeleted: boolean;
-  number: number;
   name: string;
   age: number;
   weight: number;
   elo: number;
   status: string;
-  createdDatetime: Date;
   description: string;
   color: string;
-  birdTypeId: string;
-  birdType: BirdType;
-  ownerId: string;
-  owner: Account;
-  birdResources: BirdResource[];
-  hostRequests: RequestEntity[];
-  challengerRequests: RequestEntity[];
-  matchBirds: MatchDetail[];
+  ratio: Ratio;
+  birdTypeId: string,
+  ownerId: string,
+  createdDatetime: Date,
+  resourceList: Resource;
 }
-export interface BirdResource {
+export interface Ratio{//DONE
+  win: number;
+  lose: number;
+  ratio: number;
+}
+export interface BirdResource {//DONE
   id:	string;
-  isDeleted:	boolean;
+  isDeleted: boolean;
   birdId: string;
   bird: Bird; 
   resourceId: string;
   resource: Resource;
 }
-export interface BirdType{
+export interface BirdType{//DONE
   id: string;
-  isDeleted:	boolean;
   typeCode: string;
   typeName: string;
   createdDatetime: Date;
-  birds: Bird[];
 }
-export interface ChatRoom{
+export interface ChatRoom{//DONE
   id: string;
   isDeleted: boolean;
   name: string;
@@ -82,19 +61,16 @@ export interface ChatRoom{
   participants:Participant[];
   messages: Message[];
 }
-export interface Group{ //request, match
+export interface Group{ //DONE
   id: string;
-  isDeleted: boolean;
   name: string;
   maxELO:number;
   minElo:number;
   status: string;
   createDatetime: Date;
   createdById: string;
-  requests: RequestEntity[];
-  matches: Match[];
 }
-export interface Message{
+export interface Message{//DONE
   id: string;
   isDeleted: boolean;
   content: string;
@@ -104,15 +80,14 @@ export interface Message{
   sender: Account;
   timestamp: Date;
 }
-export interface Notification{
+export interface Notification{//DONE
   id: string;
-  isDeleted: boolean;
   content: string;
   createDateTime: Date;
   accountId: string;
   notificatoinTypeId: string;
 }
-export interface Participant {//chat room
+export interface Participant {//DONE
   id: string;
   isDeleted: boolean;
   accountId: string;
@@ -120,30 +95,22 @@ export interface Participant {//chat room
   chatRoomId: string;
   chatRoom: ChatRoom;
 }
-export interface Place{//request, match
+export interface Place{//DONE
   id: string;
-  isDeleted: boolean;
   address: string;
   name: string;
   longitude: string;
   latitude: string;
-  createdDate: Date;
-  requests: RequestEntity[];
-  matches: Match[];
 }
-export interface Post{////
+export interface Post{//DONE
   id: string;
-  isDeleted: boolean;
   content: string;
   title: string;
   createDateTime: Date;
   createById: string;
-  createBy: Account;
-  thumbnailId: string;
   thumbnail: Resource;
-
 }
-export interface RefreshToken{
+export interface RefreshToken{//DONE
   id: string;
   isDeleted: boolean;
   accountId: string;
@@ -155,7 +122,7 @@ export interface RefreshToken{
   issuedAt:Date;
   expiredAt:Date;
 }
-export interface Report{
+export interface Report{//DONE
   id: string;
   isDeleted: boolean;
   context: string;
@@ -168,32 +135,22 @@ export interface Report{
   handleById:string;
   handleBy:Account;
 }
-export interface Resource{//match
+export interface Resource{//DONE
   id: string;
-  isDeleted: boolean;
-  createById: string;
-  account: Account;
   dataLink: string;
   description: string;
   createDate: Date;
-  accountResources: AccountResource[];
-  birdResources: BirdResource[];
-  matchResources: Match[];
-  post: Post;
+  createById: string;
 }
-export interface Room {//request, match
+export interface Room {//DONE
   id: string;
-  isDeleted: boolean;
   name: string;
   status: string;
   city: string;
   createDateTime: Date;
   createById:string;
-  createBy: Account;
-  requests: RequestEntity[];
-  matches: Match[];
 }
-export interface Rule {
+export interface Rule {//DONE
   id: string;
   isDeleted: boolean;
   createById: string;
@@ -202,14 +159,33 @@ export interface Rule {
   title: string;
   createDateTime: Date;
 }
+export interface Match {//DONE
+  id :string;
+  matchDatetime :Date;
+  createDatetime :Date;
+  matchStatus: MatchStatus;
+  hostId :string;
+  challengerId :string;
+  placeId :string;
+  place: Place;
+  matchBirdList: MatchBird[];
+}
+export interface MatchBird {//DONE
+  bird: Bird;
+  afterElo: number;
+  beforeElo: number;
+  result: MatchBirdResult;
+  updateDatetime: Date;
+}
 
-// export interface VerificationStore {
-//   id: string;
-//   isDeleted: boolean;
-  
-// }
+export interface VerificationStore {//DONE
+  id: string;
+  isDeleted: boolean;
+  code: string;
+  accountId: string;
+}
 
-///**
+
 
  
 
@@ -244,10 +220,19 @@ export enum RoleAccount {
   Admin,
   User
 }
+export enum MatchBirdResult{
+  NotReady,
+  Ready,
+  Draw,
+  Lose,
+  Win
+}
 
 //////////////////////////////////// NOT YET
-//13 ?? khong biet dung khong 
-export interface NotificationType{
+
+export interface NotificationType{//DONE
+  id: string;
+  isDeleted: boolean;
   typeCode:string;
   typeName:string;
 }
