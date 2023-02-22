@@ -32,10 +32,9 @@ interface State {
   showPassword: boolean
   showPassword2: boolean
 }
-
 const CustomInput = forwardRef((props, ref) => {
   return <TextField fullWidth {...props} inputRef={ref} label='Birth Date' autoComplete='off' />
-})
+}) as any
 
 const FormLayoutsSeparator = () => {
   // ** States
