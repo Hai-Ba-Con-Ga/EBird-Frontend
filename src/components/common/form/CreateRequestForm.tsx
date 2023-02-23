@@ -23,13 +23,18 @@ const Marker = ({ placeName }: any) => (
     </div>
   </div>
 );
-
+const mockLocation = {
+  name : "FPT University",
+  address : "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000, Vietnam",
+  latitude : 10.841128,
+  longitude : 106.809883,
+}
 const CreateRequestForm = ({
   handleCreateRequest,
 }: {
   handleCreateRequest: (data: any) => void;
 }) => {
-  const [location, setLocation] = useState<any>();
+  const [location, setLocation] = useState<any>(()=>mockLocation);
   const [center, setCenter] = useState({ lat: 10.8326, lng: 106.6581 });
   const { handleSubmit, register, setValue } = useForm();
   const [time, setTime] = useState<string>(() => {
@@ -123,7 +128,7 @@ const CreateRequestForm = ({
         >
           <CustomMap
             bootstrapURLKeys={{
-              key: "AIzaSyDDs0_xinQtlrLDxpY6VSLfThWELV7BmWY",
+              key: "AIzaSyCUQmRbZTCqXZnjOPpRws3_I_oLlt4GKhc",
             }}
             center={center}
             defaultZoom={15}

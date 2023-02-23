@@ -16,11 +16,7 @@ const useRoom = () => {
       return response.data;
     } else return null;
   }, []);
-  useEffect(()=> {
-     console.log(app)
-  },[app])
   const setCurrentRoom = async (currentRoom: any) => {
-    console.log(currentRoom);
     setApp({ ...app, currentRoom: currentRoom });
     toast.success(`You changed to room ${currentRoom?.name} `);
     closeModal();

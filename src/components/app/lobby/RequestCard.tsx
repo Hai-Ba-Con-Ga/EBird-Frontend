@@ -15,44 +15,29 @@ import {
   RequestCardWrapper,
 } from "./lobby.style";
 import { MatchApi } from "./match.api";
+import useRequest from "./useRequest";
 
 const RequestCard = ({ request }: { request: any }) => {
   const {
     auth: { userInfomation },
   } = useAuth();
   const [isOwner, setIsOwner] = useState(
-    () => userInfomation?.id == request?.hostId
+    () => userInfomation?.id == request?.hostBird?.ownerId
   );
-  const { currentRoom, currentBird } = useApp({useSelection:false});
-
+  console.log(request);
+  
+  const {joinRequest} = useRequest();
   useEffect(() => {
-    setIsOwner(userInfomation?.id == request?.hostId);
+    setIsOwner(userInfomation?.id == request?.hostBird?.ownerId);
   }, [request, userInfomation]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
     if (isOwner) {
-      console.log("VIEW TABLE" + request?.id);
-      nav("/app/lobby/table/" + request?.id);
+        nav("/app/lobby/table/" + request?.id);
     } else {
-      console.log("JOIN TABLE");
-      // TODO : call api join
-      if (currentBird) {
-        console.log(currentBird);
-
-        const response = await MatchApi.joinMatch(request?.id, {
-          birdChallengerId: currentBird?.id,
-        });
-        if (response.success) {
-          nav("/app/lobby/table/" + request?.id);
-          toast.success("Join table success");
-        } else {
-          toast.error("Cannot join, refresh list and check again");
-        }
-      } else {
-        toast.error("Please select bird");
-      }
+        joinRequest(request?.id)
     }
-  }, [isOwner, currentBird]);
+  }, [isOwner]);
   return (
     <RequestCardWrapper>
       <RequestCardInfomationField>

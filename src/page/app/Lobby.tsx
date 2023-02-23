@@ -19,7 +19,7 @@ import useAuth from "../../components/auth/useAuth";
 import useModal from "../../components/common/modal/useModal";
 
 const Lobby = () => {
-  const {createRequestOpenModal,getAllRequest,requests} = useRequest();
+  const {createRequestOpenModal,getAllRequest,requests} = useRequest(true);
 
   // const [requets, setMatches] = useState<any[]>([]);
   useEffect(() => {
