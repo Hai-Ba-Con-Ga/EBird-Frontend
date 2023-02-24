@@ -33,6 +33,7 @@ import TableBird from "./TableBird";
 import TableChat from "./TableChat";
 export const MatchTable = () => {
   const { id } = useParams();
+  const [isMerged,setIsMerged] = useState<boolean>(false);
   const [requestDetail, setDetail] = useState<any>(null);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const [hostBird, setHostBird] = useState<any>(null);
@@ -94,7 +95,7 @@ export const MatchTable = () => {
           <TableBird bird={requestDetail?.challengerBird as any} />
         </TableOpponents>
         <TableInformation request={requestDetail} />
-        <TableChat/>
+        <TableChat a={{} as any}/>
       </TableMain>
       <ConfirmButton
         type="button"

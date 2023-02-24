@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { Bird } from "../../../utils/types";
 import useAuth from "../../auth/useAuth";
+import { TextFieldBlock } from "../../common/form/TextField";
 import Select from "../../common/select/Select";
 import { SelectOption } from "../../common/select/Select.style";
 import { BirdApi } from "../profile/bird.api";
@@ -37,14 +38,17 @@ const useApp = ({ useSelection = false }: useAppProps) => {
     currentBird: appState.currentBird,
     currentRoom: appState.currentRoom,
     SelectBird: (
-      <Select value={appState.currentBird?.name} placeholder="Select">
-        {birdsOwned &&
-          birdsOwned?.map((bird, i) => (
-            <SelectOption key={i} onClick={() => setCurrentBird(bird)}>
-              {bird?.name}
-            </SelectOption>
-          ))}
-      </Select>
+      <TextFieldBlock>
+        <label htmlFor="">My bird</label>
+        <Select value={appState.currentBird?.name} placeholder="Select">
+          {birdsOwned &&
+            birdsOwned?.map((bird, i) => (
+              <SelectOption key={i} onClick={() => setCurrentBird(bird)}>
+                {bird?.name}
+              </SelectOption>
+            ))}
+        </Select>
+      </TextFieldBlock>
     ),
   };
 };

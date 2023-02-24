@@ -51,11 +51,25 @@ export const VsDividerTable = styled.span`
 `;
 export const TableOthers = styled.div`
   flex: 0 0 30rem;
+  display:flex;
+  flex-direction: column;
+  gap: 3rem;
+  position: relative;
+  cursor: pointer;
+  svg#edit {
+    transition: all 0.25s linear ;
+    &:hover {
+      transform: scale(1.12);
+    }
+    position: absolute;
+    right : 0.5rem;
+    top : 0.5rem;
+  }
 `;
 export const TableInformations = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 
 `;
 export const TableInformationItem = styled(RequestCardInfomationField)`

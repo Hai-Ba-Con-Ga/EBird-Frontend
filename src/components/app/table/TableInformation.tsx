@@ -1,6 +1,7 @@
-import { IconMapPin,IconClock } from "@tabler/icons-react";
-import React from "react";
+import { IconMapPin,IconClock, IconPencil } from "@tabler/icons-react";
+import React, { useEffect, useState } from "react";
 import { RequestEntity } from "../../../utils/types";
+import CreateRequestForm from "../../common/form/CreateRequestForm";
 import useGoogleMap from "../../common/map/useGoogleMap";
 import {
   TableInformationItem,
@@ -17,9 +18,15 @@ const TableInformation = ({ request }: Props) => {
     onLocationChanged: (location) => {
       console.log(location);
     },
+    mapSize : 'sm'
   });
+  const [edit,setEdit] = useState<boolean>(true);
   return (
     <TableOthers>
+      {
+        !edit ? 
+      <>
+      {!request?.isMerged && <IconPencil id="edit" color="var(--dark-blue)" onClick={()=>setEdit(true)}/>}
       <TableInformations>
         <TableInformationItem>
           <IconMapPin />
@@ -31,6 +38,14 @@ const TableInformation = ({ request }: Props) => {
         </TableInformationItem>
       </TableInformations>
       {GoogleMap}
+      </>
+      : <CreateRequestForm options={
+        {mapSize : 'sm' , selectBird : false, isUpdate : true ,updateCancelHandle: ()=>setEdit(false)}
+      } handleCreateRequest={(data)=>{
+        // TODO : //Update request
+        console.log(data)
+      }}/>
+      }
     </TableOthers>
   );
 };

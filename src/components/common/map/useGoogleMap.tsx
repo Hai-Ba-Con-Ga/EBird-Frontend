@@ -3,8 +3,24 @@ import React, { useCallback, useEffect, useState } from "react";
 import { CustomMap } from "./map.style";
 import mapStyle from "../map/mapStyle.json";
 
+const mapAutoStyle = {
+    aspectRatio: "3/4",
+    width: "100%",
+    border: "2px solid var(--dark-blue)",
+    borderRadius: "var(--roundedSmall)",
+    overflow: "hidden",
+}
+const mapSmallStyle = {
+  width: "400px",
+  height : '350px',
+  border: "2px solid var(--dark-blue)",
+  borderRadius: "var(--roundedSmall)",
+  overflow: "hidden",
+}
+
 type Props = {
    onLocationChanged : (location:any)=>void;
+   mapSize : 'sm' | 'md' | 'lg' | 'default'
 };
 const mockLocation = {
   name: "FPT University",
@@ -13,7 +29,7 @@ const mockLocation = {
   latitude: 10.841128,
   longitude: 106.809883,
 };
-const useGoogleMap = ({onLocationChanged}: Props) => {
+const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
   const [location, setLocation] = useState<any>(() => mockLocation);
   const [center, setCenter] = useState({ lat: 10.8326, lng: 106.6581 });
 
@@ -63,13 +79,7 @@ const useGoogleMap = ({onLocationChanged}: Props) => {
   return {
     GoogleMap: (
       <div
-        style={{
-          aspectRatio: "3/4",
-          width: "100%",
-          border: "2px solid var(--dark-blue)",
-          borderRadius: "var(--roundedSmall)",
-          overflow: "hidden",
-        }}
+        style={mapSize == 'default' ? mapAutoStyle : mapSmallStyle}
       >
         <CustomMap
           bootstrapURLKeys={{

@@ -48,7 +48,12 @@ const useRequest = (init? :boolean) => {
   const createRequestOpenModal = useCallback(() => {
     openModal({
       closable: true,
-      component: <CreateRequestForm handleCreateRequest={createRequest} />,
+      component: <CreateRequestForm options={{
+        mapSize : 'default',
+        selectBird : true ,
+        isUpdate: false,
+        
+      }} handleCreateRequest={createRequest} />,
       payload: null,
     });
   }, [appState, auth]);
