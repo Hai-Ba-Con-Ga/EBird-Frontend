@@ -1,61 +1,55 @@
 import {
   IconChevronLeft,
-  IconChevronUpLeft,
   IconClock,
   IconMapPin,
   IconSend,
 } from "@tabler/icons-react";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import styled from "styled-components";
 import useAuth from "../../auth/useAuth";
-import { ButtonCommon } from "../../common/button/Button.style";
-import { RequestCardInfomationField } from "../lobby/lobby.style";
+import useGoogleMap from "../../common/map/useGoogleMap";
 import { MatchApi } from "../lobby/match.api";
-import { ConfirmButton, TableHeadline, TableTitle, TableWrapper, BackButton,ChatMessage,TableMain,TableOpponents,VsDividerTable,TableOthers, TableInformations,TableInformationItem,ChatFrame,ChatItem,ChatBox} from "./table.style";
+import useRequest from "../lobby/useRequest";
+import TableInformation from "./TableInformation";
+import {
+  BackButton,
+  ChatBox,
+  ChatFrame,
+  ChatItem,
+  ChatMessage,
+  ConfirmButton,
+  TableHeadline,
+  TableInformationItem,
+  TableInformations,
+  TableMain,
+  TableOpponents,
+  TableOthers,
+  TableTitle,
+  TableWrapper,
+  VsDividerTable,
+} from "./table.style";
 import TableBird from "./TableBird";
-
-
+import TableChat from "./TableChat";
 export const MatchTable = () => {
   const { id } = useParams();
-  const [matchDetail, setDetail] = useState<any>(null);
+  const [requestDetail, setDetail] = useState<any>(null);
   const [isOwner, setIsOwner] = useState<boolean>(false);
   const [hostBird, setHostBird] = useState<any>(null);
   const [guestBird, setGuestBird] = useState<any>(null);
+  const { getRequestDetail } = useRequest();
   const nav = useNavigate();
   const {
     auth: { userInfomation },
   } = useAuth();
   useEffect(() => {
-    // TODO :  fetch match detail
-    MatchApi.getMatchDetail(id as string)
-      .then((res) => res.data)
-      .then((match) => setDetail(match));
-    console.log(id);
+    getRequestDetail(id ?? "").then((data) => setDetail(data));
   }, [id]);
-  useEffect(() => {
-    console.log(matchDetail);
+  // *** hanler *//
 
-    if (matchDetail) {
-      setIsOwner(matchDetail?.hostId == userInfomation?.id);
-      matchDetail?.matchBirdList?.forEach((bird: any) => {
-        if (bird?.bird?.ownerId == matchDetail?.hostId) {
-          setHostBird(bird?.bird);
-        } else {
-          setGuestBird(bird?.bird);
-        }
-        // console.log(bird);
-      });
-      // setHostBird();
-    }
-  }, [matchDetail]);
   useEffect(() => {
-    console.log(hostBird);
-  }, [hostBird]);
-  useEffect(() => {
-    console.log(guestBird);
-  }, [guestBird]);
+    console.log(requestDetail);
+  }, [requestDetail]);
   const handleConfirmClick = useCallback(async () => {
     if (isOwner) {
       console.log("Confirm implement");
@@ -67,24 +61,21 @@ export const MatchTable = () => {
         toast.error("Your opponent is not ready yet!");
       }
     } else {
-      const dbCheck = await MatchApi.getMatchDetail(id as string).then(
-        (res) => res.data
-      );
-      const birds = dbCheck?.matchBirdList?.map((bird: any) => bird?.bird);
-      const guestBirdId = birds?.[1]?.id;
-      console.log(dbCheck);
-      console.log(birds);
-      console.log(guestBirdId);
-
-      const result = await MatchApi.matchReady({
-        matchId: id as string,
-        birdId: guestBirdId,
-      });
-      if (result) {
-        toast.success("Ready for the match. Wait for host confirm");
-      } else {
-        console.error("Error :))) ");
-      }
+      // const dbCheck = {}
+      // const birds = dbCheck?.matchBirdList?.map((bird: any) => bird?.bird);
+      // const guestBirdId = birds?.[1]?.id;
+      // console.log(dbCheck);
+      // console.log(birds);
+      // console.log(guestBirdId);
+      // const result = await MatchApi.matchReady({
+      //   matchId: id as string,
+      //   birdId: guestBirdId,
+      // });
+      // if (result) {
+      //   toast.success("Ready for the match. Wait for host confirm");
+      // } else {
+      //   console.error("Error :))) ");
+      // }
     }
   }, [isOwner]);
   return (
@@ -94,131 +85,31 @@ export const MatchTable = () => {
           <IconChevronLeft color="var(--dark-green)" />
         </BackButton>
         <TableTitle>Request</TableTitle>
-        <span># {matchDetail?.id}</span>
+        <span>#{requestDetail?.number}</span>
       </TableHeadline>
       <TableMain>
         <TableOpponents>
-          <TableBird bird={hostBird as any} />
+          <TableBird bird={requestDetail?.hostBird as any} />
           <VsDividerTable>Vs</VsDividerTable>
-          <TableBird bird={guestBird as any} />
+          <TableBird bird={requestDetail?.challengerBird as any} />
         </TableOpponents>
-        <TableOthers>
-          <TableInformations>
-            <TableInformationItem>
-              <IconMapPin />
-              <span>{matchDetail?.place?.name}</span>
-            </TableInformationItem>
-            <TableInformationItem>
-              <IconClock />
-              <span>{matchDetail?.matchDatetime}</span>
-            </TableInformationItem>
-          </TableInformations>
-          <ChatFrame>
-            <ChatBox>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. Dolores illum accusamus iste expedita maxime at nesciunt
-                  atque non vitae ad!
-                </span>
-              </ChatItem>
-            </ChatBox>
-            <ChatMessage>
-              <input type="text" placeholder="Type something..." />
-              <IconSend />
-            </ChatMessage>
-          </ChatFrame>
-        </TableOthers>
+        <TableInformation request={requestDetail} />
+        <TableChat/>
       </TableMain>
       <ConfirmButton
         type="button"
-        disabled={matchDetail?.matchStatus >= 2}
+        disabled={requestDetail?.matchStatus >= 2}
         onClick={handleConfirmClick}
       >
-        {
-          matchDetail?.matchStatus >= 2
+        {requestDetail?.matchStatus >= 2
           ? "On going"
           : isOwner
           ? "Confirm"
-          : "Ready"
-        }
+          : "Ready"}
       </ConfirmButton>
+      
     </TableWrapper>
   );
 };
 
 export default MatchTable;
-

@@ -76,11 +76,11 @@ const TableBird = ({ bird, kickable,mergeInformation }: Props) => {
   },[])
   return (
     <TableBirdWrapper>
-      {!bird?.id && message && (
+      {/* {!bird?.id && message && (
         <WaitingMessage onClick={() => setMsg(false)}>
           Waiting for someone join this request
         </WaitingMessage>
-      )}
+      )} */}
       <BirdImage>
         <img
           src={
@@ -94,7 +94,7 @@ const TableBird = ({ bird, kickable,mergeInformation }: Props) => {
       <BirdInformations>
         <span>{bird?.name || "Null"}</span>
         <span>{bird?.id ? "Chao mao" : "Null"}</span>
-        <span>{bird?.ratio.win || "W:0 - L:0 - R:0%"}</span>
+        <span>{bird?.ratio?.win || "W:0 - L:0 - R:0%"}</span>
         <span>{bird?.elo || "NaN"}</span>
       </BirdInformations>
       <MergeInformationSection>

@@ -20,5 +20,10 @@ export const RequestApi = {
         const url = '/request/join/'+params.requestId;
         const response = await axiosClient.put(url, params);
         return await response.data;
-    } 
+    },
+    getRequestDetail : async (requestId : string) :Promise<Response<any>> => {
+        const url = `/request/${requestId}`;
+        const response = await axiosClient.get(url);
+        return response.data;
+    }
 }

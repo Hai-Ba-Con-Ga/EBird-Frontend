@@ -33,6 +33,7 @@ export const BackButton = styled.button`
 export const TableMain = styled.div`
   padding: 2rem 4rem;
   display: flex;
+  gap : 4rem;
   height: 100%;
   margin-bottom: 3rem;
 `;
@@ -41,8 +42,7 @@ export const TableOpponents = styled.div`
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  flex: 1 1 auto;
-`;
+  `;
 
 export const VsDividerTable = styled.span`
   color: vaR(--dangerous);
@@ -50,13 +50,13 @@ export const VsDividerTable = styled.span`
   font-weight: 600;
 `;
 export const TableOthers = styled.div`
-  display: flex;
-  flex-direction: column;
+  flex: 0 0 30rem;
 `;
 export const TableInformations = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
 `;
 export const TableInformationItem = styled(RequestCardInfomationField)`
   svg {

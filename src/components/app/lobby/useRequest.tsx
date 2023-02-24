@@ -81,12 +81,23 @@ const useRequest = (init? :boolean) => {
     },
     [appState]
   );
+  /** Get request detail/table */
+  const getRequestDetail = useCallback( async (requestId: string)=> {
+      const response = await RequestApi.getRequestDetail(requestId);
+      if(response.success) {
+        return response.data;
+      }else {
+        toast.error('This request did not exist no more!');
+        nav('/app/lobby');
+      }
+  },[])
   return {
     createRequest,
     createRequestOpenModal,
     getAllRequest,
     requests,
-    joinRequest
+    joinRequest,
+    getRequestDetail
   };
 };
 

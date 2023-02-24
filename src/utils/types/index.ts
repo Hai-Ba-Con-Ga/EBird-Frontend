@@ -200,8 +200,8 @@ export enum RolePlayer{
   Challenger
 }
 export enum RequestStatus {
-  Waiting,
-  Matched
+  Waiting = 'Waiting',
+  Matched = 'Matched',
 }
 export enum MatchStatus {
   Pending,

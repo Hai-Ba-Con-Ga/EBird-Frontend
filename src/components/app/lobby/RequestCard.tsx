@@ -16,7 +16,7 @@ import {
 } from "./lobby.style";
 import { MatchApi } from "./match.api";
 import useRequest from "./useRequest";
-
+type ButtonContent = 'View' | 'Join' | 'Full' ; 
 const RequestCard = ({ request }: { request: any }) => {
   const {
     auth: { userInfomation },
@@ -24,11 +24,26 @@ const RequestCard = ({ request }: { request: any }) => {
   const [isOwner, setIsOwner] = useState(
     () => userInfomation?.id == request?.hostBird?.ownerId
   );
-  console.log(request);
+  const [requestButtonContent ,setButtonContent] = useState<ButtonContent>(()=> 'View');
   
+ 
+
   const {joinRequest} = useRequest();
   useEffect(() => {
     setIsOwner(userInfomation?.id == request?.hostBird?.ownerId);
+    if(userInfomation?.id == request?.hostBird?.ownerId) {
+      setButtonContent('View');
+    }else {
+      if(!request?.challengeBird) {
+        setButtonContent('Join');
+      }else {
+        if(request?.challengeBird?.ownerId == userInfomation?.id){
+          setButtonContent('View')
+        }else {
+          setButtonContent('Full')
+        }
+      }
+    }
   }, [request, userInfomation]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
@@ -52,8 +67,8 @@ const RequestCard = ({ request }: { request: any }) => {
         <RequestBird bird={request?.matchBirdList?.[0]?.bird} isOwner={true} />
         <RequestBird bird={request?.matchBirdList?.[1]?.bird} isOwner={false} />
       </RequestBirdContainer>
-      <JoinButton isOwner={isOwner} onClick={onJoinClickHandler} type="button">
-        {isOwner ? "View" : "Join"}
+      <JoinButton isOwner={isOwner} disabled={requestButtonContent == 'Full'} onClick={onJoinClickHandler} type="button">
+        {requestButtonContent}
       </JoinButton>
     </RequestCardWrapper>
   );

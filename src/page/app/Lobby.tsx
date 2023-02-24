@@ -25,6 +25,9 @@ const Lobby = () => {
   useEffect(() => {
     getAllRequest()
   }, []);
+  useEffect(()=>{
+    console.log(requests)
+  },[requests])
   
   return (
     <LobbyWrapper>
