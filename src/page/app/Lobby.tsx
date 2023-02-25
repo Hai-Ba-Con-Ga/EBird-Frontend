@@ -19,7 +19,7 @@ import useAuth from "../../components/auth/useAuth";
 import useModal from "../../components/common/modal/useModal";
 
 const Lobby = () => {
-  const {createRequestOpenModal,getAllRequest,requests} = useRequest(true);
+  const {createRequestOpenModal,getAllRequest,requests,quickMatchRequestModal} = useRequest(true);
 
   // const [requets, setMatches] = useState<any[]>([]);
   useEffect(() => {
@@ -48,7 +48,7 @@ const Lobby = () => {
       </PageMain>
       <ActionArea>
         <RequestActions>
-          <ActionButton>Quick Match</ActionButton>
+          <ActionButton onClick={quickMatchRequestModal}>Quick Match</ActionButton>
           <ActionButton onClick={createRequestOpenModal}>
             Create Request
           </ActionButton>

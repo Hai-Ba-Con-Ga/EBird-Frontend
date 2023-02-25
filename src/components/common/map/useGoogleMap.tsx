@@ -23,11 +23,11 @@ type Props = {
    mapSize : 'sm' | 'md' | 'lg' | 'default'
 };
 const mockLocation = {
-  name: "FPT University",
+  name: "FPT University Phong",
   address:
     "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000, Vietnam",
-  latitude: 10.841128,
-  longitude: 106.809883,
+  latitude: 12.841128,
+  longitude: 126.809883,
 };
 const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
   const [location, setLocation] = useState<any>(() => mockLocation);

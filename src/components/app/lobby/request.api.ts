@@ -41,8 +41,14 @@ export const RequestApi = {
     placeId: string;
     hostBirdId: string;
   }): Promise<Response<any>> => {
-    const url = `/request/`;
+    const url = `/request/${params.requestId}`;
     const response = await axiosClient.put(url, params);
     return response.data;
   },
+  quickMatchRequest: async (requestId: string): Promise<Response<any>> => {
+    const url = `/request/quickMatch`;
+    const response = await axiosClient.get(url);
+    //TODO : wait for endpoint
+    return response.data;
+  }
 };

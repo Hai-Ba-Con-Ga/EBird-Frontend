@@ -94,7 +94,7 @@ export const MatchTable = () => {
           <VsDividerTable>Vs</VsDividerTable>
           <TableBird bird={requestDetail?.challengerBird as any} />
         </TableOpponents>
-        <TableInformation request={requestDetail} />
+        <TableInformation request={requestDetail} reloadCallback={()=> getRequestDetail(id ?? "").then((data) => setDetail(data))}/>
         <TableChat a={{} as any}/>
       </TableMain>
       <ConfirmButton
