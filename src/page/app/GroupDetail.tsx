@@ -1,16 +1,29 @@
-import { IconRefresh } from "@tabler/icons-react";
+import { IconRefresh, IconSend } from "@tabler/icons-react";
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axiosClient from "../../api/axiosClient";
 import useApp from "../../components/app/common/useApp";
-import { ChatGroup, GroupDetailMainContent, GroupDetailWrapper, Online, OnlineMember } from "../../components/app/group/grouppage.style";
+import { ChatGroup,
+  GroupDetailMainContent,
+  GroupDetailWrapper,
+  Match,
+  Online,
+  OnlineMember,
+  RequestGridGroupPage,
+  MatchArea,
+  MatchTitle,
+  ChatFrame,
+  ChatBox,
+  ChatItem,
+  ChatMessage,
+  
+} from "../../components/app/group/grouppage.style";
 import {
   ActionArea,
   ActionButton,
   BackdropVideo,
   LobbyBackground,
   LobbyWrapper,
-  PageMain,
   PageTitle,
   RequestActions,
   RequestGrid,
@@ -101,46 +114,126 @@ const Lobby = () => {
   }, [matches]);
   return (
     <GroupDetailWrapper>
-      {/* <BackdropVideo src="/smoke.mp4" muted autoPlay loop></BackdropVideo> */}
       <LobbyBackground />
       <GroupDetailMainContent>
+
         <Online>
           <OnlineMember><h1>Online Member</h1></OnlineMember>
-          <ChatGroup><h1>Chat Group</h1></ChatGroup>
+
+          <ChatFrame>
+              <ChatBox>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              <ChatItem>
+                <span>WyvernP</span>
+                <span>
+                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
+                  elit. 
+                </span>
+              </ChatItem>
+              </ChatBox>
+              
+            <ChatMessage>
+              <input type="text" placeholder="Type something..." />
+              <IconSend />
+            </ChatMessage>
+          </ChatFrame>
+          
+          
         </Online>
-        <div>
-      <PageMain>
-        <PageTitle>
-          <h3>GROUP DETAIL</h3>
-          <button type="button" onClick={() => getListMatch()}>
-            <IconRefresh color="var(--gold-primary)" />
-          </button>
-        </PageTitle>
-        <RequestGrid>
-          {/* {matches?.map((match) => (
-            <RequestCard key={match?.id} request={match as any} />
-          ))} */}
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          <RequestCard request={{} as any} />
-          
-        </RequestGrid>
-      </PageMain>
-      <ActionArea>
-        <RequestActions>
-          
-          <ActionButton onClick={createRequestHandler}>
-            Create Request
-          </ActionButton>
-        </RequestActions>
-      </ActionArea>
-        </div>
+
+        <Match>
+          <MatchArea>
+            <MatchTitle>
+              <h3>GROUP DETAIL</h3>
+              <button type="button" onClick={() => getListMatch()}>
+                <IconRefresh color="var(--gold-primary)" />
+              </button>
+            </MatchTitle>
+            <RequestGridGroupPage>
+              {/* {matches?.map((match) => (
+                <RequestCard key={match?.id} request={match as any} />
+              ))} */}
+              <RequestCard request={{} as any} />
+              <RequestCard request={{} as any} />
+              <RequestCard request={{} as any} />
+              <RequestCard request={{} as any} />
+            </RequestGridGroupPage>
+          </MatchArea>
+
+          <ActionArea>
+            <RequestActions>
+              
+              <ActionButton onClick={createRequestHandler}>
+                Create Request
+              </ActionButton>
+            </RequestActions>
+          </ActionArea>
+        </Match>
       </GroupDetailMainContent>
 
       
-      
-      
-      {/* <DecorCircle/> */}
     </GroupDetailWrapper>
   );
 };
