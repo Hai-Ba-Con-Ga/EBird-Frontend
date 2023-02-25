@@ -29,7 +29,7 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
         {ranks?.map((bird, i) => (
           <tr key={bird?.id}>
             <td>{i + 1}</td>
-            <td>{bird?.name}<Chip style={{fontSize:"2rem"}} size="medium" label={bird.} /></td>
+            <td>{bird?.name}<Chip style={{fontSize:"2rem"}} size="medium" label={"bird.number"} /></td>
             <td>{"Chao mao"}</td>
             <td>{"bird?.ownerId"}</td>
             <td>{bird?.elo}</td>
