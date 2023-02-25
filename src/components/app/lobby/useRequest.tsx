@@ -11,8 +11,9 @@ import useApp from "../common/useApp";
 import { RequestApi } from "./request.api";
 import CreateRequestForm from "../../common/form/CreateRequestForm";
 import { useNavigate } from "react-router-dom";
+import { PlaceApi } from "../../common/map/place.api";
 
-const useRequest = (init? :boolean) => {
+const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
   const appState = useRecoilValue(AppAtom);
   const { openModal, closeModal } = useModal();
@@ -48,20 +49,24 @@ const useRequest = (init? :boolean) => {
   const createRequestOpenModal = useCallback(() => {
     openModal({
       closable: true,
-      component: <CreateRequestForm options={{
-        mapSize : 'default',
-        selectBird : true ,
-        isUpdate: false,
-        
-      }} handleCreateRequest={createRequest} />,
+      component: (
+        <CreateRequestForm
+          options={{
+            mapSize: "default",
+            selectBird: true,
+            isUpdate: false,
+          }}
+          handleCreateRequest={createRequest}
+        />
+      ),
       payload: null,
     });
   }, [appState, auth]);
   const getAllRequest = useCallback(() => {
     // TODO: wait for BFCS-153
-    if(init) {
+    if (init) {
       RequestApi.getAllRequest({ roomId: "" }).then((response) =>
-      setRequests(response.data)
+        setRequests(response.data)
       );
     }
   }, []);
@@ -74,7 +79,7 @@ const useRequest = (init? :boolean) => {
           challengerBirdId: currentBird.id,
           requestId,
         });
-        if(result.success) {
+        if (result.success) {
           nav("/app/lobby/table/" + requestId);
           toast.success("Joined successfully");
         } else {
@@ -87,25 +92,55 @@ const useRequest = (init? :boolean) => {
     [appState]
   );
   /** Get request detail/table */
-  const getRequestDetail = useCallback( async (requestId: string)=> {
-      const response = await RequestApi.getRequestDetail(requestId);
-      if(response.success) {
-        return response.data;
-      }else {
-        toast.error('This request did not exist no more!');
-        nav('/app/lobby');
+  const getRequestDetail = useCallback(async (requestId: string) => {
+    const response = await RequestApi.getRequestDetail(requestId);
+    if (response.success) {
+      return response.data;
+    } else {
+      toast.error("This request did not exist no more!");
+      nav("/app/lobby");
+    }
+  }, []);
+
+  /** Update Request */
+  const updateRequest = useCallback(
+    async (params: CreateRequestFormValues, request: any) => {
+      const requestParams: {
+        placeId: string;
+        hostBirdId: string;
+        requestDatetime: string;
+        requestId: string;
+      } = {
+        placeId: "",
+        hostBirdId: params.currentBirdId,
+        requestDatetime: "",
+        requestId: request.id,
+      };
+      if (!isSamePlace({ place: params.location, place1: request.place })) {
+        const respData = await PlaceApi.createPlace(params.location);
+        requestParams.placeId = respData.data;
       }
-  },[])
+      requestParams.requestDatetime = params.date.toLocaleString();
+      const updateResult = await RequestApi.updateRequest(requestParams);
+      console.log(updateResult);
+      // TODO Reload requestDetail
+    },
+    []
+  );
   return {
     createRequest,
     createRequestOpenModal,
     getAllRequest,
     requests,
     joinRequest,
-    getRequestDetail
+    getRequestDetail,
   };
 };
-
+function isSamePlace({ place, place2 }: any) {
+  return (
+    place.latitude == place2.latitude && place.longitude == place2.longitude
+  );
+}
 type CreateRequestFormValues = {
   date: Date | string;
   time: RequestTime;
