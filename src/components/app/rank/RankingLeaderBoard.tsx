@@ -1,4 +1,7 @@
+import Chip from "@mui/material/Chip";
+import { size } from "lodash";
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { Bird } from "../home/home.api";
 import { LeaderboardTable } from "../home/homepage.style";
 export interface Props {
@@ -15,7 +18,7 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
     <LeaderboardTable>
       <thead>
         <tr>
-          <th>{tab}</th>
+          <th>Top</th>
           <th>Bird name</th>
           <th>Type</th>
           <th>Owner</th>
@@ -26,7 +29,7 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
         {ranks?.map((bird, i) => (
           <tr key={bird?.id}>
             <td>{i + 1}</td>
-            <td>{bird?.name}</td>
+            <td>{bird?.name}<Chip style={{fontSize:"2rem"}} size="medium" label={bird.} /></td>
             <td>{"Chao mao"}</td>
             <td>{"bird?.ownerId"}</td>
             <td>{bird?.elo}</td>
@@ -59,3 +62,5 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
 };
 
 export default RankingLeaderBoard;
+
+
