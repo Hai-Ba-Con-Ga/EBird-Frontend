@@ -13,7 +13,7 @@ const CardVerticalRatings = () => {
     <Card>
       <CardHeader title='The Best Answers' />
       <CardContent>
-        <Box sx={{ mb: 5, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+        <Box component='div' sx={{ mb: 5, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
           <Rating readOnly value={5} name='read-only' sx={{ marginRight: 2 }} />
           <Typography variant='body2'>5 Star | 98 reviews</Typography>
         </Box>

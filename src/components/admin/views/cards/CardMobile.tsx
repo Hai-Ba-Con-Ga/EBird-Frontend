@@ -80,7 +80,7 @@ const CardMobile = () => {
             </Typography>
           </CardContent>
           <CardActions className='card-action-dense'>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <Box component='div' sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
               <Button>
                 <CartPlus fontSize='small' sx={{ marginRight: 2 }} />
                 Add to Card

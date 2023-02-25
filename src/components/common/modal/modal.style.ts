@@ -11,7 +11,7 @@ export const CommonModalMain = styled.div`
     box-shadow: 1px 1px 10px -3px var(--dark-blue);
     button#close-modal-button{ 
         padding : .5rem;
-        position: sticky;
+        position: absolute;
         right : .5rem;
         top: .5rem;;
     }

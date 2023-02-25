@@ -25,7 +25,7 @@ const CardUser = () => {
         }}
       />
       <CardContent>
-        <Box
+        <Box component='div'
           sx={{
             mt: 5.75,
             mb: 8.75,
@@ -35,13 +35,13 @@ const CardUser = () => {
             justifyContent: 'space-between'
           }}
         >
-          <Box sx={{ mr: 2, mb: 1, display: 'flex', flexDirection: 'column' }}>
+          <Box component='div' sx={{ mr: 2, mb: 1, display: 'flex', flexDirection: 'column' }}>
             <Typography variant='h6'>Robert Meyer</Typography>
             <Typography variant='caption'>London, UK</Typography>
           </Box>
           <Button variant='contained'>Send Request</Button>
         </Box>
-        <Box sx={{ gap: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box component='div' sx={{ gap: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant='subtitle2' sx={{ whiteSpace: 'nowrap', color: 'text.primary' }}>
             18 mutual friends
           </Typography>
