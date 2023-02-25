@@ -28,15 +28,6 @@ const MyMatch = () => {
     },
     [myMatch]
   );
-  const getMyJoinMatch = useCallback(async () => {
-    const res = await MatchApi.getMatchFilter({
-      role: "challenger",
-      matchStatus: "during",
-    });
-    console.log("GET MY Join MATCH = ", res.data);
-    setMyMatch([...myMatch, ...res.data]);
-  }, [myMatch]);
-
   return (
     <MyMatchWrapper>
       <ReloadButton

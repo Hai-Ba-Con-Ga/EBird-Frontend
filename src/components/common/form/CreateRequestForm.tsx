@@ -9,33 +9,43 @@ import useMap from "../map/useMapAutoComplete";
 import {
   CreateButton,
   CreateRequestFormWrapper,
-  FormTitle
+  FormTitle,
 } from "./createRequest.style";
-import { TextFieldBlock } from "./TextField";
+import { MultipleTextField, TextFieldBlock } from "./TextField";
 import Select from "../select/Select";
 import { SelectOption } from "../select/Select.style";
-
-
-const Marker = ({ placeName }: any) => (
-  <div>
-    <div>
-      <IconMapPin color="var(--dangerous)" style={{transform:'scale:1.4'}}/>
-    </div>
-  </div>
-);
+import useApp from "../../app/common/useApp";
+import useGoogleMap from "../map/useGoogleMap";
 
 const CreateRequestForm = ({
   handleCreateRequest,
+  showTitle,
+  options: { mapSize, selectBird, isUpdate,updateCancelHandle },
 }: {
   handleCreateRequest: (data: any) => void;
+  showTitle?: boolean;
+  options: {
+    mapSize: "sm" | "md" | "lg" | "default";
+    selectBird: boolean;
+    isUpdate?: boolean;
+    updateCancelHandle? : ()=>void;
+  };
+  initData? : {
+    location : any;
+  }
 }) => {
-  const [location, setLocation] = useState<any>();
-  const [center, setCenter] = useState({ lat: 10.8326, lng: 106.6581 });
-  const { handleSubmit, register ,setValue} = useForm();
-  const [time,setTime] = useState<string>(()=>{
-    setValue("time","AM");
+  const { setLocation, GoogleMap, location } = useGoogleMap({
+    onLocationChanged: (location) => {
+      setValue("location", location);
+    },
+    mapSize,
+  });
+  const { handleSubmit, register, setValue } = useForm();
+  const [time, setTime] = useState<string>(() => {
+    setValue("time", "AM");
     return "Morning";
   });
+  const { SelectBird, currentBird } = useApp({ useSelection: true });
   const inputRef = useRef<any>(null);
   useMap(inputRef, (place) => {
     setLocation({
@@ -45,49 +55,15 @@ const CreateRequestForm = ({
       longitude: place.geometry.location.lng(),
     });
   });
-  useEffect(() => {
-    if(location){
-      setCenter({lat:location?.latitude,lng:location?.longitude});
-      setValue("location",location);
-    }
-    
-  }, [location])
-  
-  // *** hanler *//
-  const handleMapClick = (event: any) => {
-    const lat = event.lat;
-    const lng = event.lng;
-    const win = window as any;
-    // Use Google Maps API to retrieve the place name
-    const geocoder = new win.google.maps.Geocoder() as any;
-    const placesService = new win.google.maps.places.PlacesService( document.createElement("div"));
-    geocoder.geocode(
-      { location: { lat, lng } },
-      (results: any, status: any) => {
-        if (status === "OK") {
-          placesService.nearbySearch(
-            {
-              location: { lat, lng },
-              rankBy: win.google.maps.places.RankBy.DISTANCE,
-              type: ["establishment"],
-            },
-            (place: any, status: any) => {
-              if (status === "OK") {
-                const placeName = place[0].name;
-                setLocation({ lat, lng, placeName,address: place[0].formatted_address });
-              }
-            }
-          );
-        }
-      }
-    );
-  };
+
   return (
     <CreateRequestFormWrapper
+      style={isUpdate ? { padding: "0" } : {}}
       onSubmit={handleSubmit((data) =>
-        handleCreateRequest({ ...data, location })
-      )} >
-      <FormTitle>create request</FormTitle>=
+        handleCreateRequest({ ...data, currentBirdId: currentBird?.id })
+      )}
+    >
+      {!isUpdate && <FormTitle>create request</FormTitle>}
       <FieldMaxLimit>
         <TextFieldBlock>
           <label htmlFor="">Location</label>
@@ -95,6 +71,10 @@ const CreateRequestForm = ({
             ref={inputRef}
             type="text"
             // {...register("location")}
+            value={location?.placeName}
+            onChange={(e) =>
+              setLocation({ ...location, placeName: e.target.value })
+            }
             style={{
               color: "var(--dark-blue)",
             }}
@@ -102,66 +82,60 @@ const CreateRequestForm = ({
           />
           {/* <IconMapPin/> */}
         </TextFieldBlock>
-        <TextFieldBlock>
-          <label htmlFor="">Date</label>
-          <input
-            {...register("date")}
-            type="date"
-            style={{
-              color: "var(--dark-blue)",
-            }}
-            placeholder="Date"
-          />
-        </TextFieldBlock>
-        <TextFieldBlock>
-          <label htmlFor="">Time</label>
-         <Select value={time}>
-          <SelectOption onClick={()=>{setValue("time","AM"); setTime("Morning")}}>Morning</SelectOption>
-          <SelectOption onClick={()=>{
-            setValue("time","PM")
-            setTime("Noon")
-            }}>Noon</SelectOption>
-         </Select>
-          {/* <IconClock/> */}
-        </TextFieldBlock>
-        <div
-      style={{
-        aspectRatio: "3/4",
-        width: "100%",
-        border: "2px solid var(--dark-blue)",
-        borderRadius: "var(--roundedSmall)",
-        overflow: "hidden",
-      }}
-    >
-      <CustomMap
-        bootstrapURLKeys={{ key: "AIzaSyDDs0_xinQtlrLDxpY6VSLfThWELV7BmWY" }}
-        center={center}
-        defaultZoom={15}
-        options={{
-          styles: mapStyle,
-          zoomControl: false,
-          clickableIcons: false,
-          mapTypeControl: false,
-          streetViewControl: false,
-        }}
-        onClick={handleMapClick}
-      >
-        {location && (
-          <Marker
-            lat={location.latitude}
-            lng={location.longitude}
-            placeName={location.name}
-          />
-        )}
-      </CustomMap>
-    </div>
+        {GoogleMap}
+        <MultipleTextField>
+          <TextFieldBlock>
+            <label htmlFor="">Date</label>
+            <input
+              {...register("date")}
+              type="date"
+              style={{
+                color: "var(--dark-blue)",
+              }}
+              placeholder="Date"
+            />
+          </TextFieldBlock>
+          <TextFieldBlock>
+            <label htmlFor="">Time</label>
+            <Select value={time}>
+              <SelectOption
+                onClick={() => {
+                  setValue("time", "AM");
+                  setTime("Morning");
+                }}
+              >
+                Morning
+              </SelectOption>
+              <SelectOption
+                onClick={() => {
+                  setValue("time", "PM");
+                  setTime("Noon");
+                }}
+              >
+                Noon
+              </SelectOption>
+            </Select>
+            {/* <IconClock/> */}
+          </TextFieldBlock>
+        </MultipleTextField>
+
+        {selectBird && SelectBird}
       </FieldMaxLimit>
-      <CreateButton type="submit">Create</CreateButton>
+      <Buttons>
+
+      <CreateButton type="submit">{isUpdate? "Update" : "Create"}</CreateButton>
+      {isUpdate && <CreateButton type="button" onClick={()=>updateCancelHandle?.()}>Cancel</CreateButton>}
+      </Buttons>
     </CreateRequestFormWrapper>
   );
 };
 const FieldMaxLimit = styled.div`
   width: 40rem;
 `;
+const Buttons = styled.div`
+  display : flex;
+  gap:1rem;
+  justify-content: center;
+`
 
 export default CreateRequestForm;

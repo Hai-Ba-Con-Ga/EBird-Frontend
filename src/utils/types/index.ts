@@ -185,10 +185,11 @@ export interface VerificationStore {//DONE
   accountId: string;
 }
 
-
-
+export interface RequestEntity {
+  id: string 
+}
  
-
+export type  RequestTime = "AM" | "PM"; 
 //ENUM CONVENTION
 
 export enum TypeChatRoom{
@@ -199,8 +200,8 @@ export enum RolePlayer{
   Challenger
 }
 export enum RequestStatus {
-  Waiting,
-  Matched
+  Waiting = 'Waiting',
+  Matched = 'Matched',
 }
 export enum MatchStatus {
   Pending,
@@ -250,7 +251,7 @@ export interface MatchDetail {
   beforeElo: number;
   updateDatetime: Date;
   role: RolePlayer;
-  matchResources: MatchResource[];
+  // matchResources: MatchResource[];
 }
 // export interface MatchResource{}
 // export interface Match{}

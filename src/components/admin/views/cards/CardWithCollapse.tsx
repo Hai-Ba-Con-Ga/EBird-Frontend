@@ -38,6 +38,7 @@ const CardWithCollapse = () => {
       </CardContent>
       <CardActions className='card-action-dense'>
         <Box
+        component='div'
           sx={{
             width: '100%',
             display: 'flex',
