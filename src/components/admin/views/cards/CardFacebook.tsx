@@ -25,21 +25,21 @@ const CardFacebook = () => {
           You’ve read about the importance of being courageous, rebellious and imaginative. These are all vital
           ingredients in an effective.
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box component='div' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
             <Avatar alt='Eugene Clarke' src='/images/avatars/1.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
             <Typography variant='body2' sx={{ color: 'common.white' }}>
               Eugene Clarke
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mr: 3.5 }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center', mr: 3.5 }}>
               <Heart sx={{ marginRight: 1.25 }} />
               <Typography variant='body2' sx={{ color: 'common.white' }}>
                 3.2k
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               <ShareVariant sx={{ marginRight: 1.25 }} />
               <Typography variant='body2' sx={{ color: 'common.white' }}>
                 49

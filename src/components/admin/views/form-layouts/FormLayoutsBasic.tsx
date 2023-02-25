@@ -133,6 +133,7 @@ const FormLayoutsBasic = () => {
             </Grid>
             <Grid item xs={12}>
               <Box
+              component='div'
                 sx={{
                   gap: 5,
                   display: 'flex',
@@ -144,7 +145,7 @@ const FormLayoutsBasic = () => {
                 <Button type='submit' variant='contained' size='large'>
                   Get Started!
                 </Button>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography sx={{ mr: 2 }}>Already have an account?</Typography>
                   <Link href='/' onClick={(e: SyntheticEvent) => e.preventDefault()}>
                     Log in

@@ -53,7 +53,7 @@ const CardHorizontalRatings = () => {
             <Typography variant='h6' sx={{ marginBottom: 2 }}>
               Stumptown Roasters
             </Typography>
-            <Box sx={{ mb: 4.75, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Box component='div' sx={{ mb: 4.75, display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
               <Rating readOnly value={5} name='read-only' sx={{ marginRight: 2 }} />
               <Typography variant='body2'>5 Star | 98 reviews</Typography>
             </Box>

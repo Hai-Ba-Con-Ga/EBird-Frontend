@@ -67,7 +67,7 @@ const Row = (props: { row: ReturnType<typeof createData> }) => {
       <TableRow>
         <TableCell colSpan={6} sx={{ py: '0 !important' }}>
           <Collapse in={open} timeout='auto' unmountOnExit>
-            <Box sx={{ m: 2 }}>
+            <Box component='div' sx={{ m: 2 }}>
               <Typography variant='h6' gutterBottom component='div'>
                 History
               </Typography>
