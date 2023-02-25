@@ -15,24 +15,15 @@ export interface Bird {
    "resourceList": any[]
 }
 
-export const HomeApi = {
-    getLeaderboardBirds : async ():Promise<Response<Bird[]>> => {
+export const RankApi = {
+
+    getLeaderboardBirdsBySearch : async (search?:string):Promise<Response<Bird[]>> => {
         const url = "/bird/all";
         const response  = await axiosClient.get(url,{
             params : {
                 PageSize : 10 ,
-                CurrentPage : 1
-            }
-        });
-        return response.data
-    },
-
-    getLeaderboardBirdsBySearch : async (search: string):Promise<Response<Bird[]>> => {
-        const url = "/bird/all/" + search;
-        const response  = await axiosClient.get(url,{
-            params : {
-                PageSize : 10 ,
-                CurrentPage : 1
+                CurrentPage : 1,
+                keyword: search
             }
         });
         return response.data

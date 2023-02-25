@@ -36,6 +36,7 @@
     "axios": "^1.2.2",
     "dotenv": "^16.0.3",
     "framer-motion": "^8.5.5",
+    "lodash": "^4.17.21",
     "global": "^4.4.0",
     "google-map-react": "^2.2.0",
     "google-one-tap": "^1.0.6",
