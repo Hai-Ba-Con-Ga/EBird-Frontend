@@ -12,10 +12,12 @@ import { RequestApi } from "./request.api";
 import CreateRequestForm from "../../common/form/CreateRequestForm";
 import { useNavigate } from "react-router-dom";
 import { PlaceApi } from "../../common/map/place.api";
+import { MatchApi } from "./match.api";
 
 const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
   const appState = useRecoilValue(AppAtom);
+  const {currentBird} = useApp({useSelection:false});
   const { openModal, closeModal } = useModal();
   const [requests, setRequests] = useState<any[]>([]);
   const nav = useNavigate();
@@ -74,6 +76,7 @@ const useRequest = (init?: boolean) => {
   const joinRequest = useCallback(
     async (requestId: string) => {
       const currentBird: Bird | undefined = appState?.currentBird;
+      console.log(currentBird);
       if (currentBird) {
         const result = await RequestApi.joinRequest({
           challengerBirdId: currentBird.id,
@@ -89,7 +92,7 @@ const useRequest = (init?: boolean) => {
         toast.error("Please select a bird to join");
       }
     },
-    [appState]
+    [currentBird]
   );
   /** Get request detail/table */
   const getRequestDetail = useCallback(async (requestId: string) => {
@@ -177,6 +180,17 @@ const useRequest = (init?: boolean) => {
       payload: null,
     });
   },[appState, auth])
+
+  /** Confirm request -> create match  */ 
+  const confirmRequest = useCallback(async(requestId : string)=>{
+    const response = await MatchApi.createMatch({requestId});
+    if(response.success) {
+     console.log(response.data);
+     nav("/app/match");
+    } else {
+      toast.error(response.message);
+    }
+  },[auth])
   return {
     createRequest,
     createRequestOpenModal,
@@ -185,7 +199,8 @@ const useRequest = (init?: boolean) => {
     joinRequest,
     getRequestDetail,
     updateRequest,
-    quickMatchRequestModal
+    quickMatchRequestModal,
+    confirmRequest,
   };
 };
 function isSamePlace({ place, place2 }: any) {

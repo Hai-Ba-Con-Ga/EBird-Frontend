@@ -27,3 +27,8 @@ export interface CreatePlaceParams {
   longitude: number;
   latitude: number;
 }
+
+export interface CreateMatchParams {
+  requestId: string;
+  userId?: string;
+}

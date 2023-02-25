@@ -1,5 +1,5 @@
 import { IconClock, IconLocation, IconMapPin } from "@tabler/icons-react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Bird } from "../../../utils/types";
@@ -21,17 +21,18 @@ const RequestCard = ({ request }: { request: any }) => {
   const {
     auth: { userInfomation },
   } = useAuth();
-  const [isOwner, setIsOwner] = useState(
+  const isOwner = useMemo(
     () => userInfomation?.id == request?.hostBird?.ownerId
-  );
+  ,[userInfomation,request]);
   const [requestButtonContent, setButtonContent] = useState<ButtonContent>(
     () => "View"
   );
 
   const { joinRequest } = useRequest();
   useEffect(() => {
-    setIsOwner(userInfomation?.id == request?.hostBird?.ownerId);
-    if (userInfomation?.id == request?.hostBird?.ownerId) {
+    console.log(request);
+    
+    if (isOwner) {
       setButtonContent("View");
     } else {
       if (!request?.challengeBird) {
@@ -44,7 +45,7 @@ const RequestCard = ({ request }: { request: any }) => {
         }
       }
     }
-  }, [request, userInfomation]);
+  }, [request, userInfomation,isOwner]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
     if (isOwner) {

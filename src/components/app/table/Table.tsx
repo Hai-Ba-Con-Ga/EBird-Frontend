@@ -31,6 +31,7 @@ import {
 } from "./table.style";
 import TableBird from "./TableBird";
 import TableChat from "./TableChat";
+import { Chip } from "@mui/material";
 export const MatchTable = () => {
   const { id } = useParams();
   const [isMerged,setIsMerged] = useState<boolean>(false);
@@ -86,7 +87,7 @@ export const MatchTable = () => {
           <IconChevronLeft color="var(--dark-green)" />
         </BackButton>
         <TableTitle>Request</TableTitle>
-        <span>#{requestDetail?.number}</span>
+        <Chip component={'span'} label={'#'+requestDetail?.number} color={'success'} style={{fontWeight:600,fontSize: 'var(--text-xl)'}}/>
       </TableHeadline>
       <TableMain>
         <TableOpponents>
