@@ -28,15 +28,9 @@ const tabs = [
 ];
 
 const RankingPage = () => {
-  const { leaderboard } = useHomepage();
-  const {rank} = useRank(textBird);
-  const [tab, setTab] = useState<number>(1);
   const [textBird, setTextBird] = useState<string>('')
-  const [birdList, setBirdList] = useState<any[]>([])
+  const {tab, setTab, rank} = useRank({searchPlayerKeyword:textBird});
 
-  const handleClick = () =>{
-    setBirdList(birdList);
-  }
 
   useEffect(() => {
     console.log("TAB", tab);
@@ -55,13 +49,11 @@ const RankingPage = () => {
                   (e) => {setTextBird(e.target.value)}
                 }
               />
-              <button onClick={handleClick}>SEARCH</button>
               </div>
-              
               <h1>SELECT</h1>
             </HeaderRanking>
 
-            {/* {tabs?.map((navTab) => (
+            {tabs?.map((navTab) => (
               <MatchTab
                 key={navTab.value}
                 active={navTab.value === tab}
@@ -71,13 +63,13 @@ const RankingPage = () => {
               >
                 {navTab.show}
               </MatchTab>
-            ))} */}
+            ))}
             
 
             <h1>RANKING BOARD</h1>
-            {/* <h1>{tabs.find((tb)=>tb.value==tab)?.show || "unknow"}</h1> */}
+            <h1>{tabs.find((tb)=>tb.value==tab)?.show || "unknow"}</h1>
 
-            <RankingLeaderBoard tab={tab} ranks={leaderboard} />
+            <RankingLeaderBoard tab={tab} ranks={rank} />
 
           </RankingBoard>
         

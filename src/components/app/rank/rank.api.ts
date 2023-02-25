@@ -17,7 +17,7 @@ export interface Bird {
 
 export const RankApi = {
 
-    getLeaderboardBirdsBySearch : async (search:string):Promise<Response<Bird[]>> => {
+    getLeaderboardBirdsBySearch : async (search?:string):Promise<Response<Bird[]>> => {
         const url = "/bird/all";
         const response  = await axiosClient.get(url,{
             params : {
