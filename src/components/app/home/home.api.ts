@@ -25,6 +25,17 @@ export const HomeApi = {
             }
         });
         return response.data
+    },
+
+    getLeaderboardBirdsBySearch : async (search: string):Promise<Response<Bird[]>> => {
+        const url = "/bird/all/" + search;
+        const response  = await axiosClient.get(url,{
+            params : {
+                PageSize : 10 ,
+                CurrentPage : 1
+            }
+        });
+        return response.data
 
     }
 }

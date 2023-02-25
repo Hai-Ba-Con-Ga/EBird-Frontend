@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+import { Settings } from '../../../../../@core/context/settingsContext'
 
 // ** Footer Content Component
 import FooterContent from './FooterContent'
@@ -39,6 +39,7 @@ const Footer = (props: Props) => {
       }}
     >
       <Box
+        component={'div'}
         className='footer-content-container'
         sx={{
           width: '100%',

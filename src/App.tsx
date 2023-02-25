@@ -30,6 +30,7 @@ import themeOptions from "./components/admin/@core/theme/ThemeOptions";
 import { Settings } from "./components/admin/@core/context/settingsContext";
 import Dashboard from "./page/admin/Dashboard";
 import GroupDetail from "./page/app/GroupDetail";
+import RankingPage from "./page/app/RankingPage";
 const initialSettings: Settings = {
   themeColor: 'primary',
   mode: themeConfig.mode,
@@ -125,7 +126,7 @@ function App() {
             path="ranking"
             element={
               <AppLayout>
-                <h1>Ranking</h1>
+                <RankingPage />
               </AppLayout>
             }
           ></Route>

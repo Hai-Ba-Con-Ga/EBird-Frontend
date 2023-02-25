@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState } from 'react'
+import React,{ ChangeEvent, MouseEvent, useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -171,13 +171,14 @@ const TabSecurity = () => {
       <Divider sx={{ margin: 0 }} />
 
       <CardContent>
-        <Box sx={{ mt: 1.75, display: 'flex', alignItems: 'center' }}>
+        <Box component={"div"} sx={{ mt: 1.75, display: 'flex', alignItems: 'center' }}>
           <KeyOutline sx={{ marginRight: 3 }} />
           <Typography variant='h6'>Two-factor authentication</Typography>
         </Box>
 
-        <Box sx={{ mt: 5.75, display: 'flex', justifyContent: 'center' }}>
+        <Box  component={"div"}  sx={{ mt: 5.75, display: 'flex', justifyContent: 'center' }}>
           <Box
+           component={"div"} 
             sx={{
               maxWidth: 368,
               display: 'flex',
@@ -202,7 +203,7 @@ const TabSecurity = () => {
           </Box>
         </Box>
 
-        <Box sx={{ mt: 11 }}>
+        <Box  component={"div"}  sx={{ mt: 11 }}>
           <Button variant='contained' sx={{ marginRight: 3.5 }}>
             Save Changes
           </Button>

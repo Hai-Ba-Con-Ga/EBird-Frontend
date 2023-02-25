@@ -5,7 +5,9 @@ const getToken = () => {
     : "";
   return token ? JSON.parse(token) : "";
 };
-const BASE_URL = "https://wyvernpserver.tech";
+// const BASE_URL = "https://wyvernpserver.tech";
+const BASE_URL = "https://localhost:7137";
+
 const axiosClient = axios.create({
   baseURL: BASE_URL,
   // withCredentials: true,
