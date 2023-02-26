@@ -22,6 +22,8 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
           <th>Bird name</th>
           <th>Type</th>
           <th>Owner</th>
+          <th>Win</th>
+          <th>Ratio</th>
           <th>Elo</th>
         </tr>
       </thead>
@@ -32,6 +34,8 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
             <td>{bird?.name}<Chip style={{fontSize:"2rem"}} size="medium" label={"bird.number"} /></td>
             <td>{"Chao mao"}</td>
             <td>{"bird?.ownerId"}</td>
+            <td>{"bird?.ratio.win"}</td>
+            <td>{"bird?.ratio.ratio"}</td>
             <td>{bird?.elo}</td>
           </tr>
         ))}
