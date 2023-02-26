@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import "react-toastify/scss/main.scss";
 import { useRecoilState } from "recoil";
@@ -8,7 +8,6 @@ import AuthApi from "./components/auth/auth.api";
 import authAtom from "./components/auth/AuthAtom";
 import useLoading from "./components/useLoading";
 import AuthPage from "./page/auth/AuthPage";
-import Homepage from "./page/app/Homepage";
 import LandingPage from "./page/app/LandingPage";
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
@@ -17,10 +16,7 @@ import ProtectedRoute from "./components/layout/ProtectedRoute";
 import AppLayout from "./components/layout/AppLayout";
 import useModal from "./components/common/modal/useModal";
 import CommonModal from "./components/common/modal/CommonModal";
-import Lobby from "./page/app/Lobby";
-import MatchPage from "./page/app/MatchPage";
-import GroupPage from "./page/app/GroupPage";
-import MatchTable from "./components/app/table/Table";
+
 import Table from "./components/app/table/Table";
 import AdminLayout from "./components/layout/AdminLayout";
 import { ThemeProvider } from "@mui/material";
@@ -28,14 +24,22 @@ import ThemeComponent from "./components/admin/@core/theme/ThemeComponent";
 import themeConfig from "./components/admin/configs/themeConfig";
 import themeOptions from "./components/admin/@core/theme/ThemeOptions";
 import { Settings } from "./components/admin/@core/context/settingsContext";
-import Dashboard from "./page/admin/Dashboard";
 import GroupDetail from "./page/app/GroupDetail";
 import RankingPage from "./page/app/RankingPage";
+import GroupDetailPage from "./page/app/GroupDetail";
+import { ToastContainer } from "react-toastify";
 const initialSettings: Settings = {
-  themeColor: 'primary',
+  themeColor: "primary",
   mode: themeConfig.mode,
-  contentWidth: themeConfig.contentWidth
-}
+  contentWidth: themeConfig.contentWidth,
+};
+const HomePage = lazy(() => import("./page/app/Homepage"));
+const Lobby = lazy(() => import("./page/app/Lobby"));
+const MatchTable = lazy(() => import("./components/app/table/Table"));
+const MatchPage = lazy(() => import("./page/app/MatchPage"));
+const GroupPage = lazy(() => import("./page/app/GroupPage"));
+const Dashboard = lazy(() => import("./page/admin/Dashboard"));
+
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -99,7 +103,7 @@ function App() {
             path=""
             element={
               <AppLayout>
-                <Homepage />
+                <HomePage />
               </AppLayout>
             }
           ></Route>
@@ -120,7 +124,7 @@ function App() {
             }
           >
             <Route path="" element={<GroupPage />}></Route>
-            <Route path=":id" element={<GroupDetail />}></Route>
+            <Route path=":id" element={<GroupDetailPage />}></Route>
           </Route>
           <Route
             path="ranking"
@@ -144,22 +148,23 @@ function App() {
           <Route
             path="match"
             element={
-              
-              <AppLayout >
+              <AppLayout>
                 <MatchPage />
               </AppLayout>
-                
             }
           ></Route>
         </Route>
-        <Route path="/admin" element={
-          <ThemeComponent settings={initialSettings} >
-           <AdminLayout>
-            <Outlet/>
-          </AdminLayout>
-          </ThemeComponent >
-          }>
-          <Route path="" element={<Dashboard/>} />
+        <Route
+          path="/admin"
+          element={
+            <ThemeComponent settings={initialSettings}>
+              <AdminLayout>
+                <Outlet />
+              </AdminLayout>
+            </ThemeComponent>
+          }
+        >
+          <Route path="" element={<Dashboard />} />
         </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}
@@ -167,6 +172,7 @@ function App() {
       {/* )} */}
       {isLoading && Loader}
       {isModalShown && modalType == "common" && <CommonModal />}
+      <ToastContainer autoClose={1500} pauseOnHover={false} />
     </div>
   );
 }

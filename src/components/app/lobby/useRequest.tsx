@@ -32,6 +32,7 @@ const useRequest = (init?: boolean) => {
         hostId: userInfomation?.id,
         hostBirdId: data.currentBirdId || (appState.currentBird?.id as string),
         roomId: appState.currentRoom?.id as string,
+        groupId: data?.groupId,
         place,
       };
 
@@ -52,7 +53,7 @@ const useRequest = (init?: boolean) => {
     [appState, auth]
   );
 
-  const createRequestOpenModal = useCallback(() => {
+  const createRequestOpenModal = useCallback((groupId?: string) => {
     openModal({
       closable: true,
       component: (
@@ -62,7 +63,13 @@ const useRequest = (init?: boolean) => {
             selectBird: true,
             isUpdate: false,
           }}
-          handleCreateRequest={createRequest}
+          handleCreateRequest={(data)=>{
+            if(groupId){
+              data.groupId = groupId;
+            }
+            
+            createRequest(data);
+          }}
         />
       ),
       payload: null,
@@ -226,5 +233,6 @@ type CreateRequestFormValues = {
     latitude: number;
   };
   currentBirdId: string;
+  groupId: string;
 };
 export default useRequest;

@@ -40,17 +40,6 @@ const RankingPage = () => {
       <RankingMainContent>
           <RankingBoard>
             <HeaderRanking>
-              <div>
-              <input 
-                type={"text"}
-                placeholder="Find Bird"
-                value={textBird}
-                onChange={
-                  (e) => {setTextBird(e.target.value)}
-                }
-              />
-              </div>
-              <h1>SELECT</h1>
             </HeaderRanking>
 
             {tabs?.map((navTab) => (
@@ -67,7 +56,6 @@ const RankingPage = () => {
             
 
             <h1>RANKING BOARD</h1>
-            <h1>{tabs.find((tb)=>tb.value==tab)?.show || "unknow"}</h1>
 
             <RankingLeaderBoard tab={tab} ranks={rank} />
 

@@ -19,23 +19,7 @@ import {
 // type Props = {}
 
 const ClientHeader = () => {
-  const [birds, setBirds] = useState<any[]>([]);
-  // const [currentBirds, setCurrentBird] = useState<any>();
   const { setCurrentBird, currentBird ,SelectBird} = useApp({useSelection : true});
-  const [test, setTest] = useState(false);
-  useEffect(() => {
-    axiosClient
-      .get("/bird/owner")
-      .then((res) => {
-        return res.data.data;
-      })
-      .then((list) => {
-        if (!currentBird) {
-          setCurrentBird(list?.[0]);
-        }
-        setBirds(list);
-      });
-  }, []);
   return (
     <ClientHeaderWrapper>
       <AppHeader>

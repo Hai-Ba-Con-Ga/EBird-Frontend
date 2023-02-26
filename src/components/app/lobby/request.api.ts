@@ -61,4 +61,11 @@ export const RequestApi = {
     const response = await axiosClient.put(url);
     return response.data;
   },
+  groupRequest : async (groupId: string):Promise<Response<any>> => { 
+    const url = `/request/group/${groupId}`;
+    const response = await axiosClient.get(url);
+    return response.data;
+  }
+
+
 }; 
