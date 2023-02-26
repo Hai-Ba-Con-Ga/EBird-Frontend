@@ -1,5 +1,5 @@
 import { IconClock, IconLocation, IconMapPin } from "@tabler/icons-react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Bird } from "../../../utils/types";
@@ -21,36 +21,46 @@ const RequestCard = ({ request }: { request: any }) => {
   const {
     auth: { userInfomation },
   } = useAuth();
-  const [isOwner, setIsOwner] = useState(
-    () => userInfomation?.id == request?.hostBird?.ownerId
+  const isOwner = useMemo(
+    () => userInfomation?.id == request?.hostBird?.ownerId,
+    [userInfomation, request]
+  );
+  const isJoined = useMemo(
+    () => userInfomation?.id == request?.challenger?.id,
+    [request]
   );
   const [requestButtonContent, setButtonContent] = useState<ButtonContent>(
     () => "View"
   );
-
-  const { joinRequest } = useRequest();
   useEffect(() => {
-    setIsOwner(userInfomation?.id == request?.hostBird?.ownerId);
-    if (userInfomation?.id == request?.hostBird?.ownerId) {
+    if (isOwner) {
       setButtonContent("View");
     } else {
-      if (!request?.challengeBird) {
+      if (!request.challengerBird) {
         setButtonContent("Join");
       } else {
-        if (request?.challengeBird?.ownerId == userInfomation?.id) {
+        if (isJoined) {
           setButtonContent("View");
         } else {
           setButtonContent("Full");
         }
       }
     }
-  }, [request, userInfomation]);
+  }, [isJoined, isOwner]);
+  const { joinRequest } = useRequest();
+  useEffect(() => {
+    console.log("REQUEST CARD", request);
+  }, [request, userInfomation, isOwner]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
     if (isOwner) {
       nav("/app/lobby/table/" + request?.id);
     } else {
-      joinRequest(request?.id);
+      if (isJoined) {
+        nav("/app/lobby/table/" + request?.id);
+      } else {
+        joinRequest(request?.id);
+      }
     }
   }, [isOwner]);
   return (

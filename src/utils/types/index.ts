@@ -202,13 +202,15 @@ export enum RolePlayer{
 export enum RequestStatus {
   Waiting = 'Waiting',
   Matched = 'Matched',
+  Closed = 'Closed'
 }
 export enum MatchStatus {
   Pending,
-  During,
-  Completed,
-  Approved ,
-  Cancelled
+  During = 'During',
+  Completed = 'Completed',
+  Approved = 'Approved',
+  Cancelled = 'Cancelled',
+  Conflict = 'Conflict'
 }
 export enum MatchDetailStatus {
   NotReady,

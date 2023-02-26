@@ -23,7 +23,7 @@ const TableInformation = ({ request,reloadCallback }: Props) => {
     mapSize: "sm",
   });
   const {updateRequest} = useRequest(false);
-  const [edit, setEdit] = useState<boolean>(true);
+  const [edit, setEdit] = useState<boolean>(false);
   return (
     <TableOthers>
       {!edit ? (

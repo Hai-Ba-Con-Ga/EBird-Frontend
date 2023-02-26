@@ -14,6 +14,7 @@ import {
 import useApp from "../app/common/useApp";
 import useModal from "../common/modal/useModal";
 import RoomSelectForm from "../app/room/RoomSelectForm";
+import Sidebar from "../common/sidebar/Sidebar";
 type Props = {
   yo?: any;
 };
@@ -43,7 +44,7 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
           <SidebarToggleButton onClick={() => setToggle(!toggle)}>
             <IconChevronsRight color="yellow" />
           </SidebarToggleButton>
-          <SidebarBackdrop>Content</SidebarBackdrop>
+          <SidebarBackdrop><Sidebar/></SidebarBackdrop>
         </SidebarWrapper>
       </AppContentWrapper>
     </AppLayoutWrapper>
