@@ -29,6 +29,7 @@ import themeConfig from "./components/admin/configs/themeConfig";
 import themeOptions from "./components/admin/@core/theme/ThemeOptions";
 import { Settings } from "./components/admin/@core/context/settingsContext";
 import Dashboard from "./page/admin/Dashboard";
+import GroupDetail from "./page/app/GroupDetail";
 import RankingPage from "./page/app/RankingPage";
 const initialSettings: Settings = {
   themeColor: 'primary',
@@ -114,10 +115,13 @@ function App() {
             path="group"
             element={
               <AppLayout>
-                <GroupPage></GroupPage>
+                <Outlet />
               </AppLayout>
             }
-          ></Route>
+          >
+            <Route path="" element={<GroupPage />}></Route>
+            <Route path=":id" element={<GroupDetail />}></Route>
+          </Route>
           <Route
             path="ranking"
             element={
