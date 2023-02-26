@@ -22,36 +22,45 @@ const RequestCard = ({ request }: { request: any }) => {
     auth: { userInfomation },
   } = useAuth();
   const isOwner = useMemo(
-    () => userInfomation?.id == request?.hostBird?.ownerId
-  ,[userInfomation,request]);
+    () => userInfomation?.id == request?.hostBird?.ownerId,
+    [userInfomation, request]
+  );
+  const isJoined = useMemo(
+    () => userInfomation?.id == request?.challenger?.id,
+    [request]
+  );
   const [requestButtonContent, setButtonContent] = useState<ButtonContent>(
     () => "View"
   );
-
-  const { joinRequest } = useRequest();
   useEffect(() => {
-    console.log(request);
-    
     if (isOwner) {
       setButtonContent("View");
     } else {
-      if (!request?.challengeBird) {
+      if (!request.challengerBird) {
         setButtonContent("Join");
       } else {
-        if (request?.challengeBird?.ownerId == userInfomation?.id) {
+        if (isJoined) {
           setButtonContent("View");
         } else {
           setButtonContent("Full");
         }
       }
     }
-  }, [request, userInfomation,isOwner]);
+  }, [isJoined, isOwner]);
+  const { joinRequest } = useRequest();
+  useEffect(() => {
+    console.log("REQUEST CARD", request);
+  }, [request, userInfomation, isOwner]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
     if (isOwner) {
       nav("/app/lobby/table/" + request?.id);
     } else {
-      joinRequest(request?.id);
+      if (isJoined) {
+        nav("/app/lobby/table/" + request?.id);
+      } else {
+        joinRequest(request?.id);
+      }
     }
   }, [isOwner]);
   return (

@@ -4,4 +4,6 @@ export const SidebarWrapper = styled.div`
     padding: 1rem 2rem;
     color : var(--gold-primary);
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 `

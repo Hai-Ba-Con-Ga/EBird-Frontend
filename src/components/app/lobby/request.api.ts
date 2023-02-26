@@ -50,5 +50,15 @@ export const RequestApi = {
     const response = await axiosClient.get(url);
     //TODO : wait for endpoint
     return response.data;
-  }
-};
+  },
+  getMyRequest : async ()=>{
+    const url = `/request/user`;
+    const response = await axiosClient.get(url);
+    return response.data;
+  },
+  requestReady : async (requestId : string) => {
+    const url = `/request/ready/${requestId}`
+    const response = await axiosClient.put(url);
+    return response.data;
+  },
+}; 
