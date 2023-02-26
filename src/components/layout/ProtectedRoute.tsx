@@ -4,9 +4,10 @@ import { AuthState, User } from "../auth/AuthAtom";
 import { useNavigate } from "react-router-dom";
 type Props = {
   isAuthenticated: boolean;
+  children?: React.ReactNode;
 };
 
-const ProtectedRoute = ({ isAuthenticated }: Props) => {
+const ProtectedRoute = ({ isAuthenticated,children }: Props) => {
   // if (!isAuthenticated) {
   //   return <Navigate to={"/login"}></Navigate>;
   // }

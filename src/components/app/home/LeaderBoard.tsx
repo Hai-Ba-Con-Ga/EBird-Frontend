@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Chip from "@mui/material/Chip";
-import { Bird } from "./home.api";
 import { LeaderboardTable, SeeMoreRankLink } from "./homepage.style";
+import { Bird } from "../../../utils/types";
 export interface Props {
   ranks: Bird[];
 }
@@ -15,7 +15,11 @@ const LeaderBoard = ({ ranks }: Props) => {
       <thead>
         <tr>
           <th>Top</th>
-          <th>Bird name<Chip style={{fontSize:"2rem"}} size="medium" label={"ID"} /></th>
+          <th>
+            {" "}
+              Bird name
+              
+          </th>
           <th>Type</th>
           <th>Owner</th>
           <th>Elo</th>
@@ -25,7 +29,17 @@ const LeaderBoard = ({ ranks }: Props) => {
         {ranks?.map((bird, i) => (
           <tr key={bird?.id}>
             <td>{i + 1}</td>
-            <td>{bird?.name}<Chip style={{fontSize:"2rem"}} size="medium" label={"bird.number"} /></td>
+            <td>
+              <span>
+
+              {bird?.name}
+              <Chip
+                style={{ fontSize: "2rem" }}
+                size="medium"
+                label={bird?.number}
+                />
+                </span>
+            </td>
             <td>{"Chao mao"}</td>
             <td>{"bird?.ownerId"}</td>
             <td>{bird?.elo}</td>

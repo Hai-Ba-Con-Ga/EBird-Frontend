@@ -32,6 +32,7 @@ export interface Bird {//DONE
   ownerId: string,
   createdDatetime: Date,
   resourceList: Resource;
+  number ? : number;
 }
 export interface Ratio{//DONE
   win: number;

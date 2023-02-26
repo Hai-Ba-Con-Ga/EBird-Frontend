@@ -74,17 +74,17 @@ const RequestCard = ({ request }: { request: any }) => {
         <span>{request?.matchDatetime || "00:00"}</span>
       </RequestCardInfomationField>
       <RequestBirdContainer>
-        <RequestBird bird={request?.matchBirdList?.[0]?.bird} isOwner={true} />
-        <RequestBird bird={request?.matchBirdList?.[1]?.bird} isOwner={false} />
+        <RequestBird bird={request?.hostBird} isOwner={true} />
+        <RequestBird bird={request?.challengerBird} isOwner={false} />
       </RequestBirdContainer>
-      <JoinButton
+      {!request?.group && <JoinButton
         isOwner={isOwner}
         disabled={requestButtonContent == "Full"}
         onClick={onJoinClickHandler}
         type="button"
       >
         {requestButtonContent}
-      </JoinButton>
+      </JoinButton>}
     </RequestCardWrapper>
   );
 };
