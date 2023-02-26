@@ -13,6 +13,7 @@ import CreateRequestForm from "../../common/form/CreateRequestForm";
 import { useNavigate } from "react-router-dom";
 import { PlaceApi } from "../../common/map/place.api";
 import { MatchApi } from "./match.api";
+import useSidebar from "../../common/sidebar/useSidebar";
 
 const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
@@ -20,6 +21,7 @@ const useRequest = (init?: boolean) => {
   const {currentBird} = useApp({useSelection:false});
   const { openModal, closeModal } = useModal();
   const [requests, setRequests] = useState<any[]>([]);
+  const {getListRelatedRequests} = useSidebar({init : false})
   const nav = useNavigate();
   const createRequest = useCallback(
     async (data: CreateRequestFormValues) => {
@@ -39,7 +41,9 @@ const useRequest = (init?: boolean) => {
         toast.success(
           "Create match successfully! Refresh list manually please"
         );
+        
         // TODO : Refresh list manually || socket
+        getListRelatedRequests();
         closeModal();
       } else {
         toast.error("Create request failed! Check again later");

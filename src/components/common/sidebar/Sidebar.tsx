@@ -9,10 +9,12 @@ import { SidebarWrapper } from "./sidebar.style";
 import { IconChevronDown } from "@tabler/icons-react";
 import styled from "styled-components";
 import SidebarRequestCard from "../card/SidebarRequestCard";
+import useSidebar from "./useSidebar";
 const Sidebar = () => {
+  const {myRequests} = useSidebar({init : true});
   return (
     <SidebarWrapper>
-      <CustomAccordion style={{ backgroundColor: "transparent" }}>
+      <CustomAccordion defaultExpanded style={{ backgroundColor: "transparent" }}>
         <AccordionSummary
           expandIcon={<IconChevronDown color="var(--gold-primary)" />}
           aria-controls="panel1a-content"
@@ -27,7 +29,11 @@ const Sidebar = () => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <SidebarRequestCard request={{} as any} />
+          {
+            myRequests?.map((req:any)=>(
+              <SidebarRequestCard key={req?.id} request={req} />
+            ))
+          }
         </AccordionDetails>
       </CustomAccordion>
       <CustomAccordion style={{ backgroundColor: "transparent" }}>

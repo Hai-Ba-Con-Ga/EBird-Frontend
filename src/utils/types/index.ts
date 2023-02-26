@@ -202,6 +202,7 @@ export enum RolePlayer{
 export enum RequestStatus {
   Waiting = 'Waiting',
   Matched = 'Matched',
+  Closed = 'Closed'
 }
 export enum MatchStatus {
   Pending,
