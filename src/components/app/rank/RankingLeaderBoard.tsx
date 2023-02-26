@@ -19,7 +19,7 @@ const RankingLeaderBoard = ({ ranks,tab }: Props) => {
       <thead>
         <tr>
           <th>Top</th>
-          <th>Bird name</th>
+          <th>Bird name<Chip style={{fontSize:"2rem"}} size="medium" label={"ID"} /></th>
           <th>Type</th>
           <th>Owner</th>
           <th>Win</th>
