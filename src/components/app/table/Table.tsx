@@ -34,6 +34,9 @@ import TableChat from "./TableChat";
 import { Chip } from "@mui/material";
 import { RequestApi } from "../lobby/request.api";
 import { RequestStatus } from "../../../utils/types";
+import {useRecoilValue} from 'recoil'
+import useSocket from "../../common/socket/useChatSocket";
+import { HubConnection } from "@microsoft/signalr";
 export const MatchTable = () => {
   const { id } = useParams();
   const {
@@ -43,7 +46,19 @@ export const MatchTable = () => {
   const [requestDetail, setDetail] = useState<any>(null);
   const isOwner  = useMemo(()=> userInfomation?.id == requestDetail?.host?.id  ,[requestDetail]) 
   const { getRequestDetail } = useRequest();
-  
+  const socket = useSocket({
+    host: 'https://localhost:7137',
+    path: '/hub/chat',
+    params: {
+      userId: userInfomation?.id,
+      chatRoomId: id 
+    }
+  });
+  useEffect(()=>{
+    socket?.on('NewMessage', (...params)=>{
+      console.log('New message ', params);
+    });
+  },[socket])
   const nav = useNavigate();
   useEffect(() => {
     getRequestDetail(id ?? "").then((data) => setDetail(data));
@@ -97,7 +112,12 @@ export const MatchTable = () => {
           <TableBird bird={requestDetail?.challengerBird as any} />
         </TableOpponents>
         <TableInformation request={requestDetail} reloadCallback={()=> getRequestDetail(id ?? "").then((data) => setDetail(data))}/>
-        <TableChat a={{} as any}/>
+        <TableChat handleSendMessage={(msg)=>{
+          console.log(userInfomation?.id + " Send message : " + msg);
+          if(id){
+            socket?.send( "SendMessage", msg, id )
+          }
+        }}/>
       </TableMain>
       <ConfirmButton
         type="button"

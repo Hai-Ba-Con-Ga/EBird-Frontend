@@ -1,12 +1,13 @@
 import { IconSend } from '@tabler/icons-react'
-import React from 'react'
+import React, { useState } from 'react'
 import { ChatBox, ChatFrame, ChatItem, ChatMessage } from './table.style'
 
 type Props = {
-    a : any
+   handleSendMessage : (message: string)=>void
 }
 
-function TableChat({a}: Props) {
+function TableChat({handleSendMessage}: Props) {
+  const [message, setMessage] = useState<string>('');
   return (
     <ChatFrame>
           <ChatBox>
@@ -36,8 +37,8 @@ function TableChat({a}: Props) {
             </ChatItem>
           </ChatBox>
           <ChatMessage>
-            <input type="text" placeholder="Type something..." />
-            <IconSend />
+            <input type="text" placeholder="Type something..." value={message} onChange={(e)=>setMessage(e.target.value)} />
+            <IconSend onClick={()=>handleSendMessage(message)}/>
           </ChatMessage>
         </ChatFrame>
   )

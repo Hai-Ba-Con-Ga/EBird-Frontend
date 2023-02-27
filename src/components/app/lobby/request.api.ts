@@ -19,7 +19,7 @@ export const RequestApi = {
   getAllRequest: async (
     params: GetAllRequestParams
   ): Promise<Response<any>> => {
-    const url = "/request/all";
+    const url = "/request/room";
     const response = await axiosClient.get(url, {
       params,
     });
