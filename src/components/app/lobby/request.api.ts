@@ -78,5 +78,6 @@ export const RequestApi = {
       hostRequestId,
       challengerRequestId,
     });
+    return response.data;
   },
 };

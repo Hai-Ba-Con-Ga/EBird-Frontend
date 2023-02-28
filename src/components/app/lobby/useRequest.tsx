@@ -97,7 +97,6 @@ const useRequest = (init?: boolean) => {
   /** Join request */
   const joinRequest = useCallback(
     async (requestId: string) => {
-      const currentBird: Bird | undefined = appState?.currentBird;
       console.log(currentBird);
       if (currentBird) {
         const result = await RequestApi.joinRequest({
@@ -205,6 +204,11 @@ const useRequest = (init?: boolean) => {
               if (matchedMatches.length > 0) {
                 // TODO : // merge request with existing ; if merge request is ok then nav to table
                 const matchedId = matchedMatches[0];
+                const mergeData = await RequestApi.mergeRequest({
+                  hostRequestId: requestId,
+                  challengerRequestId: matchedId,
+                });
+                console.log(mergeData);
               } else {
                 toast.warning("Not found any matches for request");
               }

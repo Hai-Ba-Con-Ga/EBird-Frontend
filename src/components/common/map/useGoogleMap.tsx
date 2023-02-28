@@ -23,7 +23,7 @@ type Props = {
   mapSize: "sm" | "md" | "lg" | "default";
 };
 const mockLocation = {
-  name: "FPT University Phong",
+  name: "FPT University HCMC",
   address:
     "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000, Vietnam",
   latitude: 10.841254040490824,
