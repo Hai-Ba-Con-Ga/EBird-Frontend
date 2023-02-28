@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import "react-toastify/scss/main.scss";
 import { useRecoilState } from "recoil";
@@ -32,10 +32,10 @@ import Dashboard from "./page/admin/Dashboard";
 import GroupDetail from "./page/app/GroupDetail";
 import RankingPage from "./page/app/RankingPage";
 const initialSettings: Settings = {
-  themeColor: 'primary',
+  themeColor: "primary",
   mode: themeConfig.mode,
-  contentWidth: themeConfig.contentWidth
-}
+  contentWidth: themeConfig.contentWidth,
+};
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -144,22 +144,23 @@ function App() {
           <Route
             path="match"
             element={
-              
-              <AppLayout >
+              <AppLayout>
                 <MatchPage />
               </AppLayout>
-                
             }
           ></Route>
         </Route>
-        <Route path="/admin" element={
-          <ThemeComponent settings={initialSettings} >
-           <AdminLayout>
-            <Outlet/>
-          </AdminLayout>
-          </ThemeComponent >
-          }>
-          <Route path="" element={<Dashboard/>} />
+        <Route
+          path="/admin"
+          element={
+            <ThemeComponent settings={initialSettings}>
+              <AdminLayout>
+                <Outlet />
+              </AdminLayout>
+            </ThemeComponent>
+          }
+        >
+          <Route path="" element={<Dashboard />} />
         </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}

@@ -71,11 +71,11 @@ const RequestCard = ({ request }: { request: any }) => {
       </RequestCardInfomationField>
       <RequestCardInfomationField>
         <IconClock />
-        <span>{request?.matchDatetime || "00:00"}</span>
+        <span>{request?.requestDatetime || "00:00"}</span>
       </RequestCardInfomationField>
       <RequestBirdContainer>
-        <RequestBird bird={request?.matchBirdList?.[0]?.bird} isOwner={true} />
-        <RequestBird bird={request?.matchBirdList?.[1]?.bird} isOwner={false} />
+        <RequestBird bird={request?.hostBird} isOwner={true} />
+        <RequestBird bird={request?.challengerBird} isOwner={false} />
       </RequestBirdContainer>
       <JoinButton
         isOwner={isOwner}

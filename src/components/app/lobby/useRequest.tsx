@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Bird, RequestTime } from "../../../utils/types";
 import { CreateRequestParams } from "../../../utils/types/api/params";
 import authAtom from "../../auth/AuthAtom";
@@ -14,14 +14,16 @@ import { useNavigate } from "react-router-dom";
 import { PlaceApi } from "../../common/map/place.api";
 import { MatchApi } from "./match.api";
 import useSidebar from "../../common/sidebar/useSidebar";
+import loadingAtom from "../../LoadingAtom";
 
 const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
   const appState = useRecoilValue(AppAtom);
-  const {currentBird} = useApp({useSelection:false});
+  const { currentBird, currentRoom } = useApp({ useSelection: false });
   const { openModal, closeModal } = useModal();
   const [requests, setRequests] = useState<any[]>([]);
-  const {getListRelatedRequests} = useSidebar({init : false})
+  const { getListRelatedRequests } = useSidebar({ init: false });
+  const [loading, setLoading] = useRecoilState(loadingAtom);
   const nav = useNavigate();
   const createRequest = useCallback(
     async (data: CreateRequestFormValues) => {
@@ -41,7 +43,7 @@ const useRequest = (init?: boolean) => {
         toast.success(
           "Create match successfully! Refresh list manually please"
         );
-        
+
         // TODO : Refresh list manually || socket
         getListRelatedRequests();
         closeModal();
@@ -70,12 +72,18 @@ const useRequest = (init?: boolean) => {
   }, [appState, auth]);
   const getAllRequest = useCallback(() => {
     // TODO: wait for BFCS-153
+    setLoading({ ...loading, isShown: true });
+    RequestApi.getAllRequest({ roomId: currentRoom?.id as string })
+      .then((response) => setRequests(response.data))
+      .then(() => setLoading({ ...loading, isShown: false }));
+  }, [currentRoom, init]);
+  useEffect(() => {
     if (init) {
-      RequestApi.getAllRequest({ roomId: "" }).then((response) =>
-        setRequests(response.data)
+      RequestApi.getAllRequest({ roomId: currentRoom?.id as string }).then(
+        (response) => setRequests(response.data)
       );
     }
-  }, []);
+  }, [currentRoom, init]);
   /** Join request */
   const joinRequest = useCallback(
     async (requestId: string) => {
@@ -111,7 +119,11 @@ const useRequest = (init?: boolean) => {
 
   /** Update Request */
   const updateRequest = useCallback(
-    async (params: CreateRequestFormValues, request: any, reloadCallback : ()=>void) => {
+    async (
+      params: CreateRequestFormValues,
+      request: any,
+      reloadCallback: () => void
+    ) => {
       const requestParams: {
         placeId: string;
         hostBirdId: string;
@@ -120,29 +132,32 @@ const useRequest = (init?: boolean) => {
       } = {
         placeId: request.place.id,
         hostBirdId: params.currentBirdId,
-        requestDatetime: params?.date?.toString()??request?.requestDatetime,
+        requestDatetime: params?.date?.toString() ?? request?.requestDatetime,
         requestId: request.id,
       };
-      console.log("Not Same" ,isSamePlace({ place: params.location, place2: request.place }));
-      
+      console.log(
+        "Not Same",
+        isSamePlace({ place: params.location, place2: request.place })
+      );
+
       if (!isSamePlace({ place: params.location, place2: request.place })) {
         const respData = await PlaceApi.createPlace(params.location);
         requestParams.placeId = respData.data;
-        console.log("location",respData);
+        console.log("location", respData);
       }
       requestParams.requestDatetime = params.date.toLocaleString();
       const updateResult = await RequestApi.updateRequest(requestParams);
-      if(updateResult.success){
+      if (updateResult.success) {
         toast.success("Update information successfully");
-      }else{
+      } else {
         toast.error("Error updating information");
       }
-      reloadCallback()
+      reloadCallback();
     },
     []
   );
   /* Quick match */
-  const quickMatchRequestModal = useCallback(()=> {
+  const quickMatchRequestModal = useCallback(() => {
     openModal({
       closable: true,
       component: (
@@ -152,49 +167,52 @@ const useRequest = (init?: boolean) => {
             selectBird: true,
             isUpdate: false,
           }}
-          handleCreateRequest={async(data)=>{
+          handleCreateRequest={async (data) => {
             const { userInfomation } = auth;
-      const place = data.location;
-      const params: CreateRequestParams = {
-        requestDatetime: data.date,
-        hostId: userInfomation?.id,
-        hostBirdId: data.currentBirdId || (appState.currentBird?.id as string),
-        roomId: appState.currentRoom?.id as string,
-        place,
-      };
+            const place = data.location;
+            const params: CreateRequestParams = {
+              requestDatetime: data.date,
+              hostId: userInfomation?.id,
+              hostBirdId:
+                data.currentBirdId || (appState.currentBird?.id as string),
+              roomId: appState.currentRoom?.id as string,
+              place,
+            };
 
-      const result = await RequestApi.createRequest(params);
-      if(result.success) {
-        const requestId = result.data.id;
-        const matchedMatches = (await RequestApi.quickMatchRequest(requestId )).data;
-        if(matchedMatches.length > 0) {
-          // TODO : // merge request with existing ; if merge request is ok then nav to table
-          
-        }
-        else {
-          toast.warning("Not found any matches for request");
-        }
-
-      }else {
-        toast.error("Create request failed");
-      }
+            const result = await RequestApi.createRequest(params);
+            if (result.success) {
+              const requestId = result.data.id;
+              const matchedMatches = (
+                await RequestApi.quickMatchRequest(requestId)
+              ).data;
+              if (matchedMatches.length > 0) {
+                // TODO : // merge request with existing ; if merge request is ok then nav to table
+              } else {
+                toast.warning("Not found any matches for request");
+              }
+            } else {
+              toast.error("Create request failed");
+            }
           }}
         />
       ),
       payload: null,
     });
-  },[appState, auth])
+  }, [appState, auth]);
 
-  /** Confirm request -> create match  */ 
-  const confirmRequest = useCallback(async(requestId : string)=>{
-    const response = await MatchApi.createMatch({requestId});
-    if(response.success) {
-     console.log(response.data);
-     nav("/app/match");
-    } else {
-      toast.error(response.message);
-    }
-  },[auth])
+  /** Confirm request -> create match  */
+  const confirmRequest = useCallback(
+    async (requestId: string) => {
+      const response = await MatchApi.createMatch({ requestId });
+      if (response.success) {
+        console.log(response.data);
+        nav("/app/match");
+      } else {
+        toast.error(response.message);
+      }
+    },
+    [auth]
+  );
   return {
     createRequest,
     createRequestOpenModal,
@@ -208,9 +226,9 @@ const useRequest = (init?: boolean) => {
   };
 };
 function isSamePlace({ place, place2 }: any) {
-  console.log("Place 1",place);
-  console.log("Place 2",place2);
-  
+  console.log("Place 1", place);
+  console.log("Place 2", place2);
+
   return (
     place.latitude == place2.latitude && place.longitude == place2.longitude
   );

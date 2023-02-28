@@ -2,7 +2,7 @@ import { IconClock, IconLocation, IconMapPin } from "@tabler/icons-react";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Bird, MatchRequest } from "../../../utils/types";
+import { Bird } from "../../../utils/types";
 import useAuth from "../../auth/useAuth";
 import useApp from "../common/useApp";
 import {

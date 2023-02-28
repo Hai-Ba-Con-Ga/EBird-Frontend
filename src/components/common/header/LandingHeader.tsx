@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { OutlineWhiteButton } from "../button/Button.style";
 import {
   HeaderButtons,
@@ -10,6 +10,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const LandingHeader = () => {
   const nav = useNavigate();
+
   return (
     <LandingHeaderWrapper>
       <LandingHeaderNavBar>
