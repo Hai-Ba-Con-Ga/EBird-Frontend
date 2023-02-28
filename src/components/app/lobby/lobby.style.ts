@@ -165,4 +165,8 @@ export const JoinButton = styled(ButtonCommon)`
   padding: 1.5rem 0;
   border-radius: var(--roundedSmall);
   font-size: var(--text-2xl);
+  &:disabled {
+    /* opacity: 0.8; */
+    background-color: var(--gray);
+  }
 `;

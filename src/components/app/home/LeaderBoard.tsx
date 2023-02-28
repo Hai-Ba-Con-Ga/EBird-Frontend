@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Chip from "@mui/material/Chip";
-
 import { LeaderboardTable, SeeMoreRankLink } from "./homepage.style";
 import { Bird } from "../../../utils/types";
 export interface Props {

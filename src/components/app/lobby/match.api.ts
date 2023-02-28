@@ -41,7 +41,7 @@ export const MatchApi = {
     return response.data;
   },
   updateResult: async ({ matchId, birdId, result }: any) => {
-    const url = "/match-bird/result/" + matchId;
+    const url = "/match-detail/result/" + matchId;
     const res = await axiosClient.put(url, { result, birdId });
     return res.data;
   },

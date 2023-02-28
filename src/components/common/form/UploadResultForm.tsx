@@ -41,9 +41,9 @@ const UpdateResultForm = ({ matchID, birdId }: Props) => {
       </UpdateResultProof>
       <h1>RESULT</h1>
       <SelectUpload {...register("result")} placeholder="Result">
-        <option value="win">Win</option>
-        <option value="lose">Lose</option>
-        <option value="draw">Tie</option>
+        <option value="Win">Win</option>
+        <option value="Lose">Lose</option>
+        <option value="Draw">Tie</option>
       </SelectUpload>
 
       <ConfirmButton type="submit">UPDATE</ConfirmButton>

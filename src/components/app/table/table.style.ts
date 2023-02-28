@@ -3,27 +3,27 @@ import { ButtonCommon } from "../../common/button/Button.style";
 import { RequestCardInfomationField } from "../lobby/lobby.style";
 
 export const TableWrapper = styled.div`
-    padding : 4rem 2rem;
-    display: flex;
-    flex-direction: column;
-`   
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+`;
 export const TableHeadline = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    gap : 2rem;
-    width: 100%;
-    line-height: 1.5;
-`
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+  line-height: 1.5;
+`;
 export const TableTitle = styled.span`
-
-    font-size: var(--text-7xl);
-    color : var(--dark-green);
-    font-weight: 600;
-    text-transform: uppercase;
-`
+  font-size: var(--text-7xl);
+  color: var(--dark-green);
+  font-weight: 600;
+  text-transform: uppercase;
+`;
 export const BackButton = styled.button`
   padding: 0.25rem;
   aspect-ratio: 1;
+  width: 5rem;
   border: 2px solid var(--dark-green);
   border-radius: var(--roundedFull);
   svg {
@@ -33,7 +33,7 @@ export const BackButton = styled.button`
 export const TableMain = styled.div`
   padding: 2rem 4rem;
   display: flex;
-  gap : 4rem;
+  gap: 4rem;
   height: 100%;
   margin-bottom: 3rem;
 `;
@@ -42,7 +42,7 @@ export const TableOpponents = styled.div`
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  `;
+`;
 
 export const VsDividerTable = styled.span`
   color: vaR(--dangerous);
@@ -51,26 +51,25 @@ export const VsDividerTable = styled.span`
 `;
 export const TableOthers = styled.div`
   flex: 0 0 30rem;
-  display:flex;
+  display: flex;
   flex-direction: column;
   gap: 3rem;
   position: relative;
   cursor: pointer;
   svg#edit {
-    transition: all 0.25s linear ;
+    transition: all 0.25s linear;
     &:hover {
       transform: scale(1.12);
     }
     position: absolute;
-    right : 0.5rem;
-    top : 0.5rem;
+    right: 0.5rem;
+    top: 0.5rem;
   }
 `;
 export const TableInformations = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
 `;
 export const TableInformationItem = styled(RequestCardInfomationField)`
   svg {
@@ -161,23 +160,23 @@ export const MergeInformationSection = styled.div`
   svg {
     cursor: pointer;
   }
-`
+`;
 export const MergeInformation = styled.div`
   position: absolute;
   bottom: 0;
-  transform: translate(0,100%);
+  transform: translate(0, 100%);
   right: 100%;
-  background: rgba(0,0,0 , 0.75);
-  width : 20rem;
+  background: rgba(0, 0, 0, 0.75);
+  width: 20rem;
   height: fit-content;
   padding: 1rem 2rem;
-  color : var(--white);
-  border-radius : var(--roundedSmall) 0 var(--roundedSmall) var(--roundedSmall) ;
-`
+  color: var(--white);
+  border-radius: var(--roundedSmall) 0 var(--roundedSmall) var(--roundedSmall);
+`;
 export const MergeInformationItem = styled.div`
-    display: flex;
-    gap : 0.5rem;
-    font-size: var(--text-2xl);
-    font-weight: 600;
-    margin : .5rem 0;
-`
+  display: flex;
+  gap: 0.5rem;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  margin: 0.5rem 0;
+`;

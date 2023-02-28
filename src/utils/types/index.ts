@@ -36,6 +36,7 @@ export interface Bird {
   ownerId: string;
   createdDatetime: Date;
   resourceList: Resource;
+  owner: any;
 }
 
 export interface Ratio {

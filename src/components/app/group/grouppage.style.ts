@@ -78,7 +78,7 @@ export const ChatGroup = styled.div`
   width: 100%;
   height: 60%;
   color: white;
-  border: 1px solid white;
+  border: 1px solid none;
   text-align: center;
   
 `;
@@ -138,7 +138,7 @@ export const ChatFrame = styled.div`
   height: 100%;
   width: 100%;
   border-radius: var(--roundedMedium);
-  border: 2px solid gold;
+  border: 2px solid var(--gold-primary);
   display: flex;
   flex-direction: column;
 `;

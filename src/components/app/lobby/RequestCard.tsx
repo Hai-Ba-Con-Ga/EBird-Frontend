@@ -48,9 +48,7 @@ const RequestCard = ({ request }: { request: any }) => {
     }
   }, [isJoined, isOwner]);
   const { joinRequest } = useRequest();
-  useEffect(() => {
-    console.log("REQUEST CARD", request);
-  }, [request, userInfomation, isOwner]);
+  // useEffect(() => {}, [request, userInfomation, isOwner]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
     if (isOwner) {
@@ -74,26 +72,38 @@ const RequestCard = ({ request }: { request: any }) => {
         <span>{request?.requestDatetime || "00:00"}</span>
       </RequestCardInfomationField>
       <RequestBirdContainer>
-        <RequestBird bird={request?.hostBird} isOwner={true} />
-        <RequestBird bird={request?.challengerBird} isOwner={false} />
+        <RequestBird
+          bird={request?.hostBird}
+          ownerName={request?.host?.username}
+          isOwner={true}
+        />
+        <RequestBird
+          ownerName={request?.challenger?.username}
+          bird={request?.challengerBird}
+          isOwner={false}
+        />
       </RequestBirdContainer>
-      <JoinButton
-        isOwner={isOwner}
-        disabled={requestButtonContent == "Full"}
-        onClick={onJoinClickHandler}
-        type="button"
-      >
-        {requestButtonContent}
-      </JoinButton>
+      {!request?.group && (
+        <JoinButton
+          isOwner={isOwner}
+          disabled={requestButtonContent == "Full"}
+          onClick={onJoinClickHandler}
+          type="button"
+        >
+          {requestButtonContent}
+        </JoinButton>
+      )}
     </RequestCardWrapper>
   );
 };
 const RequestBird = ({
   bird,
   isOwner,
+  ownerName,
 }: {
   bird?: Bird | null;
   isOwner: boolean;
+  ownerName: string;
 }) => {
   return (
     <RequestBirdWrapper isOwner={isOwner}>
@@ -101,16 +111,17 @@ const RequestBird = ({
         {" "}
         <img
           src={
-            "https://us.123rf.com/450wm/pandavector/pandavector1901/pandavector190105281/126044187-isolated-object-of-avatar-and-dummy-symbol-collection-of-avatar-and-image-stock-symbol-for-web-.jpg?ver=6"
+            bird
+              ? "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg"
+              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU"
           }
           alt=""
-          srcSet="https://source.unsplash.com/random"
         />
       </BirdImage>
       <BirdInformations isOwner={isOwner}>
-        <h1>{bird?.name || "NaN"}</h1>
-        <h1>{bird?.elo || "NaN"}</h1>
-        <h1>{"Owner"}</h1>
+        <h1>{bird?.name || "Empty"}</h1>
+        <h1>{bird?.elo || "Empty"}</h1>
+        <h1>{ownerName || "Empty"}</h1>
       </BirdInformations>
     </RequestBirdWrapper>
   );

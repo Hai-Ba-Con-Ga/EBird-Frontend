@@ -49,7 +49,7 @@ const Lobby = () => {
       <ActionArea>
         <RequestActions>
           <ActionButton onClick={quickMatchRequestModal}>Quick Match</ActionButton>
-          <ActionButton onClick={createRequestOpenModal}>
+          <ActionButton onClick={()=>createRequestOpenModal()}>
             Create Request
           </ActionButton>
         </RequestActions>

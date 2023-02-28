@@ -34,6 +34,7 @@ const useRequest = (init?: boolean) => {
         hostId: userInfomation?.id,
         hostBirdId: data.currentBirdId || (appState.currentBird?.id as string),
         roomId: appState.currentRoom?.id as string,
+        groupId: data?.groupId,
         place,
       };
 
@@ -54,22 +55,31 @@ const useRequest = (init?: boolean) => {
     [appState, auth]
   );
 
-  const createRequestOpenModal = useCallback(() => {
-    openModal({
-      closable: true,
-      component: (
-        <CreateRequestForm
-          options={{
-            mapSize: "default",
-            selectBird: true,
-            isUpdate: false,
-          }}
-          handleCreateRequest={createRequest}
-        />
-      ),
-      payload: null,
-    });
-  }, [appState, auth]);
+  const createRequestOpenModal = useCallback(
+    (groupId?: string) => {
+      openModal({
+        closable: true,
+        component: (
+          <CreateRequestForm
+            options={{
+              mapSize: "default",
+              selectBird: true,
+              isUpdate: false,
+            }}
+            handleCreateRequest={(data) => {
+              if (groupId) {
+                data.groupId = groupId;
+              }
+
+              createRequest(data);
+            }}
+          />
+        ),
+        payload: null,
+      });
+    },
+    [appState, auth]
+  );
   const getAllRequest = useCallback(() => {
     // TODO: wait for BFCS-153
     setLoading({ ...loading, isShown: true });
@@ -108,7 +118,11 @@ const useRequest = (init?: boolean) => {
   );
   /** Get request detail/table */
   const getRequestDetail = useCallback(async (requestId: string) => {
-    const response = await RequestApi.getRequestDetail(requestId);
+    setLoading({ ...loading, isShown: true });
+
+    const response = await RequestApi.getRequestDetail(requestId).finally(() =>
+      setLoading({ ...loading, isShown: false })
+    );
     if (response.success) {
       return response.data;
     } else {
@@ -178,15 +192,19 @@ const useRequest = (init?: boolean) => {
               roomId: appState.currentRoom?.id as string,
               place,
             };
+            console.log("Quickmatch", data);
 
             const result = await RequestApi.createRequest(params);
+            console.log("Result request", result);
+
             if (result.success) {
-              const requestId = result.data.id;
+              const requestId = result.data;
               const matchedMatches = (
                 await RequestApi.quickMatchRequest(requestId)
               ).data;
               if (matchedMatches.length > 0) {
                 // TODO : // merge request with existing ; if merge request is ok then nav to table
+                const matchedId = matchedMatches[0];
               } else {
                 toast.warning("Not found any matches for request");
               }
@@ -244,5 +262,6 @@ type CreateRequestFormValues = {
     latitude: number;
   };
   currentBirdId: string;
+  groupId: string;
 };
 export default useRequest;
