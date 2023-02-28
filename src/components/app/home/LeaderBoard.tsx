@@ -38,7 +38,7 @@ const LeaderBoard = ({ ranks }: Props) => {
               />
             </td>
             <td>{"Chao mao"}</td>
-            <td>{"bird?.ownerId"}</td>
+            <td>{bird?.owner.username}</td>
             <td>{bird?.elo}</td>
           </tr>
         ))}

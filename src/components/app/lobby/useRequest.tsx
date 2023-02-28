@@ -19,7 +19,7 @@ import loadingAtom from "../../LoadingAtom";
 const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
   const appState = useRecoilValue(AppAtom);
-  const { currentBird, currentRoom } = useApp({ useSelection: false });
+  const { currentBird, currentRoom } = useApp({ useSelection: true });
   const { openModal, closeModal } = useModal();
   const [requests, setRequests] = useState<any[]>([]);
   const { getListRelatedRequests } = useSidebar({ init: false });
@@ -54,7 +54,9 @@ const useRequest = (init?: boolean) => {
     },
     [appState, auth]
   );
-
+  useEffect(() => {
+    console.log("App state changed IN REQUEST HOOK", appState);
+  }, [appState]);
   const createRequestOpenModal = useCallback(
     (groupId?: string) => {
       openModal({
@@ -70,6 +72,7 @@ const useRequest = (init?: boolean) => {
               if (groupId) {
                 data.groupId = groupId;
               }
+              console.log("TEST BUG KHUYA, handler", data);
 
               createRequest(data);
             }}
@@ -95,26 +98,23 @@ const useRequest = (init?: boolean) => {
     }
   }, [currentRoom, init]);
   /** Join request */
-  const joinRequest = useCallback(
-    async (requestId: string) => {
-      console.log(currentBird);
-      if (currentBird) {
-        const result = await RequestApi.joinRequest({
-          challengerBirdId: currentBird.id,
-          requestId,
-        });
-        if (result.success) {
-          nav("/app/lobby/table/" + requestId);
-          toast.success("Joined successfully");
-        } else {
-          toast.error(result.message);
-        }
+  const joinRequest = async (requestId: string, bird?: any) => {
+    console.log("JOIN RQUEST : ", bird);
+    if (currentBird) {
+      const result = await RequestApi.joinRequest({
+        challengerBirdId: currentBird.id,
+        requestId,
+      });
+      if (result.success) {
+        nav("/app/lobby/table/" + requestId);
+        toast.success("Joined successfully");
       } else {
-        toast.error("Please select a bird to join");
+        toast.error(result.message);
       }
-    },
-    [currentBird]
-  );
+    } else {
+      toast.error("Please select a bird to join");
+    }
+  };
   /** Get request detail/table */
   const getRequestDetail = useCallback(async (requestId: string) => {
     setLoading({ ...loading, isShown: true });
@@ -169,6 +169,19 @@ const useRequest = (init?: boolean) => {
     },
     []
   );
+  const selectMergeRequest = useCallback(
+    async (listRequestId: any[], targetId: string) => {
+      for await (const requestId of listRequestId) {
+        const res = await RequestApi.requestSelfCheck({
+          hostRequestID: targetId,
+          challengerRequestID: requestId,
+        });
+        if (res.data) return requestId;
+      }
+      return null;
+    },
+    []
+  );
   /* Quick match */
   const quickMatchRequestModal = useCallback(() => {
     openModal({
@@ -203,12 +216,25 @@ const useRequest = (init?: boolean) => {
               ).data;
               if (matchedMatches.length > 0) {
                 // TODO : // merge request with existing ; if merge request is ok then nav to table
-                const matchedId = matchedMatches[0];
-                const mergeData = await RequestApi.mergeRequest({
-                  hostRequestId: requestId,
-                  challengerRequestId: matchedId,
-                });
-                console.log(mergeData);
+
+                const matchedId = await selectMergeRequest(
+                  matchedMatches,
+                  requestId
+                );
+                console.log("MATCHED ID", matchedId);
+
+                if (matchedId) {
+                  const mergeData = await RequestApi.mergeRequest({
+                    hostRequestId: requestId,
+                    challengerRequestId: matchedId,
+                  });
+                  if (mergeData.success) {
+                    nav("/app/lobby/table/" + mergeData.data);
+                    closeModal();
+                  }
+                } else {
+                  toast.warning("Not found any matches for request");
+                }
               } else {
                 toast.warning("Not found any matches for request");
               }

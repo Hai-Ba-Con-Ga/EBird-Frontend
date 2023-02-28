@@ -53,6 +53,8 @@ const useGoogleMap = ({ onLocationChanged, mapSize }: Props) => {
     geocoder.geocode(
       { location: { lat, lng } },
       (results: any, status: any) => {
+        console.log("RESULT", results);
+
         if (status === "OK") {
           placesService.nearbySearch(
             {
@@ -61,13 +63,15 @@ const useGoogleMap = ({ onLocationChanged, mapSize }: Props) => {
               type: ["establishment"],
             },
             (place: any, status: any) => {
+              console.log("PLACE", place);
+
               if (status === "OK") {
                 const placeName = place[0].name;
                 setLocation({
                   latitude: lat,
                   longitude: lng,
-                  placeName,
-                  address: place[0].formatted_address,
+                  name: placeName,
+                  address: results[0].formatted_address,
                 });
               }
             }
@@ -76,6 +80,9 @@ const useGoogleMap = ({ onLocationChanged, mapSize }: Props) => {
       }
     );
   }, []);
+  useEffect(() => {
+    console.log("location", location);
+  }, [location]);
   return {
     GoogleMap: (
       <div style={mapSize == "default" ? mapAutoStyle : mapSmallStyle}>

@@ -25,6 +25,7 @@ const RequestCard = ({ request }: { request: any }) => {
     () => userInfomation?.id == request?.hostBird?.ownerId,
     [userInfomation, request]
   );
+  const { currentBird, currentRoom } = useApp({ useSelection: true });
   const isJoined = useMemo(
     () => userInfomation?.id == request?.challenger?.id,
     [request]
@@ -57,10 +58,10 @@ const RequestCard = ({ request }: { request: any }) => {
       if (isJoined) {
         nav("/app/lobby/table/" + request?.id);
       } else {
-        joinRequest(request?.id);
+        joinRequest(request?.id, currentBird);
       }
     }
-  }, [isOwner]);
+  }, [isOwner, currentBird]);
   return (
     <RequestCardWrapper>
       <RequestCardInfomationField>

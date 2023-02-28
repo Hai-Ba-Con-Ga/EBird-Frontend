@@ -7,17 +7,17 @@ const RuleSection = () => {
     {
       id: 1,
       content:
-        "As an official member of Globird, you must agree to all our rules and conditions regarding Fair Play and our Privacy Policy. Once you have accepted Globird policies, further account creation should be proceeded, choose an appropriate username and enjoy your journey.",
+        "Once the Birds information has been successfully initialized, its base Elo will be automatically put at 1000/ V.I.P accounts are granted access as a participant to all matches. They are not bound or required to follow Elo-related policies of the group/room they wish to join",
     },
     {
       id: 2,
       content:
-        "Your username will represent your online identity. You cannot use chosen usernames and it must not be vulgar, or bearing inappropriate intentions, as well as violating our Terms of Service. False information is not allowed in the signing in process.",
+        "Match's information between 2 players must be updated once finished. If no updates are made within 24 hours, the match will be canceled to strive for sportsmanship between players, please record the match properly for transparency purposes. If there are any mistakes, or misbehaviors in regard to providing results. The Admin will have basic foundations as well as evidence to decide the winner.",
     },
     {
       id: 3,
       content:
-        "Cheating is prohibited under all circumstances. If violations of the Fair Play Policies are discovered, we will confiscate your Elo points accordingly. Further violations will result in account suspension or be banned from participating future tournaments.",
+        "For those who provide false information about the match, each mistake will result in one warning. If the 3rd warning may occur, we will enforce a ban penalty.",
     },
   ]);
   return (

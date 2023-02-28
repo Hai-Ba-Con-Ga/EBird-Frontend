@@ -80,4 +80,12 @@ export const RequestApi = {
     });
     return response.data;
   },
+  requestSelfCheck: async (params: {
+    hostRequestID: string;
+    challengerRequestID: string;
+  }) => {
+    const url = "/request/check";
+    const res = await axiosClient.put(url, params);
+    return res.data;
+  },
 };

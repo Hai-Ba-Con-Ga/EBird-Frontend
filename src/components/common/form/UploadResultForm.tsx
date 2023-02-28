@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { MatchApi } from "../../app/lobby/match.api";
+import useModal from "../modal/useModal";
 import {
   UpdateResultFormWrapper,
   UpdateResultTitle,
@@ -18,7 +20,7 @@ type Props = {
 const UpdateResultForm = ({ matchID, birdId }: Props) => {
   const { handleSubmit, register } = useForm();
   console.log(matchID, "\n", "BIRD ID = ", birdId);
-
+  const { closeModal } = useModal();
   return (
     <UpdateResultFormWrapper
       onSubmit={handleSubmit(async (data) => {
@@ -31,6 +33,11 @@ const UpdateResultForm = ({ matchID, birdId }: Props) => {
 
         const res = await MatchApi.updateResult(params);
         console.log(res);
+        if (res.success) {
+          closeModal();
+        } else {
+          toast.warning("Cannot update result");
+        }
       })}
     >
       <UpdateResultTitle>UPDATE RESULT</UpdateResultTitle>

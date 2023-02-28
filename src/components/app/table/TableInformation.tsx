@@ -24,6 +24,9 @@ const TableInformation = ({ request, reloadCallback }: Props) => {
   });
   const { updateRequest } = useRequest(false);
   const [edit, setEdit] = useState<boolean>(false);
+  useEffect(() => {
+    setLocation(request?.place);
+  }, [request]);
   return (
     <TableOthers>
       {!edit ? (

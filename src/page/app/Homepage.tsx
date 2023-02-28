@@ -37,13 +37,22 @@ const Homepage = () => {
           onSwiper={(swiper) => console.log(swiper)}
         >
           <CustomeSlide>
-            <img src="https://firebasestorage.googleapis.com/v0/b/globird-5efaf.appspot.com/o/Cute-Red-Bird-Drawing.webp" alt="" />
+            <img
+              src="https://thevirtualinstructor.com/images/watercolorpaintingofabird.jpg"
+              alt=""
+            />
           </CustomeSlide>
           <CustomeSlide>
-            <img src="https://source.unsplash.com/random" alt="" />
+            <img
+              src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/the-bluejay-leanne-sowa.jpg"
+              alt=""
+            />
           </CustomeSlide>
           <CustomeSlide>
-            <img src="https://source.unsplash.com/random" alt="" />
+            <img
+              src="https://images.template.net/wp-content/uploads/2017/01/06122618/Bird-Layer-Painting.jpg"
+              alt=""
+            />
           </CustomeSlide>
           <CustomeSlide>
             <img src="https://source.unsplash.com/random" alt="" />

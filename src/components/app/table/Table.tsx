@@ -5,7 +5,7 @@ import {
   IconRefresh,
   IconSend,
 } from "@tabler/icons-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../../auth/useAuth";
@@ -38,6 +38,7 @@ import { RequestStatus } from "../../../utils/types";
 import { useRecoilValue } from "recoil";
 import useSocket from "../../common/socket/useChatSocket";
 import { HubConnection } from "@microsoft/signalr";
+import axiosClient from "../../../api/axiosClient";
 export const MatchTable = () => {
   const { id } = useParams();
   const {
@@ -50,25 +51,69 @@ export const MatchTable = () => {
     [requestDetail]
   );
   const { getRequestDetail } = useRequest();
+
+  const nav = useNavigate();
+  useEffect(() => {
+    getRequestDetail(id ?? "").then((data) => setDetail(data));
+  }, [id]);
+  //=================================================== CHAT
+  const [chatRoomId, setChatRoom] = useState<string>("");
+  const [messages, setMessages] = useState<any[]>([]);
+  // PROTOTYPE typeChatRoom  : Request, Room , Group
+  const createChatRoom = useCallback(async () => {
+    if (id) {
+      const url = "/chat-room";
+      const res = await axiosClient.post(url, {
+        name: "chat-room",
+        referenceId: id,
+        typeChatRoom: "Request",
+      });
+      return res.data.data;
+    }
+  }, [id]);
+  useEffect(() => {
+    createChatRoom().then((chatRoomId) => {
+      if (chatRoomId) {
+        console.log("CHAT ROOM CREATED : ", chatRoomId);
+      }
+    });
+  }, [id]);
   const socket = useSocket({
     host: "https://localhost:7137",
     path: "/hub/chat",
     params: {
       userId: userInfomation?.id,
-      chatRoomId: id,
+      referenceId: id,
     },
   });
   useEffect(() => {
+    socket?.start();
+    socket?.on("UserActive", (...params) => {
+      // console.log("New commer ", params);
+    });
     socket?.on("NewMessage", (...params) => {
-      console.log("New message ", params);
+      // console.log("New message ", params);
+      const message = {
+        user: `${params[0]?.firstName} ${params[0]?.lastName}`,
+        message: params[1].content,
+      };
+      pushMessage(message);
     });
   }, [socket]);
-  const nav = useNavigate();
+  const pushMessage = useCallback(
+    (msg: any) => {
+      setMessages((old) => [...old, msg]);
+    },
+    [messages]
+  );
   useEffect(() => {
-    getRequestDetail(id ?? "").then((data) => setDetail(data));
-  }, [id]);
+    console.log("MESSAGES = ", messages);
+  }, [messages]);
   // *** hanler *//
-
+  const count = useRef(1);
+  useEffect(() => {
+    console.log("RERENDER", ++count.current);
+  }, []);
   useEffect(() => {
     console.log(requestDetail);
 
@@ -98,6 +143,7 @@ export const MatchTable = () => {
     } else {
       const result = await RequestApi.requestReady(id as string);
       if (result) {
+        getRequestDetail(id ?? "").then((data) => setDetail(data));
         toast.success("Ready for the match. Wait for host confirm");
       } else {
         console.error("Error :))) ");
@@ -139,11 +185,11 @@ export const MatchTable = () => {
           }
         />
         <TableChat
+          messages={messages}
           handleSendMessage={(msg) => {
             console.log(userInfomation?.id + " Send message : " + msg);
-            if (id) {
-              socket?.send("SendMessage", msg, id);
-            }
+
+            socket?.send("SendMessage", msg);
           }}
         />
       </TableMain>

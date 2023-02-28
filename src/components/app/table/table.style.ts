@@ -83,6 +83,7 @@ export const ChatFrame = styled.div`
   min-width: 45rem;
   max-width: 45rem;
   height: 100%;
+  min-height: 50vh;
   border-radius: var(--roundedMedium);
   border: 2px solid var(--dark-blue);
   display: flex;
@@ -99,7 +100,7 @@ export const ChatBox = styled.div`
   overflow-y: auto;
   max-height: 40rem;
 `;
-export const ChatMessage = styled.form`
+export const ChatMessage = styled.div`
   padding: 0.5rem 2rem;
   border-top: 2px solid var(--dark-blue);
   display: flex;

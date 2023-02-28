@@ -20,7 +20,7 @@ import useGoogleMap from "../map/useGoogleMap";
 const CreateRequestForm = ({
   handleCreateRequest,
   showTitle,
-  options: { mapSize, selectBird, isUpdate,updateCancelHandle },
+  options: { mapSize, selectBird, isUpdate, updateCancelHandle },
 }: {
   handleCreateRequest: (data: any) => void;
   showTitle?: boolean;
@@ -28,11 +28,11 @@ const CreateRequestForm = ({
     mapSize: "sm" | "md" | "lg" | "default";
     selectBird: boolean;
     isUpdate?: boolean;
-    updateCancelHandle? : ()=>void;
+    updateCancelHandle?: () => void;
   };
-  initData? : {
-    location : any;
-  }
+  initData?: {
+    location: any;
+  };
 }) => {
   const { setLocation, GoogleMap, location } = useGoogleMap({
     onLocationChanged: (location) => {
@@ -71,7 +71,7 @@ const CreateRequestForm = ({
             ref={inputRef}
             type="text"
             // {...register("location")}
-            value={location?.placeName}
+            value={location?.name}
             onChange={(e) =>
               setLocation({ ...location, placeName: e.target.value })
             }
@@ -122,9 +122,14 @@ const CreateRequestForm = ({
         {selectBird && SelectBird}
       </FieldMaxLimit>
       <Buttons>
-
-      <CreateButton type="submit">{isUpdate? "Update" : "Create"}</CreateButton>
-      {isUpdate && <CreateButton type="button" onClick={()=>updateCancelHandle?.()}>Cancel</CreateButton>}
+        <CreateButton type="submit">
+          {isUpdate ? "Update" : "Create"}
+        </CreateButton>
+        {isUpdate && (
+          <CreateButton type="button" onClick={() => updateCancelHandle?.()}>
+            Cancel
+          </CreateButton>
+        )}
       </Buttons>
     </CreateRequestFormWrapper>
   );
@@ -133,9 +138,9 @@ const FieldMaxLimit = styled.div`
   width: 40rem;
 `;
 const Buttons = styled.div`
-  display : flex;
-  gap:1rem;
+  display: flex;
+  gap: 1rem;
   justify-content: center;
-`
+`;
 
 export default CreateRequestForm;

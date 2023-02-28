@@ -19,10 +19,14 @@ const useApp = ({ useSelection = false }: useAppProps) => {
   } = useAuth();
   const setCurrentBird = useCallback(
     (bird: Bird) => {
-      setAppState({ ...appState, currentBird: bird });
+      console.log("Selected", bird);
+      setAppState((old) => ({ ...old, currentBird: bird }));
     },
     [appState]
   );
+  useEffect(() => {
+    console.log("App state changed", appState);
+  }, [appState]);
   // CURRENT BIRD SELECT
   const [birdsOwned, setBirds] = useState<Bird[]>();
   useEffect(() => {
