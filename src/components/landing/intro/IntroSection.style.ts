@@ -8,7 +8,7 @@ export const IntroSectionWrapper = styled.section`
   background: url("https://cdn.wallpapersafari.com/32/86/XxJPfL.jpg");
   background-color: transparent;
   background-position: center;
-  background-size: cover;;
+  background-size: cover;
   display: flex;
   position: relative;
   padding: 1rem 3rem;
@@ -25,8 +25,17 @@ export const IntroBlock = styled.div`
     color: var(--white);
     text-transform: uppercase;
     font-size: var(--text-15xl);
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    color: #f5f5f5;
+    text-transform: uppercase;
+    /* text-align: center; */
   }
   h4 {
+    color: var(--white);
+    font-size: var(--text-5xl);
+  }
+  h2 {
     color: var(--white);
     font-size: var(--text-5xl);
   }

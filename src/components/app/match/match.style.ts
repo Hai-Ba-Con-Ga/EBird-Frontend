@@ -14,17 +14,19 @@ export const MatchPageWrapper = styled.div`
   gap: 2rem;
 `;
 export const AllMatchWrapper = styled.div`
-  flex: 0 0 70%;
+  flex: 0 0 65%;
   border: 2px solid var(--purple-primary);
   border-radius: var(--roundedSmall);
   overflow-y: auto;
   overflow-x: hidden;
 `;
 export const MyMatchWrapper = styled.div`
-  flex: 0 0 29%;
+  flex: 0 0 34%;
   border: 2px solid var(--purple-primary);
   border-radius: var(--roundedSmall);
   margin-right: 2rem;
+  padding: 0 2rem;
+  position: relative;
 `;
 
 export const AllMatchTabSide = styled.div`
@@ -112,7 +114,8 @@ export const BirdMatchInformation = styled(BirdInformations)`
   color: var(--dark-green);
 `;
 export const BirdMatchImage = styled(BirdImage)`
-  width: 10rem;
+  /* width: 10rem; */
+  aspect-ratio: 1;
 `;
 
 export const BirdResultWrapper = styled.div``;

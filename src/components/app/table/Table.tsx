@@ -1,207 +1,207 @@
-import { IconChevronLeft, IconChevronUpLeft, IconClock, IconMapPin, IconSend } from '@tabler/icons-react';
-import React from 'react'
-import styled from 'styled-components';
-import { ButtonCommon } from '../../common/button/Button.style';
-import { RequestCardInfomationField } from '../lobby/lobby.style';
-import { TableHeadline, TableTitle, TableWrapper } from './table.style';
-import TableBird from './TableBird';
+import {
+  IconChevronLeft,
+  IconClock,
+  IconMapPin,
+  IconRefresh,
+  IconSend,
+} from "@tabler/icons-react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import useAuth from "../../auth/useAuth";
+import useGoogleMap from "../../common/map/useGoogleMap";
+import { MatchApi } from "../lobby/match.api";
+import useRequest from "../lobby/useRequest";
+import TableInformation from "./TableInformation";
+import {
+  BackButton,
+  ChatBox,
+  ChatFrame,
+  ChatItem,
+  ChatMessage,
+  ConfirmButton,
+  TableHeadline,
+  TableInformationItem,
+  TableInformations,
+  TableMain,
+  TableOpponents,
+  TableOthers,
+  TableTitle,
+  TableWrapper,
+  VsDividerTable,
+} from "./table.style";
+import TableBird from "./TableBird";
+import TableChat from "./TableChat";
+import { Chip } from "@mui/material";
+import { RequestApi } from "../lobby/request.api";
+import { RequestStatus } from "../../../utils/types";
+import { useRecoilValue } from "recoil";
+import useSocket from "../../common/socket/useChatSocket";
+import { HubConnection } from "@microsoft/signalr";
+import axiosClient from "../../../api/axiosClient";
+export const MatchTable = () => {
+  const { id } = useParams();
+  const {
+    auth: { userInfomation },
+  } = useAuth();
+  const [isMerged, setIsMerged] = useState<boolean>(false);
+  const [requestDetail, setDetail] = useState<any>(null);
+  const isOwner = useMemo(
+    () => userInfomation?.id == requestDetail?.host?.id,
+    [requestDetail]
+  );
+  const { getRequestDetail } = useRequest();
 
-export const BackButton = styled.button`
-  padding: .25rem;
-  aspect-ratio: 1;
-  border: 2px solid var(--dark-green);
-  border-radius: var(--roundedFull);
-  svg {
-    transform: translateX(-1px);
-  }
-`
-export const TableMain = styled.div`
-  padding : 2rem 4rem;
-  display: flex;
-  height: 100%;
-  margin-bottom: 3rem;
-`
-export const TableOpponents = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap : 2rem;
-  align-items: center;
-  flex: 1 1 auto;
-`
-
-export const VsDividerTable = styled.span`
-  color : vaR(--dangerous);
-  font-size: var(--text-3xl);
-  font-weight: 600;
-`
-export const TableOthers = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const TableInformations = styled.div`
-display: flex;;
-flex-direction: column;
-gap: .5rem;
-`
-export const TableInformationItem = styled(RequestCardInfomationField)`
-svg {
-  scale : 1.4;
-}
-  color : var(--dark-blue);
-  font-size: var(--text-5xl);
-`
-export const ChatFrame = styled.div`
-  margin-top : 3rem;
-  min-width : 45rem;
-  max-width : 45rem;
-  height: 100%;
-  border-radius : var(--roundedMedium);
-  border: 2px solid var(--dark-blue);
-  display: flex;
-  flex-direction: column;
-`
-export const ChatBox = styled.div`
-  flex : 1 1 auto;
-  padding : 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content:flex-start;
-  gap : 1.25rem;
-  /* flex-wrap: wrap; */
-  overflow-y: auto;
-  max-height : 40rem;
-`
-export const ChatMessage = styled.form`
-  padding: 0.5rem 2rem;
-  border-top : 2px solid var(--dark-blue);
-  display : flex;
-  gap: 1rem;
-  align-items : center;
-  input {
-    font-size: var(--text-2xl);
-    flex: 1 1 auto;
-    padding : 0.5rem 0;
-    color : var(--dark-blue);
-    &::placeholder {
-      color : var(--dark-blue);
+  const nav = useNavigate();
+  useEffect(() => {
+    getRequestDetail(id ?? "").then((data) => setDetail(data));
+  }, [id]);
+  //=================================================== CHAT
+  const [chatRoomId, setChatRoom] = useState<string>("");
+  const [messages, setMessages] = useState<any[]>([]);
+  // PROTOTYPE typeChatRoom  : Request, Room , Group
+  const createChatRoom = useCallback(async () => {
+    if (id) {
+      const url = "/chat-room";
+      const res = await axiosClient.post(url, {
+        name: "chat-room",
+        referenceId: id,
+        typeChatRoom: "Request",
+      });
+      return res.data.data;
     }
-  }
-  svg {
-    flex:0 0  2rem;
-    aspect-ratio: 1;
-    color : var(--dark-blue);
-    cursor: pointer;
-  }
-  
-`
-export const ChatItem = styled.span`
-  display: flex;
-  align-items: center;
+  }, [id]);
+  useEffect(() => {
+    createChatRoom().then((chatRoomId) => {
+      if (chatRoomId) {
+        console.log("CHAT ROOM CREATED : ", chatRoomId);
+      }
+    });
+  }, [id]);
+  const socket = useSocket({
+    host: "https://localhost:7137",
+    path: "/hub/chat",
+    params: {
+      userId: userInfomation?.id,
+      referenceId: id,
+    },
+  });
+  useEffect(() => {
+    socket?.start();
+    socket?.on("UserActive", (...params) => {
+      // console.log("New commer ", params);
+    });
+    socket?.on("NewMessage", (...params) => {
+      // console.log("New message ", params);
+      const message = {
+        user: `${params[0]?.firstName} ${params[0]?.lastName}`,
+        message: params[1].content,
+      };
+      pushMessage(message);
+    });
+  }, [socket]);
+  const pushMessage = useCallback(
+    (msg: any) => {
+      setMessages((old) => [...old, msg]);
+    },
+    [messages]
+  );
+  useEffect(() => {
+    console.log("MESSAGES = ", messages);
+  }, [messages]);
+  // *** hanler *//
+  const count = useRef(1);
+  useEffect(() => {
+    console.log("RERENDER", ++count.current);
+  }, []);
+  useEffect(() => {
+    console.log(requestDetail);
 
-  gap : 0.5rem;
-  span:first-child {
-    padding : 0.25rem;
-    background-color : var(--dangerous);
-    color: var(--white);
-    font-weight: 600;
-    font-size: var(--text-large);
-  }
-  span:nth-child(2) {
-    font-size: var(--text-large);
-    font-weight: 600;
-    color : var(--dark-blue);
-  }
-`
-export const ConfirmButton = styled(ButtonCommon)`
-  background-color : var(--dark-blue);
-  color : var(--white);
-  font-size: var(--text-3xl);
-  width : fit-content;
-  margin:  0 auto;
-  padding : 1.25rem 4rem;
-  border-radius: var(--roundedSmall);
-`;
-export 
-const MatchTable = () => {
+    if (requestDetail?.status == RequestStatus.Closed) {
+      toast.warning("This request has been closed! Check your at your matches");
+      nav("/app/match");
+    }
+  }, [requestDetail]);
+  const handleConfirmClick = useCallback(async () => {
+    if (isOwner) {
+      if (!requestDetail?.isReady) {
+        toast.error("Your opponent is not ready");
+        return;
+      }
+      const res = await MatchApi.createMatch({
+        requestId: requestDetail?.id,
+        userId: userInfomation?.id,
+      });
+      if (res.success) {
+        toast.success(
+          "Match is confirmed! Have fun. Remember to update result..."
+        );
+        nav("/app/match");
+      } else {
+        toast.error("Your opponent is not ready yet!");
+      }
+    } else {
+      const result = await RequestApi.requestReady(id as string);
+      if (result) {
+        getRequestDetail(id ?? "").then((data) => setDetail(data));
+        toast.success("Ready for the match. Wait for host confirm");
+      } else {
+        console.error("Error :))) ");
+      }
+    }
+  }, [isOwner, requestDetail]);
   return (
     <TableWrapper>
       <TableHeadline>
-        <BackButton>
+        <BackButton onClick={() => nav("/app/lobby")}>
           <IconChevronLeft color="var(--dark-green)" />
         </BackButton>
-        <TableTitle>Table</TableTitle>
+        <TableTitle>Request</TableTitle>
+        <Chip
+          component={"span"}
+          label={"#" + requestDetail?.number}
+          color={"success"}
+          style={{ fontWeight: 600, fontSize: "var(--text-xl)" }}
+        />
+        <button
+          type="button"
+          onClick={() =>
+            getRequestDetail(id ?? "").then((data) => setDetail(data))
+          }
+        >
+          <IconRefresh color="var(--dark-blue)" />
+        </button>
       </TableHeadline>
       <TableMain>
         <TableOpponents>
-          <TableBird bird={{} as any} />
+          <TableBird bird={requestDetail?.hostBird as any} />
           <VsDividerTable>Vs</VsDividerTable>
-          <TableBird bird={{} as any} />
+          <TableBird bird={requestDetail?.challengerBird as any} />
         </TableOpponents>
-        <TableOthers>
-          <TableInformations>
-            <TableInformationItem>
-              <IconMapPin />
-              <span>Some where on Earth</span>
-            </TableInformationItem>
-            <TableInformationItem>
-              <IconClock/>
-              <span>14:00</span>
-            </TableInformationItem>
-          </TableInformations>
-          <ChatFrame>
-            <ChatBox>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>Hello Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores illum accusamus iste expedita maxime at nesciunt atque non vitae ad!</span>
-              </ChatItem>
-            </ChatBox>
-            <ChatMessage>
-              <input type="text" placeholder='Type something...' />
-              <IconSend/>
-            </ChatMessage>
-          </ChatFrame>
-          
-        </TableOthers>
+        <TableInformation
+          request={requestDetail}
+          reloadCallback={() =>
+            getRequestDetail(id ?? "").then((data) => setDetail(data))
+          }
+        />
+        <TableChat
+          messages={messages}
+          handleSendMessage={(msg) => {
+            console.log(userInfomation?.id + " Send message : " + msg);
+
+            socket?.send("SendMessage", msg);
+          }}
+        />
       </TableMain>
-        <ConfirmButton>Confirm</ConfirmButton>      
+      <ConfirmButton
+        type="button"
+        disabled={!isOwner && requestDetail?.isReady}
+        onClick={handleConfirmClick}
+      >
+        {isOwner ? "Confirm" : requestDetail?.isReady ? "Waiting" : "Ready"}
+      </ConfirmButton>
     </TableWrapper>
   );
-}
+};
 
 export default MatchTable;

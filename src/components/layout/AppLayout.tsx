@@ -14,17 +14,22 @@ import {
 import useApp from "../app/common/useApp";
 import useModal from "../common/modal/useModal";
 import RoomSelectForm from "../app/room/RoomSelectForm";
+import Sidebar from "../common/sidebar/Sidebar";
 type Props = {
   yo?: any;
 };
 
 const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
   const [toggle, setToggle] = useState(true);
-  const { currentBird, currentRoom } = useApp();
+  const { currentBird, currentRoom } = useApp({useSelection:false});
   const { openModal } = useModal();
   useEffect(() => {
     if (!currentRoom) {
-      openModal({ payload: null, component: <RoomSelectForm/> ,closable :false });
+      openModal({
+        payload: null,
+        component: <RoomSelectForm />,
+        closable: false,
+      });
       console.log("no room", currentRoom);
     } else {
       console.log("room");
@@ -39,9 +44,7 @@ const AppLayout: FC<PropsWithChildren<Props>> = ({ children }) => {
           <SidebarToggleButton onClick={() => setToggle(!toggle)}>
             <IconChevronsRight color="yellow" />
           </SidebarToggleButton>
-          <SidebarBackdrop>
-          Content
-          </SidebarBackdrop>
+          <SidebarBackdrop><Sidebar/></SidebarBackdrop>
         </SidebarWrapper>
       </AppContentWrapper>
     </AppLayoutWrapper>

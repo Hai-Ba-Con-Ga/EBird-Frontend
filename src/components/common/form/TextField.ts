@@ -96,24 +96,24 @@ export const MultipleTextField = styled.div`
 export const TextFieldBlock = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 2rem 0;
+  margin-bottom: 2rem ;
+  margin-top:1rem;
   position: relative;
   label {
     margin-bottom: 0.5rem;
-    font-size: var(--text-xl);
+    font-size: var(--text-4xl);
     font-weight: 600;
   }
   input {
-    font-size: var(--text-xl);
-    padding: 1rem;
+    font-size: var(--text-3xl);
+    padding: 1.25rem;
     border: 2px solid var(--dark-green);
     border-radius: var(--roundedSmall);
-    
     svg {
       position: absolute;
-      top : 50%;
-      right : 2rem;
+      top: 50%;
+      right: 2rem;
       transform: translateY(-50%);
     }
   }
-    `;
+`;

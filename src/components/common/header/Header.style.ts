@@ -71,6 +71,7 @@ export const BirdSelectArea = styled.div`
   flex : 0 0  fit-content;
   display: grid;
   place-items: center;
+  margin-top: -1.5rem;
 `
 export const MainNavigationBar = styled.div`
   flex:  1;

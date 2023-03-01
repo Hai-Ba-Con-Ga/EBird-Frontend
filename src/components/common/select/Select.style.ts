@@ -8,7 +8,7 @@ export interface SelectProps {
 export const SelectWrapper = styled.div`
     padding: 0.5rem;
     width: ${({width}:SelectProps)=> width? width :'fit-content'};
-    height: 4.5rem;
+    height: 100%;
     border: 2px solid black;
     border-radius: var(--roundedSmall);
     cursor: pointer;
@@ -68,7 +68,7 @@ export const OptionsList = styled.div`
 
     border: 2px solid var(--black);
     border-top: none !important;
-    z-index: -1;
+    z-index: 3;
     background-color: var(--color-coffee);
     border-radius: 0 0 var(--roundedSmall) var(--roundedSmall);
     min-height: 3rem;

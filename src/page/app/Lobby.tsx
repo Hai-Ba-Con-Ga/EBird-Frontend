@@ -1,63 +1,70 @@
-import { IconRefresh } from '@tabler/icons-react'
-import React, { useCallback, useEffect, useState } from 'react'
-import { ActionArea, ActionButton, BackdropVideo, LobbyBackground, LobbyWrapper, PageMain, PageTitle, RequestActions, RequestGrid } from '../../components/app/lobby/lobby.style'
-import RequestCard from '../../components/app/lobby/RequestCard'
-import CreateRequestForm from '../../components/common/form/CreateRequestForm'
-import useModal from '../../components/common/modal/useModal'
-import Select from '../../components/common/select/Select'
-import { DecorCircle } from '../../components/layout/layout.style'
+import { IconRefresh } from "@tabler/icons-react";
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import axiosClient from "../../api/axiosClient";
+import useApp from "../../components/app/common/useApp";
+import {
+  ActionArea,
+  ActionButton,
+  BackdropVideo,
+  LobbyBackground,
+  LobbyWrapper,
+  PageMain,
+  PageTitle,
+  RequestActions,
+  RequestGrid,
+} from "../../components/app/lobby/lobby.style";
+import { MatchApi } from "../../components/app/lobby/match.api";
+import RequestCard from "../../components/app/lobby/RequestCard";
+import useRequest from "../../components/app/lobby/useRequest";
+import useAuth from "../../components/auth/useAuth";
+import useModal from "../../components/common/modal/useModal";
 
 const Lobby = () => {
-  const requestFilter = [
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO DESC' , value:  'elo_desc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-    {name : 'ELO ASC' , value:  'elo_asc'},
-  ]
-  const {openModal} = useModal();
-  const createRequestHandler = useCallback(()=>{
-    openModal({
-      closable : true,
-      component : <CreateRequestForm/>,
-      payload : null
-    })
-  },[]);
+  const {
+    createRequestOpenModal,
+    getAllRequest,
+    requests,
+    quickMatchRequestModal,
+  } = useRequest(true);
+
+  // const [requets, setMatches] = useState<any[]>([]);
+  useEffect(() => {
+    getAllRequest();
+  }, []);
+  useEffect(() => {
+    console.log(requests);
+  }, [requests]);
+
   return (
     <LobbyWrapper>
       {/* <BackdropVideo src="/smoke.mp4" muted autoPlay loop></BackdropVideo> */}
-      <LobbyBackground/>
+      <LobbyBackground />
       <PageMain>
         <PageTitle>
           <h3>Lobby</h3>
-          <button type='button'><IconRefresh color='var(--gold-primary)'/></button>
+          <button type="button" onClick={() => getAllRequest()}>
+            <IconRefresh color="var(--gold-primary)" />
+          </button>
         </PageTitle>
         <RequestGrid>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
-          <RequestCard request={{} as any}/>
+          {requests?.map((request) => (
+            <RequestCard key={request?.id} request={request as any} />
+          ))}
         </RequestGrid>
       </PageMain>
       <ActionArea>
         <RequestActions>
-          <ActionButton>
+          <ActionButton onClick={quickMatchRequestModal}>
             Quick Match
           </ActionButton>
-          <ActionButton onClick={createRequestHandler}>
+          <ActionButton onClick={() => createRequestOpenModal()}>
             Create Request
           </ActionButton>
         </RequestActions>
       </ActionArea>
-      {/* <DecorCircle/> */}
     </LobbyWrapper>
-  )
-}
+  );
+};
 
-export default Lobby
+export default Lobby;
