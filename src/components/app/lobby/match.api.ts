@@ -1,8 +1,9 @@
 import axios from "axios";
 import axiosClient from "../../../api/axiosClient";
+import { CreateMatchParams } from "../../../utils/types/api/params";
 
 export const MatchApi = {
-  createMatch: async (params: any) => {
+  createMatch: async (params: CreateMatchParams) => {
     const url = "/match";
     const res = await axiosClient.post(url, params);
     console.log("MatchApi + createMatch response : ", res);

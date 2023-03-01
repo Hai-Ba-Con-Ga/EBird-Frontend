@@ -19,23 +19,7 @@ import {
 // type Props = {}
 
 const ClientHeader = () => {
-  const [birds, setBirds] = useState<any[]>([]);
-  // const [currentBirds, setCurrentBird] = useState<any>();
-  const { setCurrentBird, currentBird } = useApp();
-  const [test, setTest] = useState(false);
-  useEffect(() => {
-    axiosClient
-      .get("/bird/owner")
-      .then((res) => {
-        return res.data.data;
-      })
-      .then((list) => {
-        if (!currentBird) {
-          setCurrentBird(list?.[0]);
-        }
-        setBirds(list);
-      });
-  }, []);
+  const { setCurrentBird, currentBird ,SelectBird} = useApp({useSelection : true});
   return (
     <ClientHeaderWrapper>
       <AppHeader>
@@ -59,14 +43,7 @@ const ClientHeader = () => {
           <NavBarItem to={"/app/match"}>Match</NavBarItem>
         </MainNavigationBar>
         <BirdSelectArea>
-          <Select value={currentBird?.name} placeholder="Select">
-            {birds &&
-              birds?.map((bird, i) => (
-                <SelectOption key={i} onClick={() => setCurrentBird(bird)}>
-                  {bird?.name}
-                </SelectOption>
-              ))}
-          </Select>
+          {SelectBird}
         </BirdSelectArea>
       </AppHeader>
     </ClientHeaderWrapper>

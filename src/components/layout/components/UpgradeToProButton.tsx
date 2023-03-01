@@ -33,6 +33,7 @@ const BuyNowButton = () => {
 
   return (
     <Box
+      component='div'
       className='upgrade-to-pro-button mui-fixed'
       sx={{ right: theme => theme.spacing(20), bottom: theme => theme.spacing(10), zIndex: 11, position: 'fixed' }}
     >
@@ -57,6 +58,8 @@ const BuyNowButton = () => {
       </Button>
       <Fade in={open} timeout={700}>
         <Box
+      component='div'
+
           style={styles.popper}
           ref={setPopperElement}
           {...attributes.popper}

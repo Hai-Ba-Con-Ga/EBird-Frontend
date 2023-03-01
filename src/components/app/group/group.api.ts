@@ -15,7 +15,7 @@ export const GroupApi = {
         const url = "/group/all";
         const response  = await axiosClient.get(url,{
             params : {
-                PageSize : 5 ,
+                PageSize : 100 ,
                 CurrentPage : 1
             }
         });

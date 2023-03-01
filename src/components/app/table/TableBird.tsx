@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { IconInfoCircleFilled } from "@tabler/icons-react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Bird } from "../../../utils/types";
+import { MergeInformation, MergeInformationItem, MergeInformationSection } from "./table.style";
 
 type Props = {
   bird: Bird;
   kickable?: boolean;
+  mergeInformation?: any;
 };
 
 export const TableBirdWrapper = styled.div`
@@ -12,6 +15,11 @@ export const TableBirdWrapper = styled.div`
   gap: 2rem;
   align-items: center;
   position: relative;
+  border : 2px solid var(--dark-blue);
+  padding: 2rem;
+  border-radius: var(--roundedSmall);
+  background-color: var(--dark-green);
+  color : var(--gold-primary);
 `;
 export const BirdImage = styled.div`
   width: 40rem;
@@ -48,15 +56,31 @@ const WaitingMessage = styled.span`
     0;
   cursor: pointer;
 `;
-const TableBird = ({ bird, kickable }: Props) => {
+const TableBird = ({ bird, kickable,mergeInformation }: Props) => {
   const [message, setMsg] = useState(true);
+  const [toggleMergeInformation,setToggle] = useState(false);
+  const toggleRef = useRef<any>();
+  useEffect(()=>{
+    window.addEventListener('click',(e: MouseEvent) => {
+      // Check if the click target is not a descendant of the toggleRef element
+      if (toggleRef.current && !toggleRef.current.contains(e.target as Node)) {
+        setToggle(false);
+      }
+    })
+    return ()=>{
+      window.removeEventListener('click',(e: MouseEvent) =>{
+        console.log("Removed event listener");
+        
+      });
+    }
+  },[])
   return (
     <TableBirdWrapper>
-      {!bird?.id && message && (
+      {/* {!bird?.id && message && (
         <WaitingMessage onClick={() => setMsg(false)}>
           Waiting for someone join this request
         </WaitingMessage>
-      )}
+      )} */}
       <BirdImage>
         <img
           src={
@@ -70,9 +94,16 @@ const TableBird = ({ bird, kickable }: Props) => {
       <BirdInformations>
         <span>{bird?.name || "Null"}</span>
         <span>{bird?.id ? "Chao mao" : "Null"}</span>
-        <span>{bird?.ratio || "W:0 - L:0 - R:0%"}</span>
+        <span>{bird?.ratio?.win || "W:0 - L:0 - R:0%"}</span>
         <span>{bird?.elo || "NaN"}</span>
       </BirdInformations>
+      <MergeInformationSection>
+          <IconInfoCircleFilled  ref={toggleRef} onClick={()=>setToggle(!toggleMergeInformation)}/>
+          {toggleMergeInformation && <MergeInformation>
+            <MergeInformationItem>Location</MergeInformationItem>
+            <MergeInformationItem>Time</MergeInformationItem>
+          </MergeInformation>}
+      </MergeInformationSection>
     </TableBirdWrapper>
   );
 };

@@ -1,5 +1,5 @@
 // ** React Imports
-import { forwardRef, useState } from 'react'
+import React,{ forwardRef, useState } from 'react'
 
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
@@ -20,12 +20,13 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import DatePicker from 'react-datepicker'
 
 // ** Styled Components
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import DatePickerWrapper from '../../@core/styles/libs/react-datepicker'
 
-const CustomInput = forwardRef((props, ref) => {
+const CustomInput = forwardRef((props:any, ref:any) => {
   return <TextField inputRef={ref} label='Birth Date' fullWidth {...props} />
 })
 
+CustomInput.displayName = 'CustomInput';
 const TabInfo = () => {
   // ** State
   const [date, setDate] = useState<Date | null | undefined>(null)

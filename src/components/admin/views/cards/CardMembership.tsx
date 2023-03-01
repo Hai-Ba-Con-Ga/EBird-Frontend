@@ -40,22 +40,22 @@ const CardMembership = () => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={5}>
                 <StyledBox>
-                  <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
+                  <Box component='div' sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
                     <LockOpenOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
                     <Typography variant='body2'>Full Access</Typography>
                   </Box>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                     <AccountOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
                     <Typography variant='body2'>15 Members</Typography>
                   </Box>
                 </StyledBox>
               </Grid>
               <Grid item xs={12} sm={7}>
-                <Box sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
+                <Box component='div' sx={{ mb: 6.75, display: 'flex', alignItems: 'center' }}>
                   <StarOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
                   <Typography variant='body2'>Access all Features</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
                   <TrendingUp sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
                   <Typography variant='body2'>Lifetime Free Update</Typography>
                 </Box>
@@ -80,8 +80,8 @@ const CardMembership = () => {
               padding: theme => `${theme.spacing(18, 5, 16)} !important`
             }}
           >
-            <Box>
-              <Box sx={{ mb: 3.5, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+            <Box component='div'>
+              <Box component='div' sx={{ mb: 3.5, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
                 <Typography variant='h6'>$</Typography>
                 <Typography variant='h6' sx={{ lineHeight: 1, fontWeight: 600, fontSize: '3.75rem !important' }}>
                   899

@@ -1,8 +1,8 @@
 import { IconClock, IconLocation, IconMapPin } from "@tabler/icons-react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Bird, MatchRequest } from "../../../utils/types";
+import { Bird } from "../../../utils/types";
 import useAuth from "../../auth/useAuth";
 import useApp from "../common/useApp";
 import {
@@ -15,44 +15,54 @@ import {
   RequestCardWrapper,
 } from "./lobby.style";
 import { MatchApi } from "./match.api";
-
+import useRequest from "./useRequest";
+type ButtonContent = "View" | "Join" | "Full";
 const RequestCard = ({ request }: { request: any }) => {
   const {
     auth: { userInfomation },
   } = useAuth();
-  const [isOwner, setIsOwner] = useState(
-    () => userInfomation?.id == request?.hostId
+  const isOwner = useMemo(
+    () => userInfomation?.id == request?.hostBird?.ownerId,
+    [userInfomation, request]
   );
-  const { currentRoom, currentBird } = useApp();
-
+  const isJoined = useMemo(
+    () => userInfomation?.id == request?.challenger?.id,
+    [request]
+  );
+  const [requestButtonContent, setButtonContent] = useState<ButtonContent>(
+    () => "View"
+  );
   useEffect(() => {
-    setIsOwner(userInfomation?.id == request?.hostId);
-  }, [request, userInfomation]);
+    if (isOwner) {
+      setButtonContent("View");
+    } else {
+      if (!request.challengerBird) {
+        setButtonContent("Join");
+      } else {
+        if (isJoined) {
+          setButtonContent("View");
+        } else {
+          setButtonContent("Full");
+        }
+      }
+    }
+  }, [isJoined, isOwner]);
+  const { joinRequest } = useRequest();
+  useEffect(() => {
+    console.log("REQUEST CARD", request);
+  }, [request, userInfomation, isOwner]);
   const nav = useNavigate();
   const onJoinClickHandler = useCallback(async () => {
     if (isOwner) {
-      console.log("VIEW TABLE" + request?.id);
       nav("/app/lobby/table/" + request?.id);
     } else {
-      console.log("JOIN TABLE");
-      // TODO : call api join
-      if (currentBird) {
-        console.log(currentBird);
-
-        const response = await MatchApi.joinMatch(request?.id, {
-          birdChallengerId: currentBird?.id,
-        });
-        if (response.success) {
-          nav("/app/lobby/table/" + request?.id);
-          toast.success("Join table success");
-        } else {
-          toast.error("Cannot join, refresh list and check again");
-        }
+      if (isJoined) {
+        nav("/app/lobby/table/" + request?.id);
       } else {
-        toast.error("Please select bird");
+        joinRequest(request?.id);
       }
     }
-  }, [isOwner, currentBird]);
+  }, [isOwner]);
   return (
     <RequestCardWrapper>
       <RequestCardInfomationField>
@@ -64,12 +74,17 @@ const RequestCard = ({ request }: { request: any }) => {
         <span>{request?.matchDatetime || "00:00"}</span>
       </RequestCardInfomationField>
       <RequestBirdContainer>
-        <RequestBird bird={request?.matchBirdList?.[0]?.bird} isOwner={true} />
-        <RequestBird bird={request?.matchBirdList?.[1]?.bird} isOwner={false} />
+        <RequestBird bird={request?.hostBird} isOwner={true} />
+        <RequestBird bird={request?.challengerBird} isOwner={false} />
       </RequestBirdContainer>
-      <JoinButton isOwner={isOwner} onClick={onJoinClickHandler} type="button">
-        {isOwner ? "View" : "Join"}
-      </JoinButton>
+      {!request?.group && <JoinButton
+        isOwner={isOwner}
+        disabled={requestButtonContent == "Full"}
+        onClick={onJoinClickHandler}
+        type="button"
+      >
+        {requestButtonContent}
+      </JoinButton>}
     </RequestCardWrapper>
   );
 };

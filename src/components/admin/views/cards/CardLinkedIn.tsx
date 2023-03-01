@@ -25,21 +25,21 @@ const CardLinkedIn = () => {
           With the Internet spreading like wildfire and reaching every part of our daily life, more and more traffic is
           directed.
         </Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
+        <Box component='div' sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box component='div' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
             <Avatar alt='Anne Burke' src='/images/avatars/8.png' sx={{ width: 34, height: 34, marginRight: 2.75 }} />
             <Typography variant='body2' sx={{ color: 'common.white' }}>
               Anne Burke
             </Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mr: 3.5 }}>
+          <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center', mr: 3.5 }}>
               <Heart sx={{ marginRight: 1.25 }} />
               <Typography variant='body2' sx={{ color: 'common.white' }}>
                 1.1k
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box component='div' sx={{ display: 'flex', alignItems: 'center' }}>
               <ShareVariant sx={{ marginRight: 1.25 }} />
               <Typography variant='body2' sx={{ color: 'common.white' }}>
                 67
