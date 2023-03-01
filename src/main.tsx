@@ -1,22 +1,22 @@
-import React from "react";
+import { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import AxiosInterceptor from "./_api/AxiosInterceptor";
-import { ToastContainer } from "react-toastify";
+import AxiosInterceptor from "./api/AxiosInterceptor";
+import App from "./App";
+import FullLoading from "./components/common/loading/FullLoading";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   // <React.StrictMode>
-      <RecoilRoot>
+  <RecoilRoot>
     <Router>
+      <Suspense fallback={<FullLoading />}>
         <AxiosInterceptor>
-        <App />
-        <ToastContainer />
+          <App />
         </AxiosInterceptor>
+      </Suspense>
     </Router>
-      </RecoilRoot>
-
+  </RecoilRoot>
   // </React.StrictMode>
 );
