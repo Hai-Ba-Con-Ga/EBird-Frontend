@@ -25,7 +25,7 @@ const RequestCard = ({ request }: { request: any }) => {
     () => userInfomation?.id == request?.hostBird?.ownerId,
     [userInfomation, request]
   );
-  const { currentBird, currentRoom } = useApp({ useSelection: true });
+  const { currentBird, currentRoom } = useApp({ useSelection: false });
   const isJoined = useMemo(
     () => userInfomation?.id == request?.challenger?.id,
     [request]

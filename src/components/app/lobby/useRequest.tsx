@@ -19,7 +19,7 @@ import loadingAtom from "../../LoadingAtom";
 const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
   const appState = useRecoilValue(AppAtom);
-  const { currentBird, currentRoom } = useApp({ useSelection: true });
+  const { currentBird, currentRoom } = useApp({ useSelection: false });
   const { openModal, closeModal } = useModal();
   const [requests, setRequests] = useState<any[]>([]);
   const { getListRelatedRequests } = useSidebar({ init: false });
@@ -98,23 +98,26 @@ const useRequest = (init?: boolean) => {
     }
   }, [currentRoom, init]);
   /** Join request */
-  const joinRequest = async (requestId: string, bird?: any) => {
-    console.log("JOIN RQUEST : ", bird);
-    if (currentBird) {
-      const result = await RequestApi.joinRequest({
-        challengerBirdId: currentBird.id,
-        requestId,
-      });
-      if (result.success) {
-        nav("/app/lobby/table/" + requestId);
-        toast.success("Joined successfully");
+  const joinRequest = useCallback(
+    async (requestId: string, bird?: any) => {
+      console.log("JOIN RQUEST : ", bird);
+      if (bird) {
+        const result = await RequestApi.joinRequest({
+          challengerBirdId: bird.id,
+          requestId,
+        });
+        if (result.success) {
+          nav("/app/lobby/table/" + requestId);
+          toast.success("Joined successfully");
+        } else {
+          toast.error(result.message);
+        }
       } else {
-        toast.error(result.message);
+        toast.error("Please select a bird to join");
       }
-    } else {
-      toast.error("Please select a bird to join");
-    }
-  };
+    },
+    [appState]
+  );
   /** Get request detail/table */
   const getRequestDetail = useCallback(async (requestId: string) => {
     setLoading({ ...loading, isShown: true });
