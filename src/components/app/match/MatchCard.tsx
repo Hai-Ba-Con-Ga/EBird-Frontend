@@ -38,6 +38,9 @@ const MatchCard = ({ match }: { match?: any }) => {
       .then((match) => setDetail(match));
     console.log(matchDetail);
   }, [match]);
+  useEffect(() => {
+    console.log(matchDetail);
+  }, [matchDetail]);
   return (
     <MatchCardWrapper>
       <MatchInformationSection>
@@ -55,28 +58,33 @@ const MatchCard = ({ match }: { match?: any }) => {
       </MatchInformationSection>
       <RequestBirdContainer>
         <BirdResultWrapper>
-          <MatchCardBird bird={matchDetail?.matchBirdList?.[0]?.bird} isOwner />
+          <MatchCardBird bird={matchDetail?.matchDetails?.[0]?.bird} isOwner />
           <BirdResult result>
-            {matchDetail?.matchBirdList?.[0]?.result < 2
+            {matchDetail?.matchDetails?.[0]?.result == "Ready" ||
+            matchDetail?.matchDetails?.[0]?.result == "NotReady"
               ? "--"
-              : matchDetail?.matchBirdList?.[0]?.result == 2
+              : matchDetail?.matchDetails?.[0]?.result == "Lose"
               ? "Lose"
-              : "Win"}
+              : matchDetail?.matchDetails?.[0]?.result == "Win"
+              ? "Win"
+              : "Drawn"}
           </BirdResult>
         </BirdResultWrapper>
         <VersusDivider>vs</VersusDivider>
         <BirdResultWrapper>
           <MatchCardBird
-            bird={matchDetail?.matchBirdList?.[1]?.bird}
+            bird={matchDetail?.matchDetails?.[1]?.bird}
             isOwner={false}
           />
           <BirdResult result={false}>
-            {" "}
-            {matchDetail?.matchBirdList?.[1]?.result < 2
+            {matchDetail?.matchDetails?.[1]?.result == "Ready" ||
+            matchDetail?.matchDetails?.[1]?.result == "NotReady"
               ? "--"
-              : matchDetail?.matchBirdList?.[1]?.result == 3
+              : matchDetail?.matchDetails?.[1]?.result == "Lose"
               ? "Lose"
-              : "Win"}
+              : matchDetail?.matchDetails?.[1]?.result == "Win"
+              ? "Win"
+              : "Drawn"}
           </BirdResult>
         </BirdResultWrapper>
       </RequestBirdContainer>
@@ -89,7 +97,7 @@ const MatchCard = ({ match }: { match?: any }) => {
             component: (
               <UpdateResultForm
                 birdId={
-                  matchDetail?.matchBirdList?.find(
+                  matchDetail?.matchDetails?.find(
                     (mBird: any) => mBird.bird.ownerId == userInfomation?.id
                   )?.bird?.id
                 }

@@ -6,7 +6,7 @@ import {
   RankingBoard,
   MyRanking,
   HeaderRanking,
-  MatchTab
+  MatchTab,
 } from "../../components/app/rank/rank.style";
 import LeaderBoard from "../../components/app/home/LeaderBoard";
 import RankingLeaderBoard from "../../components/app/rank/RankingLeaderBoard";
@@ -28,9 +28,8 @@ const tabs = [
 ];
 
 const RankingPage = () => {
-  const [textBird, setTextBird] = useState<string>('')
-  const {tab, setTab, rank} = useRank({searchPlayerKeyword:textBird});
-
+  const [textBird, setTextBird] = useState<string>("");
+  const { tab, setTab, rank } = useRank({ searchPlayerKeyword: textBird });
 
   useEffect(() => {
     console.log("TAB", tab);
@@ -38,10 +37,9 @@ const RankingPage = () => {
   return (
     <RankingWrapper>
       <RankingMainContent>
-          <RankingBoard>
-            <HeaderRanking>
-            </HeaderRanking>
-
+        <RankingBoard>
+          <HeaderRanking></HeaderRanking>
+          {/* 
             {tabs?.map((navTab) => (
               <MatchTab
                 key={navTab.value}
@@ -52,20 +50,16 @@ const RankingPage = () => {
               >
                 {navTab.show}
               </MatchTab>
-            ))}
-            
+            ))} */}
 
-            <h1>RANKING BOARD</h1>
+          <h1>RANKING BOARD</h1>
 
-            <RankingLeaderBoard tab={tab} ranks={rank} />
-
-          </RankingBoard>
-        
+          <RankingLeaderBoard tab={tab} ranks={rank} />
+        </RankingBoard>
 
         <MyRanking>
           <h1>MY RANKING</h1>
         </MyRanking>
-
       </RankingMainContent>
     </RankingWrapper>
   );

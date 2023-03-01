@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Bird, RequestTime } from "../../../utils/types";
 import { CreateRequestParams } from "../../../utils/types/api/params";
 import authAtom from "../../auth/AuthAtom";
@@ -14,14 +14,16 @@ import { useNavigate } from "react-router-dom";
 import { PlaceApi } from "../../common/map/place.api";
 import { MatchApi } from "./match.api";
 import useSidebar from "../../common/sidebar/useSidebar";
+import loadingAtom from "../../LoadingAtom";
 
 const useRequest = (init?: boolean) => {
   const auth = useRecoilValue(authAtom);
   const appState = useRecoilValue(AppAtom);
-  const {currentBird} = useApp({useSelection:false});
+  const { currentBird, currentRoom } = useApp({ useSelection: false });
   const { openModal, closeModal } = useModal();
   const [requests, setRequests] = useState<any[]>([]);
-  const {getListRelatedRequests} = useSidebar({init : false})
+  const { getListRelatedRequests } = useSidebar({ init: false });
+  const [loading, setLoading] = useRecoilState(loadingAtom);
   const nav = useNavigate();
   const createRequest = useCallback(
     async (data: CreateRequestFormValues) => {
@@ -42,7 +44,7 @@ const useRequest = (init?: boolean) => {
         toast.success(
           "Create match successfully! Refresh list manually please"
         );
-        
+
         // TODO : Refresh list manually || socket
         getListRelatedRequests();
         closeModal();
@@ -52,45 +54,56 @@ const useRequest = (init?: boolean) => {
     },
     [appState, auth]
   );
+  useEffect(() => {
+    console.log("App state changed IN REQUEST HOOK", appState);
+  }, [appState]);
+  const createRequestOpenModal = useCallback(
+    (groupId?: string) => {
+      openModal({
+        closable: true,
+        component: (
+          <CreateRequestForm
+            options={{
+              mapSize: "default",
+              selectBird: true,
+              isUpdate: false,
+            }}
+            handleCreateRequest={(data) => {
+              if (groupId) {
+                data.groupId = groupId;
+              }
+              console.log("TEST BUG KHUYA, handler", data);
 
-  const createRequestOpenModal = useCallback((groupId?: string) => {
-    openModal({
-      closable: true,
-      component: (
-        <CreateRequestForm
-          options={{
-            mapSize: "default",
-            selectBird: true,
-            isUpdate: false,
-          }}
-          handleCreateRequest={(data)=>{
-            if(groupId){
-              data.groupId = groupId;
-            }
-            
-            createRequest(data);
-          }}
-        />
-      ),
-      payload: null,
-    });
-  }, [appState, auth]);
+              createRequest(data);
+            }}
+          />
+        ),
+        payload: null,
+      });
+    },
+    [appState, auth]
+  );
   const getAllRequest = useCallback(() => {
     // TODO: wait for BFCS-153
+    setLoading({ ...loading, isShown: true });
+    RequestApi.getAllRequest({ roomId: currentRoom?.id as string })
+      .then((response) => setRequests(response.data))
+      .then(() => setLoading({ ...loading, isShown: false }));
+  }, [currentRoom, init]);
+  useEffect(() => {
     if (init) {
-      RequestApi.getAllRequest({ roomId: "" }).then((response) =>
-        setRequests(response.data)
+      RequestApi.getAllRequest({ roomId: currentRoom?.id as string }).then(
+        (response) => setRequests(response.data)
       );
     }
-  }, []);
+  }, [currentRoom, init]);
   /** Join request */
   const joinRequest = useCallback(
-    async (requestId: string) => {
-      const currentBird: Bird | undefined = appState?.currentBird;
-      console.log(currentBird);
-      if (currentBird) {
+    async (requestId: string, bird?: any) => {
+      console.log("JOIN RQUEST : ", bird);
+      if (bird) {
         const result = await RequestApi.joinRequest({
-          challengerBirdId: currentBird.id,
+          challengerBirdId: bird.id,
           requestId,
         });
         if (result.success) {
@@ -103,11 +116,15 @@ const useRequest = (init?: boolean) => {
         toast.error("Please select a bird to join");
       }
     },
-    [currentBird]
+    [appState]
   );
   /** Get request detail/table */
   const getRequestDetail = useCallback(async (requestId: string) => {
-    const response = await RequestApi.getRequestDetail(requestId);
+    setLoading({ ...loading, isShown: true });
+
+    const response = await RequestApi.getRequestDetail(requestId).finally(() =>
+      setLoading({ ...loading, isShown: false })
+    );
     if (response.success) {
       return response.data;
     } else {
@@ -118,7 +135,11 @@ const useRequest = (init?: boolean) => {
 
   /** Update Request */
   const updateRequest = useCallback(
-    async (params: CreateRequestFormValues, request: any, reloadCallback : ()=>void) => {
+    async (
+      params: CreateRequestFormValues,
+      request: any,
+      reloadCallback: () => void
+    ) => {
       const requestParams: {
         placeId: string;
         hostBirdId: string;
@@ -127,29 +148,45 @@ const useRequest = (init?: boolean) => {
       } = {
         placeId: request.place.id,
         hostBirdId: params.currentBirdId,
-        requestDatetime: params?.date?.toString()??request?.requestDatetime,
+        requestDatetime: params?.date?.toString() ?? request?.requestDatetime,
         requestId: request.id,
       };
-      console.log("Not Same" ,isSamePlace({ place: params.location, place2: request.place }));
-      
+      console.log(
+        "Not Same",
+        isSamePlace({ place: params.location, place2: request.place })
+      );
+
       if (!isSamePlace({ place: params.location, place2: request.place })) {
         const respData = await PlaceApi.createPlace(params.location);
         requestParams.placeId = respData.data;
-        console.log("location",respData);
+        console.log("location", respData);
       }
       requestParams.requestDatetime = params.date.toLocaleString();
       const updateResult = await RequestApi.updateRequest(requestParams);
-      if(updateResult.success){
+      if (updateResult.success) {
         toast.success("Update information successfully");
-      }else{
+      } else {
         toast.error("Error updating information");
       }
-      reloadCallback()
+      reloadCallback();
+    },
+    []
+  );
+  const selectMergeRequest = useCallback(
+    async (listRequestId: any[], targetId: string) => {
+      for await (const requestId of listRequestId) {
+        const res = await RequestApi.requestSelfCheck({
+          hostRequestID: targetId,
+          challengerRequestID: requestId,
+        });
+        if (res.data) return requestId;
+      }
+      return null;
     },
     []
   );
   /* Quick match */
-  const quickMatchRequestModal = useCallback(()=> {
+  const quickMatchRequestModal = useCallback(() => {
     openModal({
       closable: true,
       component: (
@@ -159,49 +196,74 @@ const useRequest = (init?: boolean) => {
             selectBird: true,
             isUpdate: false,
           }}
-          handleCreateRequest={async(data)=>{
+          handleCreateRequest={async (data) => {
             const { userInfomation } = auth;
-      const place = data.location;
-      const params: CreateRequestParams = {
-        requestDatetime: data.date,
-        hostId: userInfomation?.id,
-        hostBirdId: data.currentBirdId || (appState.currentBird?.id as string),
-        roomId: appState.currentRoom?.id as string,
-        place,
-      };
+            const place = data.location;
+            const params: CreateRequestParams = {
+              requestDatetime: data.date,
+              hostId: userInfomation?.id,
+              hostBirdId:
+                data.currentBirdId || (appState.currentBird?.id as string),
+              roomId: appState.currentRoom?.id as string,
+              place,
+            };
+            console.log("Quickmatch", data);
 
-      const result = await RequestApi.createRequest(params);
-      if(result.success) {
-        const requestId = result.data.id;
-        const matchedMatches = (await RequestApi.quickMatchRequest(requestId )).data;
-        if(matchedMatches.length > 0) {
-          // TODO : // merge request with existing ; if merge request is ok then nav to table
-          
-        }
-        else {
-          toast.warning("Not found any matches for request");
-        }
+            const result = await RequestApi.createRequest(params);
+            console.log("Result request", result);
 
-      }else {
-        toast.error("Create request failed");
-      }
+            if (result.success) {
+              const requestId = result.data;
+              const matchedMatches = (
+                await RequestApi.quickMatchRequest(requestId)
+              ).data;
+              if (matchedMatches.length > 0) {
+                // TODO : // merge request with existing ; if merge request is ok then nav to table
+
+                const matchedId = await selectMergeRequest(
+                  matchedMatches,
+                  requestId
+                );
+                console.log("MATCHED ID", matchedId);
+
+                if (matchedId) {
+                  const mergeData = await RequestApi.mergeRequest({
+                    hostRequestId: requestId,
+                    challengerRequestId: matchedId,
+                  });
+                  if (mergeData.success) {
+                    nav("/app/lobby/table/" + mergeData.data);
+                    closeModal();
+                  }
+                } else {
+                  toast.warning("Not found any matches for request");
+                }
+              } else {
+                toast.warning("Not found any matches for request");
+              }
+            } else {
+              toast.error("Create request failed");
+            }
           }}
         />
       ),
       payload: null,
     });
-  },[appState, auth])
+  }, [appState, auth]);
 
-  /** Confirm request -> create match  */ 
-  const confirmRequest = useCallback(async(requestId : string)=>{
-    const response = await MatchApi.createMatch({requestId});
-    if(response.success) {
-     console.log(response.data);
-     nav("/app/match");
-    } else {
-      toast.error(response.message);
-    }
-  },[auth])
+  /** Confirm request -> create match  */
+  const confirmRequest = useCallback(
+    async (requestId: string) => {
+      const response = await MatchApi.createMatch({ requestId });
+      if (response.success) {
+        console.log(response.data);
+        nav("/app/match");
+      } else {
+        toast.error(response.message);
+      }
+    },
+    [auth]
+  );
   return {
     createRequest,
     createRequestOpenModal,
@@ -215,9 +277,9 @@ const useRequest = (init?: boolean) => {
   };
 };
 function isSamePlace({ place, place2 }: any) {
-  console.log("Place 1",place);
-  console.log("Place 2",place2);
-  
+  console.log("Place 1", place);
+  console.log("Place 2", place2);
+
   return (
     place.latitude == place2.latitude && place.longitude == place2.longitude
   );

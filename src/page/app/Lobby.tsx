@@ -5,12 +5,14 @@ import axiosClient from "../../api/axiosClient";
 import useApp from "../../components/app/common/useApp";
 import {
   ActionArea,
-  ActionButton, BackdropVideo, LobbyBackground,
+  ActionButton,
+  BackdropVideo,
+  LobbyBackground,
   LobbyWrapper,
   PageMain,
   PageTitle,
   RequestActions,
-  RequestGrid
+  RequestGrid,
 } from "../../components/app/lobby/lobby.style";
 import { MatchApi } from "../../components/app/lobby/match.api";
 import RequestCard from "../../components/app/lobby/RequestCard";
@@ -19,16 +21,21 @@ import useAuth from "../../components/auth/useAuth";
 import useModal from "../../components/common/modal/useModal";
 
 const Lobby = () => {
-  const {createRequestOpenModal,getAllRequest,requests,quickMatchRequestModal} = useRequest(true);
+  const {
+    createRequestOpenModal,
+    getAllRequest,
+    requests,
+    quickMatchRequestModal,
+  } = useRequest(true);
 
   // const [requets, setMatches] = useState<any[]>([]);
   useEffect(() => {
-    getAllRequest()
+    getAllRequest();
   }, []);
-  useEffect(()=>{
-    console.log(requests)
-  },[requests])
-  
+  useEffect(() => {
+    console.log(requests);
+  }, [requests]);
+
   return (
     <LobbyWrapper>
       {/* <BackdropVideo src="/smoke.mp4" muted autoPlay loop></BackdropVideo> */}
@@ -48,8 +55,10 @@ const Lobby = () => {
       </PageMain>
       <ActionArea>
         <RequestActions>
-          <ActionButton onClick={quickMatchRequestModal}>Quick Match</ActionButton>
-          <ActionButton onClick={()=>createRequestOpenModal()}>
+          <ActionButton onClick={quickMatchRequestModal}>
+            Quick Match
+          </ActionButton>
+          <ActionButton onClick={() => createRequestOpenModal()}>
             Create Request
           </ActionButton>
         </RequestActions>

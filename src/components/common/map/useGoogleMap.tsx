@@ -4,32 +4,32 @@ import { CustomMap } from "./map.style";
 import mapStyle from "../map/mapStyle.json";
 
 const mapAutoStyle = {
-    aspectRatio: "3/4",
-    width: "100%",
-    border: "2px solid var(--dark-blue)",
-    borderRadius: "var(--roundedSmall)",
-    overflow: "hidden",
-}
-const mapSmallStyle = {
-  width: "400px",
-  height : '350px',
+  aspectRatio: "3/4",
+  width: "100%",
   border: "2px solid var(--dark-blue)",
   borderRadius: "var(--roundedSmall)",
   overflow: "hidden",
-}
+};
+const mapSmallStyle = {
+  width: "400px",
+  height: "350px",
+  border: "2px solid var(--dark-blue)",
+  borderRadius: "var(--roundedSmall)",
+  overflow: "hidden",
+};
 
 type Props = {
-   onLocationChanged : (location:any)=>void;
-   mapSize : 'sm' | 'md' | 'lg' | 'default'
+  onLocationChanged: (location: any) => void;
+  mapSize: "sm" | "md" | "lg" | "default";
 };
 const mockLocation = {
-  name: "FPT University Phong",
+  name: "FPT University HCMC",
   address:
     "Lô E2a-7, Đường D1, Đ. D1, Long Thạnh Mỹ, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh 700000, Vietnam",
-  latitude: 12.841128,
-  longitude: 126.809883,
+  latitude: 10.841254040490824,
+  longitude: 106.80986154011964,
 };
-const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
+const useGoogleMap = ({ onLocationChanged, mapSize }: Props) => {
   const [location, setLocation] = useState<any>(() => mockLocation);
   const [center, setCenter] = useState({ lat: 10.8326, lng: 106.6581 });
 
@@ -37,7 +37,7 @@ const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
     if (location) {
       setCenter({ lat: location?.latitude, lng: location?.longitude });
       //   setValue("location", location);
-        onLocationChanged?.(location)
+      onLocationChanged?.(location);
     }
   }, [location]);
   // *** hanler *//
@@ -53,6 +53,8 @@ const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
     geocoder.geocode(
       { location: { lat, lng } },
       (results: any, status: any) => {
+        console.log("RESULT", results);
+
         if (status === "OK") {
           placesService.nearbySearch(
             {
@@ -61,13 +63,15 @@ const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
               type: ["establishment"],
             },
             (place: any, status: any) => {
+              console.log("PLACE", place);
+
               if (status === "OK") {
                 const placeName = place[0].name;
                 setLocation({
-                  latitude:lat,
-                  longitude : lng,
-                  placeName,
-                  address: place[0].formatted_address,
+                  latitude: lat,
+                  longitude: lng,
+                  name: placeName,
+                  address: results[0].formatted_address,
                 });
               }
             }
@@ -75,12 +79,13 @@ const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
         }
       }
     );
-  },[]);
+  }, []);
+  useEffect(() => {
+    console.log("location", location);
+  }, [location]);
   return {
     GoogleMap: (
-      <div
-        style={mapSize == 'default' ? mapAutoStyle : mapSmallStyle}
-      >
+      <div style={mapSize == "default" ? mapAutoStyle : mapSmallStyle}>
         <CustomMap
           bootstrapURLKeys={{
             key: "AIzaSyCUQmRbZTCqXZnjOPpRws3_I_oLlt4GKhc",
@@ -107,7 +112,7 @@ const useGoogleMap = ({onLocationChanged,mapSize}: Props) => {
       </div>
     ),
     setLocation,
-    location
+    location,
   };
 };
 export const Marker = ({ placeName }: any) => (

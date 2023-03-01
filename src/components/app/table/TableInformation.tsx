@@ -12,23 +12,26 @@ import {
 
 type Props = {
   request: any;
-  reloadCallback : ()=>void;
+  reloadCallback: () => void;
 };
 
-const TableInformation = ({ request,reloadCallback }: Props) => {
+const TableInformation = ({ request, reloadCallback }: Props) => {
   const { setLocation, GoogleMap, location } = useGoogleMap({
     onLocationChanged: (location) => {
       console.log(location);
     },
     mapSize: "sm",
   });
-  const {updateRequest} = useRequest(false);
+  const { updateRequest } = useRequest(false);
   const [edit, setEdit] = useState<boolean>(false);
+  useEffect(() => {
+    setLocation(request?.place);
+  }, [request]);
   return (
     <TableOthers>
       {!edit ? (
         <>
-          {!request?.isMerged && (
+          {request?.reference && (
             <IconPencil
               id="edit"
               color="var(--dark-blue)"
@@ -56,12 +59,16 @@ const TableInformation = ({ request,reloadCallback }: Props) => {
             updateCancelHandle: () => setEdit(false),
           }}
           handleCreateRequest={(data) => {
-            updateRequest({
-              ...data
-            },request,()=>{
-              setEdit(false);
-              reloadCallback();
-            });
+            updateRequest(
+              {
+                ...data,
+              },
+              request,
+              () => {
+                setEdit(false);
+                reloadCallback();
+              }
+            );
           }}
         />
       )}

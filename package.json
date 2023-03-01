@@ -51,6 +51,7 @@
     "react-signalr": "^0.2.14",
     "react-toastify": "^9.1.1",
     "recoil": "^0.7.6",
+    "sass": "^1.58.3",
     "socket.io-client": "^4.6.0",
     "styled-components": "^5.3.6",
     "swiper": "^9.0.2",

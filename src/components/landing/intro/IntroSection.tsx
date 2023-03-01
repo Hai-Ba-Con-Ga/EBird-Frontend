@@ -39,7 +39,7 @@ const IntroSection = () => {
         </mesh>
       </StyledCanvas> */}
       <IntroBlock>
-        <h1>WRITE YOU OWN IMPECCABLE STORY</h1>
+        {/* <h1>WRITE YOU OWN IMPECCABLE STORY</h1>
         <h4>
         Together we fly
         </h4>
@@ -52,7 +52,8 @@ const IntroSection = () => {
         <h2>
         Find the glory you always seek
         </h2>
-        <h2>GLOBIRD.</h2>
+        <h2>GLOBIRD.</h2> */}
+        <h1>Grow and compete with birds? Join our community now!</h1>
         <GradientGreenButton>Join now</GradientGreenButton>
       </IntroBlock>
       {/* TODO : 3D */}

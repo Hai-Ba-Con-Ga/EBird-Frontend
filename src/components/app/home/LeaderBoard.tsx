@@ -9,6 +9,7 @@ const LeaderBoard = ({ ranks }: Props) => {
   useEffect(() => {
     console.log(ranks);
   }, [ranks]);
+  console.log(ranks);
 
   return (
     <LeaderboardTable>
@@ -16,9 +17,8 @@ const LeaderBoard = ({ ranks }: Props) => {
         <tr>
           <th>Top</th>
           <th>
-            {" "}
-              Bird name
-              
+            Bird name
+            <Chip style={{ fontSize: "2rem" }} size="medium" label={"ID"} />
           </th>
           <th>Type</th>
           <th>Owner</th>
@@ -29,19 +29,16 @@ const LeaderBoard = ({ ranks }: Props) => {
         {ranks?.map((bird, i) => (
           <tr key={bird?.id}>
             <td>{i + 1}</td>
-            <td>
-              <span>
-
+            <td style={{ position: "relative" }}>
               {bird?.name}
               <Chip
-                style={{ fontSize: "2rem" }}
+                style={{ fontSize: "2rem", position: "absolute" }}
                 size="medium"
-                label={bird?.number}
-                />
-                </span>
+                label={"#" + bird?.number}
+              />
             </td>
             <td>{"Chao mao"}</td>
-            <td>{"bird?.ownerId"}</td>
+            <td>{bird?.owner.username}</td>
             <td>{bird?.elo}</td>
           </tr>
         ))}

@@ -41,7 +41,6 @@ const MatchTable = lazy(() => import("./components/app/table/Table"));
 const MatchPage = lazy(() => import("./page/app/MatchPage"));
 const GroupPage = lazy(() => import("./page/app/GroupPage"));
 const Dashboard = lazy(() => import("./page/admin/Dashboard"));
-
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();

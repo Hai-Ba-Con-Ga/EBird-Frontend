@@ -1,8 +1,9 @@
-export interface Account {//DONE
-  id:	string;
+export interface Account {
+  //DONE
+  id: string;
   password: string;
   email: string;
-  createDateTime:Date;
+  createDateTime: Date;
   firstName: string;
   lastName: string;
   roleString: string;
@@ -10,68 +11,78 @@ export interface Account {//DONE
   username: string;
   description: string;
 }
-export interface AccountResource {//DONE
-  id:	string;
-  isDeleted:	boolean;
+export interface AccountResource {
+  //DONE
+  id: string;
+  isDeleted: boolean;
   accountId: string;
-  account: Account; 
+  account: Account;
   resourceId: string;
   resource: Resource;
 }
-export interface Bird {//DONE
+export interface Bird {
+  //DONE
   id: string;
   name: string;
   age: number;
   weight: number;
   elo: number;
+  number: number;
   status: string;
   description: string;
   color: string;
   ratio: Ratio;
-  birdTypeId: string,
-  ownerId: string,
-  createdDatetime: Date,
+  birdTypeId: string;
+  ownerId: string;
+  createdDatetime: Date;
   resourceList: Resource;
-  number ? : number;
+  owner: any;
 }
-export interface Ratio{//DONE
+
+export interface Ratio {
+  //DONE
   win: number;
   lose: number;
   ratio: number;
 }
-export interface BirdResource {//DONE
-  id:	string;
+export interface BirdResource {
+  //DONE
+  id: string;
   isDeleted: boolean;
   birdId: string;
-  bird: Bird; 
+  bird: Bird;
   resourceId: string;
   resource: Resource;
 }
-export interface BirdType{//DONE
+export interface BirdType {
+  //DONE
   id: string;
   typeCode: string;
   typeName: string;
   createdDatetime: Date;
 }
-export interface ChatRoom{//DONE
+export interface ChatRoom {
+  //DONE
   id: string;
   isDeleted: boolean;
   name: string;
   typeString: string;
   typeChatRoom: TypeChatRoom;
-  participants:Participant[];
+  participants: Participant[];
   messages: Message[];
 }
-export interface Group{ //DONE
+export interface Group {
+  //DONE
   id: string;
   name: string;
-  maxELO:number;
-  minElo:number;
+  maxELO: number;
+  minElo: number;
   status: string;
   createDatetime: Date;
   createdById: string;
 }
-export interface Message{//DONE
+export interface Message {
+  //DONE
   id: string;
   isDeleted: boolean;
   content: string;
@@ -81,14 +92,16 @@ export interface Message{//DONE
   sender: Account;
   timestamp: Date;
 }
-export interface Notification{//DONE
+export interface Notification {
+  //DONE
   id: string;
   content: string;
   createDateTime: Date;
   accountId: string;
   notificatoinTypeId: string;
 }
-export interface Participant {//DONE
+export interface Participant {
+  //DONE
   id: string;
   isDeleted: boolean;
   accountId: string;
@@ -96,14 +109,16 @@ export interface Participant {//DONE
   chatRoomId: string;
   chatRoom: ChatRoom;
 }
-export interface Place{//DONE
+export interface Place {
+  //DONE
   id: string;
   address: string;
   name: string;
   longitude: string;
   latitude: string;
 }
-export interface Post{//DONE
+export interface Post {
+  //DONE
   id: string;
   content: string;
   title: string;
@@ -111,19 +126,21 @@ export interface Post{//DONE
   createById: string;
   thumbnail: Resource;
 }
-export interface RefreshToken{//DONE
+export interface RefreshToken {
+  //DONE
   id: string;
   isDeleted: boolean;
   accountId: string;
   account: Account;
   token: string;
-  jwtId:string;
-  isUsed:boolean;
-  isRevoked:boolean;
-  issuedAt:Date;
-  expiredAt:Date;
+  jwtId: string;
+  isUsed: boolean;
+  isRevoked: boolean;
+  issuedAt: Date;
+  expiredAt: Date;
 }
-export interface Report{//DONE
+export interface Report {
+  //DONE
   id: string;
   isDeleted: boolean;
   context: string;
@@ -132,26 +149,29 @@ export interface Report{//DONE
   createdDateTime: Date;
   handleDateTime: Date;
   createById: string;
-  createBy:Account;
-  handleById:string;
-  handleBy:Account;
+  createBy: Account;
+  handleById: string;
+  handleBy: Account;
 }
-export interface Resource{//DONE
+export interface Resource {
+  //DONE
   id: string;
   dataLink: string;
   description: string;
   createDate: Date;
   createById: string;
 }
-export interface Room {//DONE
+export interface Room {
+  //DONE
   id: string;
   name: string;
   status: string;
   city: string;
   createDateTime: Date;
-  createById:string;
+  createById: string;
 }
-export interface Rule {//DONE
+export interface Rule {
+  //DONE
   id: string;
   isDeleted: boolean;
   createById: string;
@@ -160,18 +180,20 @@ export interface Rule {//DONE
   title: string;
   createDateTime: Date;
 }
-export interface Match {//DONE
-  id :string;
-  matchDatetime :Date;
-  createDatetime :Date;
+export interface Match {
+  //DONE
+  id: string;
+  matchDatetime: Date;
+  createDatetime: Date;
   matchStatus: MatchStatus;
-  hostId :string;
-  challengerId :string;
-  placeId :string;
+  hostId: string;
+  challengerId: string;
+  placeId: string;
   place: Place;
   matchBirdList: MatchBird[];
 }
-export interface MatchBird {//DONE
+export interface MatchBird {
+  //DONE
   bird: Bird;
   afterElo: number;
   beforeElo: number;
@@ -179,7 +201,8 @@ export interface MatchBird {//DONE
   updateDatetime: Date;
 }
 
-export interface VerificationStore {//DONE
+export interface VerificationStore {
+  //DONE
   id: string;
   isDeleted: boolean;
   code: string;
@@ -187,58 +210,60 @@ export interface VerificationStore {//DONE
 }
 
 export interface RequestEntity {
-  id: string 
+  id: string;
 }
- 
-export type  RequestTime = "AM" | "PM"; 
+
+export type RequestTime = "AM" | "PM";
 //ENUM CONVENTION
 
-export enum TypeChatRoom{
-  Private, Group
+export enum TypeChatRoom {
+  Private,
+  Group,
 }
-export enum RolePlayer{
+export enum RolePlayer {
   Host,
-  Challenger
+  Challenger,
 }
 export enum RequestStatus {
-  Waiting = 'Waiting',
-  Matched = 'Matched',
-  Closed = 'Closed'
+  Waiting = "Waiting",
+  Matched = "Matched",
+  Closed = "Closed",
 }
 export enum MatchStatus {
   Pending,
-  During = 'During',
-  Completed = 'Completed',
-  Approved = 'Approved',
-  Cancelled = 'Cancelled',
-  Conflict = 'Conflict'
+  During = "During",
+  Completed = "Completed",
+  Approved = "Approved",
+  Cancelled = "Cancelled",
+  Conflict = "Conflict",
 }
 export enum MatchDetailStatus {
   NotReady,
   Ready,
   Win,
-  Lose ,
-  Drawn
+  Lose,
+  Drawn,
 }
 export enum RoleAccount {
   Admin,
-  User
+  User,
 }
-export enum MatchBirdResult{
+export enum MatchBirdResult {
   NotReady,
   Ready,
   Draw,
   Lose,
-  Win
+  Win,
 }
 
 //////////////////////////////////// NOT YET
 
-export interface NotificationType{//DONE
+export interface NotificationType {
+  //DONE
   id: string;
   isDeleted: boolean;
-  typeCode:string;
-  typeName:string;
+  typeCode: string;
+  typeName: string;
 }
 
 /// MATCH
@@ -270,6 +295,3 @@ export interface MatchDetail {
 
 // export interface MatchResoure {}
 // export interface RequestEntity{}
-
-
-

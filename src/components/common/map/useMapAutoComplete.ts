@@ -7,6 +7,7 @@ const useMap = (inputRef: any, handlePlaceChange: (place: any) => void) => {
       inputRef?.current,
       {
         types: ["geocode", "establishment"],
+        minLength: 3,
       }
     );
 
