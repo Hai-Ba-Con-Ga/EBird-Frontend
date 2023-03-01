@@ -24,8 +24,6 @@ import ThemeComponent from "./components/admin/@core/theme/ThemeComponent";
 import themeConfig from "./components/admin/configs/themeConfig";
 import themeOptions from "./components/admin/@core/theme/ThemeOptions";
 import { Settings } from "./components/admin/@core/context/settingsContext";
-import Dashboard from "./page/admin/Dashboard";
-import AccountPage from "./page/admin/AccountPage";
 import GroupDetail from "./page/app/GroupDetail";
 import RankingPage from "./page/app/RankingPage";
 import GroupDetailPage from "./page/app/GroupDetail";
@@ -41,6 +39,8 @@ const MatchTable = lazy(() => import("./components/app/table/Table"));
 const MatchPage = lazy(() => import("./page/app/MatchPage"));
 const GroupPage = lazy(() => import("./page/app/GroupPage"));
 const Dashboard = lazy(() => import("./page/admin/Dashboard"));
+const AccountPage = lazy(() => import("./page/admin/AccountPage"));
+
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -155,16 +155,18 @@ function App() {
             }
           ></Route>
         </Route>
-        <Route path="/admin" element={
-          <ThemeComponent settings={initialSettings} >
-           <AdminLayout>
-            <Outlet/>
-          </AdminLayout>
-          </ThemeComponent >
-          }>
-          <Route path="" element={<Dashboard/>} />
-          <Route path="account" element={<AccountPage/>} />
-
+        <Route
+          path="/admin"
+          element={
+            <ThemeComponent settings={initialSettings}>
+              <AdminLayout>
+                <Outlet />
+              </AdminLayout>
+            </ThemeComponent>
+          }
+        >
+          <Route path="" element={<Dashboard />} />
+          <Route path="account" element={<AccountPage />} />
         </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}
