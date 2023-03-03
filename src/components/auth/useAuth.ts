@@ -55,10 +55,22 @@ const useAuth = (init?: boolean) => {
         nav("/app");
       })
   }, []);
+
+  const logout = useCallback(async () => {
+    const data = await request(AuthApi.logout);
+    if(data.success){
+      window.location.replace("/login") 
+      localStorage.removeItem('access_token')
+    }else {
+      toast.error( data.message || "Cannot Logout")
+    }
+    
+  }, []);
   return {
     auth: auth as AuthState,
     getMe: getMe,
     login,
+    logout,
     registerNewAccount
   };
 };
