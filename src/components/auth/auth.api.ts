@@ -33,5 +33,10 @@ const AuthApi = {
     const response = await axiosClient.post(url, { ...params });
     return response.data;
   },
+  logout: async () => {
+    const url = "/auth/logout";
+    const response = await axiosClient.delete(url);
+    return response.data;
+  },
 };
 export default AuthApi;
