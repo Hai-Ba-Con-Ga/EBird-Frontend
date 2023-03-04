@@ -102,3 +102,43 @@ export const LogoWrapper = styled.div`
   width: 60%;
 `
 
+export const UserMenuWrapper = styled.div`
+
+`
+export const UserMenuAvatar = styled.div`
+  width: 5rem;
+  aspect-ratio: 1;
+  cursor: pointer;
+  border-radius: var(--roundedFull);
+  position: relative;
+`
+export const UserMenuDropdown = styled.div`
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 1rem;
+  background-color: var(--color-coffee);
+`
+export const UserFunctionsList = styled.ul`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+`
+export const UserFunctionItem = styled.li`
+  width: 100%;
+  color : var(--dark-blue);
+  transition: all 0.25s linear;
+  &:hover {
+    background-color: var(--dark-green);
+    color: var(--color-coffee);
+  }
+`
+export const UserFullname = styled.h2`
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color : var(--dark-blue);
+  border-bottom : 2px solid var(--dark-blue);
+`
+
