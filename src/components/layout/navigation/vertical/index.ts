@@ -10,6 +10,10 @@ import AccountPlusOutline from 'mdi-material-ui/AccountPlusOutline'
 import AlertCircleOutline from 'mdi-material-ui/AlertCircleOutline'
 import GoogleCirclesExtended from 'mdi-material-ui/GoogleCirclesExtended'
 import Account from 'mdi-material-ui/Account'
+import Bird from 'mdi-material-ui/Bird'
+// import Profile from 'mdi-material-ui/profile'
+import {IconClipboardList} from '@tabler/icons-react'
+// import { IconBrandTwitter as Bird } from '@tabler/icons-react'
 
 // ** Type import
 import { VerticalNavItemsType } from '../../../admin/@core/layouts/types'
@@ -25,6 +29,21 @@ const navigation = (): any => {
       title: 'Account Management',
       icon: Account,
       path: '/admin/account'
+    },
+    {
+      title: 'Bird Management',
+      icon: Bird,
+      path: '/admin/bird'
+    },
+    {
+      title: 'Request Management',
+      icon: IconClipboardList,
+      path: '/admin/request'
+    },
+    {
+      title: 'Match Management',
+      icon: IconClipboardList,
+      path: '/admin/match'
     },
     {
       title: 'Account Settings',

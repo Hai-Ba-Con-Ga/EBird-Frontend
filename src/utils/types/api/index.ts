@@ -3,10 +3,14 @@ export interface Response<T> {
     data : T;
     message : string;
     statusCode? : number;
-    pagination? : any
+    pagingData? : any
 }
 
 export interface Pagination {
-    PageNumber : number;
-    PageSize : number;
+    currentPage: number;
+    totalPages : number;
+    pageSize : number;
+    totalCount : number;
+    hasNext : boolean;
+    hasPrevious : boolean;
 }

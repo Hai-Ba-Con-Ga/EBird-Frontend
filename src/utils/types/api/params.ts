@@ -1,4 +1,5 @@
 import { Pagination } from ".";
+import { MatchStatus } from "..";
 export interface CreateRequestParams {
   requestDatetime: Date | string;
   hostBirdId: string;
@@ -14,8 +15,8 @@ export interface CreateRequestParams {
   };
 }
 export interface GetAllRequestParams {
-  pagination?: Pagination;
-  roomId: string;
+  pagination?: RequestPagination;
+  roomId?: string;
 }
 export interface JoinRequestParams {
   challengerBirdId: string;
@@ -31,4 +32,14 @@ export interface CreatePlaceParams {
 export interface CreateMatchParams {
   requestId: string;
   userId?: string;
+}
+
+
+export interface RequestPagination {
+  PageNumber: number;
+  PageSize: number;
+}
+
+export interface GetAllMatchParams extends RequestPagination {
+  status?: MatchStatus
 }

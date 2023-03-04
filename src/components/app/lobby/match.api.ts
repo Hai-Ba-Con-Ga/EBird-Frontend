@@ -1,6 +1,8 @@
 import axios from "axios";
 import axiosClient from "../../../api/axiosClient";
-import { CreateMatchParams } from "../../../utils/types/api/params";
+import { Match } from "../../../utils/types";
+import { Response } from "../../../utils/types/api";
+import { CreateMatchParams, GetAllMatchParams } from "../../../utils/types/api/params";
 
 export const MatchApi = {
   createMatch: async (params: CreateMatchParams) => {
@@ -45,5 +47,10 @@ export const MatchApi = {
     const res = await axiosClient.put(url, { result, birdId });
     return res.data;
   },
+  getAllMatches: async (params: GetAllMatchParams) :Promise<Response<Match[]>> => {
+    const url = '/match/all';
+    const res = await axiosClient.get(url,{params})
+    return res.data;
+  }
 };
 

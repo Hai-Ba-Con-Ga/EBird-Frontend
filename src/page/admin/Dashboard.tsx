@@ -21,45 +21,10 @@ import StatisticsCard from '../../components/admin/views/dashboard/StatisticsCar
 import WeeklyOverview from '../../components/admin/views/dashboard/WeeklyOverview'
 import DepositWithdraw from '../../components/admin/views/dashboard/DepositWithdraw'
 import SalesByCountries from '../../components/admin/views/dashboard/SalesByCountries'
-import {
-  createSignalRContext, // SignalR
-  createWebSocketContext, // WebSocket
-  createSocketIoContext, // Socket.io
-} from "react-signalr";
+
 import {HubConnectionBuilder,HubConnection,HttpTransportType} from '@microsoft/signalr'
-const SignalRContext = createSignalRContext();
 
 const Dashboard = () => {
-  const [ctx,setCtx] = useState<HubConnection>();
-  useEffect(()=>{
-    const hubClient = new HubConnectionBuilder().withUrl('https://localhost:7137/hub/test',{
-      transport: HttpTransportType.ServerSentEvents
-    }).build();
-    setCtx(hubClient);
-  },[]);
-  useEffect(()=>{
-    console.log(ctx);
-    if(ctx) {
-      ctx.start().then(()=> {
-        console.log("HUB CONNECTED");
-        ctx.send("SendMessage", "LE THANH PHONG ");
-        
-      });
-    }
-    ctx?.on("RECEIVE_MSG",(msg)=> {console.log("TEST HUB OKE " + msg)})
-  },[ctx]);
-  useEffect(() => {
-    if (ctx) {
-      ctx
-        .start()
-        .then(() => {
-          ctx.on("ReceiveMessage", (message) => {
-            window.alert(message);
-          });
-        })
-        .catch((error) => console.log(error));
-    }
-  }, [ctx]);
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
@@ -128,7 +93,7 @@ const Dashboard = () => {
           <DepositWithdraw />
         </Grid>
         <Grid item xs={12}>
-          <Table />
+          {/* <Table /> */}
         </Grid>
       </Grid>
     </ApexChartWrapper>
