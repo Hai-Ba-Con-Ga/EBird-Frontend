@@ -71,15 +71,25 @@ const Navigation = (props: Props) => {
 
   // ** Fixes Navigation InfiniteScroll
   const handleInfiniteScroll = (ref: any) => {
-    if (ref) {
+    // if (ref) {
 
-      ref._getBoundingClientRect = ref.getBoundingClientRect
-
-      ref.getBoundingClientRect = () => {
-        const original = ref._getBoundingClientRect()
-
-        return { ...original, height: Math.floor(original.height) }
-      }
+      
+      //   ref.getBoundingClientRect = () => {
+        //     const original = ref._getBoundingClientRect()
+        
+        //     return { ...original, height: Math.floor(original.height) }
+        //   }
+        // }
+        if (ref) {
+        ref._getBoundingClientRect = ref.getBoundingClientRect
+      Object.defineProperty(ref, 'getBoundingClientRect', {
+        value: () => {
+          const original = ref._getBoundingClientRect();
+          return { ...original, height: Math.floor(original.height) };
+        },
+        writable: true,
+        configurable: true,
+      });
     }
   }
 
@@ -114,7 +124,7 @@ const Navigation = (props: Props) => {
       />
       <Box component={"div"} sx={{ height: '100%', position: 'relative', overflow: 'hidden' }}>
         <ScrollWrapper
-          containerRef={(ref: any) => handleInfiniteScroll(ref)}
+          // containerRef={(ref: any) => handleInfiniteScroll(ref)}
           {...(hidden
             ? {
                 onScroll: (container: any) => scrollMenu(container),

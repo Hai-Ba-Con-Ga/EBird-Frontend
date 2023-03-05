@@ -41,6 +41,11 @@ const GroupPage = lazy(() => import("./page/app/GroupPage"));
 const Dashboard = lazy(() => import("./page/admin/Dashboard"));
 const AccountPage = lazy(() => import("./page/admin/AccountPage"));
 
+import ProfilePage from "./page/app/profile";
+import ProfileBird from "./page/app/profile/ProfileBird";
+import BirdPage from "./page/admin/BirdPage";
+import RequestPage from "./page/admin/RequestPage";
+import MatchAdminPage from "./page/admin/MatchAdminPage";
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -167,6 +172,9 @@ function App() {
         >
           <Route path="" element={<Dashboard />} />
           <Route path="account" element={<AccountPage />} />
+          <Route path="bird" element={<BirdPage/>} />
+          <Route path="request" element={<RequestPage/>} />
+          <Route path="match" element={<MatchAdminPage/>} />
         </Route>
         <Route path="/*" element="Not found"></Route>
         {/* TODO : Not found component */}

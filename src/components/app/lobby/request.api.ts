@@ -17,11 +17,16 @@ export const RequestApi = {
     return response.data;
   },
   getAllRequest: async (
-    params: GetAllRequestParams
+    {roomId,
+    pagination}: GetAllRequestParams
   ): Promise<Response<any>> => {
     const url = "/request/room";
     const response = await axiosClient.get(url, {
-      params,
+      params: {
+        PageNumber: pagination?.PageNumber,
+        PageSize: pagination?.PageSize,
+        roomId: roomId 
+      }
     });
     return response.data;
   },
