@@ -1,17 +1,13 @@
 {
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/index.html"
-      },
-      {
-        "src": "/",
-        "dest": "/index.html"
-      },
-      {
-        "src": "/static/(.*)",
-        "dest": "/dist/static/$1"
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/index.html",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "cmd": "serve -s dist --single"
       }
-    ]
-  }
-  
+    }
+  ]
+}
