@@ -1,9 +1,12 @@
+import { IconSettings } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../api/axiosClient";
 import useApp from "../../app/common/useApp";
 import useAuth from "../../auth/useAuth";
 import HeaderPlayButton from "../button/HeaderPlayButton";
+import SettingsForm from "../form/SettingsForm";
+import useModal from "../modal/useModal";
 import Select from "../select/Select";
 import { SelectOption } from "../select/Select.style";
 import {
@@ -20,6 +23,7 @@ import {
 
 const ClientHeader = () => {
   const { setCurrentBird, currentBird ,SelectBird} = useApp({useSelection : true});
+  const {openModal} = useModal();
   return (
     <ClientHeaderWrapper>
       <AppHeader>
@@ -44,6 +48,11 @@ const ClientHeader = () => {
         </MainNavigationBar>
         <BirdSelectArea>
           {SelectBird}
+          <IconSettings onClick={()=>openModal({
+            payload : null,
+            closable: false,
+            component: <SettingsForm/>
+          })}/>
         </BirdSelectArea>
       </AppHeader>
     </ClientHeaderWrapper>

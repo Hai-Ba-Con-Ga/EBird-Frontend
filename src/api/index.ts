@@ -3,5 +3,5 @@ export interface Response<T> {
     data : T;
     message : string;
     statusCode? : number;
-    pagination? : any
+    pagingData? : any
 }
