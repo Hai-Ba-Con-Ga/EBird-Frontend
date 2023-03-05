@@ -9,6 +9,7 @@ import {
 import Select from "../../../common/select/Select";
 import { SelectOption } from "../../../common/select/Select.style";
 import { BirdApi } from "./bird.api";
+import useBird from "./useBird";
 
 const CreateFormWrapper = styled.form`
 	width: 100%;
@@ -28,19 +29,24 @@ const FormTitle = styled.h2`
 `;
 const BirdImageSelectSection = styled.div``;
 const CreateBirdModal = () => {
-	const { setValue, handleSubmit } = useForm();
+	const { setValue, handleSubmit, register } = useForm();
 	const [birdTypes, setTypes] = useState<any[]>([]);
-	const [currentTypeName, setTypeName] = useState<string>();
+	const [currentTypeName, setTypeName] = useState<string>("");
+	const { createNewBird } = useBird();
 	useEffect(() => {
 		BirdApi.getAllBirdType()
 			.then((res) => res.data)
 			.then((types) => setTypes(types));
 	}, []);
+	useEffect(() => {
+		console.log(currentTypeName);
+	}, [currentTypeName]);
 
 	return (
 		<CreateFormWrapper
 			onSubmit={handleSubmit((data) => {
 				console.log(data);
+				createNewBird(data as any);
 			})}
 		>
 			<FormTitle>Create new bird</FormTitle>
@@ -48,7 +54,7 @@ const CreateBirdModal = () => {
 			<MultipleTextField>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Name</label>
-					<input type="text" placeholder="Bird name" />
+					<input {...register("name")} type="text" placeholder="Bird name" />
 				</TextFieldBlock>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Type</label>
@@ -56,7 +62,10 @@ const CreateBirdModal = () => {
 						{birdTypes.map((birdType, i) => (
 							<SelectOption
 								key={birdType?.id}
-								onClick={() => setValue("birdTypeId", birdType.id)}
+								onClick={() => {
+									setValue("birdTypeId", birdType.id);
+									setTypeName(birdType?.typeName);
+								}}
 							>
 								{birdType?.typeName}
 							</SelectOption>
@@ -65,22 +74,26 @@ const CreateBirdModal = () => {
 				</TextFieldBlock>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Color</label>
-					<input type="text" placeholder="Color" />
+					<input {...register("color")} type="text" placeholder="Color" />
 				</TextFieldBlock>
 			</MultipleTextField>
 			<MultipleTextField>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Weight</label>
-					<input type="text" placeholder="Bird name" />
+					<input {...register("weight")} type="number" placeholder="Weight" />
 				</TextFieldBlock>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Age</label>
-					<input type="date" name="" id="" />
+					<input {...register("age")} type="number" placeholder="Age" />
 				</TextFieldBlock>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					{/* TODO : Description use RichText */}
 					<label htmlFor="">Description</label>
-					<input type="text" placeholder="Color" />
+					<input
+						{...register("description")}
+						type="text"
+						placeholder="Description"
+					/>
 				</TextFieldBlock>
 			</MultipleTextField>
 			<ButtonCommon

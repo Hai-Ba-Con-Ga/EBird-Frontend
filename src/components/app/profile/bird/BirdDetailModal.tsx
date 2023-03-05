@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Bird } from "../../../../utils/types";
+import { Bird, Match } from "../../../../utils/types";
+import MatchCard from "../../match/MatchCard";
 import { BirdApi } from "./bird.api";
+import HistoryMatchCard from "./BirdMatchHistory";
+import useBird from "./useBird";
 type Props = {
 	birdId: string;
 };
@@ -11,6 +14,7 @@ export const BirdDetailWrapper = styled.div`
 	/* background-color: red; */
 	padding: 2rem;
 	display: flex;
+	/* flex-direction: column; */
 `;
 export const SideTabWrapper = styled.div`
 	height: 100%;
@@ -73,9 +77,9 @@ const BirdDetailModal = ({ birdId }: Props) => {
 				</SideTabWrapper>
 				<BirdInfoWrapper>
 					{currentTab === tabs[0] ? (
-						<BirdOverview bird={{} as any}></BirdOverview>
+						<BirdOverview bird={bird as any}></BirdOverview>
 					) : currentTab === tabs[1] ? (
-						<BirdHistoryMatch />
+						<BirdHistoryMatch birdId={birdId} />
 					) : (
 						<BirdOverview bird={{} as any}></BirdOverview>
 					)}
@@ -88,13 +92,64 @@ export default BirdDetailModal;
 
 export const BirdOverview = ({ bird }: { bird: Bird }) => {
 	return (
-		<BirdDetailWrapper>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				padding: "2rem 3rem",
+			}}
+		>
 			<BirdOverviewCover>
 				<img src="https://source.unsplash.com/random" alt="" />
 			</BirdOverviewCover>
-		</BirdDetailWrapper>
+			<div
+				style={{
+					margin: "1rem 0 ",
+					width: "100%",
+					// padding: "1rem",
+					display: "flex",
+					justifyContent: "space-between",
+					color: "var(--dark-blue)",
+					fontWeight: "600",
+					fontSize: "var(--text-2xl)",
+				}}
+			>
+				<span>
+					Bird name <label htmlFor="">{bird?.name}</label>
+				</span>
+				<span>
+					Bird Type <label htmlFor="">{"bird?.birdTypeId"}</label>
+				</span>
+				<span>
+					Color <label htmlFor="">{bird?.color}</label>
+				</span>
+			</div>
+			<div
+				style={{
+					margin: "1rem 0 ",
+					width: "100%",
+					// padding: "1rem",
+					display: "flex",
+					justifyContent: "space-between",
+					color: "var(--dark-blue)",
+					fontWeight: "600",
+					fontSize: "var(--text-2xl)",
+				}}
+			>
+				<span>
+					Weight <label htmlFor="">{bird?.weight}</label>
+				</span>
+				<span>
+					Elo <label htmlFor="">{bird?.elo}</label>
+				</span>
+				<span>
+					Description <label htmlFor="">{bird?.description}</label>
+				</span>
+			</div>
+		</div>
 	);
 };
+
 export const BirdOverviewWrapper = styled.div`
 	height: 100%;
 	width: 100%;
@@ -106,6 +161,25 @@ export const BirdOverviewCover = styled.div`
 	overflow: hidden;
 `;
 
-export const BirdHistoryMatch = () => {
-	return <h1>History Match</h1>;
+export const BirdHistoryMatch = ({ birdId }: { birdId: string }) => {
+	const [matches, setMatches] = useState<Match[]>([]);
+	const { getBirdMatchHistory } = useBird();
+	useEffect(() => {
+		if (birdId) {
+			getBirdMatchHistory(birdId).then((matches) => setMatches(matches));
+		}
+	}, [birdId]);
+	return (
+		<MatchList>
+			{matches?.map((match) => (
+				<HistoryMatchCard key={match?.id} match={match} />
+			))}
+		</MatchList>
+	);
 };
+export const MatchList = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 3rem;
+	gap: 2rem;
+`;

@@ -6,6 +6,7 @@ import { Bird } from "../../../../utils/types";
 import useModal from "../../../common/modal/useModal";
 import { BirdApi } from "./bird.api";
 import BirdDetailModal from "./BirdDetailModal";
+import { motion } from "framer-motion";
 
 type Props = {
 	bird: Bird;
@@ -38,18 +39,21 @@ export const BirdCardTitle = styled.div`
 	right: 0;
 	border-radius: 0 0 var(--roundedMedium) var(--roundedMedium);
 `;
-export const BirdInformationPrompt = styled.div`
+export const BirdInformationPrompt = styled(motion.div)`
 	position: absolute;
 	padding: 2rem;
 	width: 30rem;
 	height: 25rem;
 	background-color: var(--dark-green);
 	z-index: 3;
-	bottom: 50%;
+	/* bottom: 50%;
 	${({ position }: { position: "left" | "right" }) =>
 		position === "left"
 			? "left: 0;transform: translate(-101%, 50%) ;"
-			: "right: 0; transform: translate( 101%, 50%) ;"}
+			: "right: 0; transform: translate( 101%, 50%) ;"} */
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 101%);
 	box-shadow: 1px 1px 5px -3px var(--dark-green);
 	&::after {
 		content: "";
@@ -57,11 +61,14 @@ export const BirdInformationPrompt = styled.div`
 		aspect-ratio: 1;
 		background-color: var(--dark-green);
 		position: absolute;
-		top: 50%;
+		/* top: 50%;
 		${({ position }: { position: "left" | "right" }) =>
 			position == "left"
 				? "left: 0;transform: translate(-50%, -50%) rotate(45deg);"
-				: "right: 0;transform: translate(50%, -50%) rotate(45deg);"}
+				: "right: 0;transform: translate(50%, -50%) rotate(45deg);"} */
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, -50%) rotate(45deg);
 	}
 	color: var(--gold-secondary);
 	h3 {
@@ -128,8 +135,15 @@ const BirdCard = ({ bird }: Props) => {
 					alt=""
 				/>
 			</BirdImage>
-			{
-				<BirdInformationPrompt position="left">
+			{pop && (
+				<BirdInformationPrompt
+					initial={{
+						opacity: 0.5,
+					}}
+					animate={{ opacity: 1, animationDuration: "0.2s" }}
+					exit={{ opacity: 0.5, animationDuration: "0.2s" }}
+					position="left"
+				>
 					<h3>Bird information</h3>
 					<span>
 						<label htmlFor="">Bird name</label>
@@ -147,7 +161,7 @@ const BirdCard = ({ bird }: Props) => {
 						{"bird?.ratio.win"}
 					</span>
 				</BirdInformationPrompt>
-			}
+			)}
 			{/* <BirdCardTitle>Bird Name</BirdCardTitle> */}
 		</BirdCardWrapper>
 	);

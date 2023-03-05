@@ -9,6 +9,7 @@ import useModal from "../../../components/common/modal/useModal";
 import { Bird } from "../../../utils/types";
 import useProfile from "../../../components/app/profile/useProfile";
 import CreateBirdModal from "../../../components/app/profile/bird/CreateBirdModal";
+import { IconRefresh } from "@tabler/icons-react";
 
 export const ProfileBirdPage = styled.div`
 	padding: 3rem;
@@ -20,6 +21,9 @@ const ProfileBird = () => {
 	const [birds, setBirds] = useState<Bird[]>([]);
 	const { openModal } = useModal();
 	useEffect(() => {
+		getBirds();
+	}, [profileId]);
+	const getBirds = useCallback(() => {
 		if (profileId) {
 			BirdApi.getBirdByOwner(profileId)
 				.then((res) => res.data)
@@ -41,7 +45,13 @@ const ProfileBird = () => {
 				</CreateBirdButton>
 			</FilterSidebar>
 			<BirdCollectionSection>
-				<BirdViewHeadline>Bird Collections</BirdViewHeadline>
+				<BirdViewHeadline>
+					Bird Collections{" "}
+					<IconRefresh
+						style={{ cursor: "pointer" }}
+						onClick={() => getBirds()}
+					/>
+				</BirdViewHeadline>
 				<BirdView>
 					{birds?.map((bird) => (
 						<BirdCard key={bird?.id} bird={bird} />
@@ -79,6 +89,7 @@ export const BirdView = styled.div`
 	grid-auto-columns: minmax(0, 1fr);
 	grid-gap: 0px;
 	overflow-y: auto;
+	overflow-x: visible;
 	gap: 5rem;
 `;
 export const BirdViewHeadline = styled.h1`
