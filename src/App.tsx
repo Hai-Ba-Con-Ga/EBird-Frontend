@@ -117,10 +117,16 @@ function App() {
             path="profile"
             element={
               <AppLayout>
-                <h1>Profile</h1>
+                <Outlet/>
               </AppLayout>
             }
-          ></Route>
+          >
+            <Route path="" element={<ProfilePage/>}/>
+            <Route path="birds" element={<ProfileBird/>}/>
+            <Route path=":id" element={<ProfilePage/>}/>
+            <Route path=":id/birds" element={<ProfileBird/>}/>
+            {/* <Route path=""/> */}
+          </Route>
           <Route
             path="group"
             element={
