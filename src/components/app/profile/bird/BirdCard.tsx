@@ -26,6 +26,11 @@ export const BirdImage = styled.div`
 	height: 100%;
 	overflow: hidden;
 	border-radius: var(--roundedMedium);
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 `;
 export const BirdCardTitle = styled.div`
 	position: absolute;
@@ -123,6 +128,8 @@ const BirdCard = ({ bird }: Props) => {
 			component: <BirdDetailModal birdId={bird?.id}></BirdDetailModal>,
 		});
 	}, []);
+	console.log(bird);
+
 	return (
 		<BirdCardWrapper
 			onClick={() => handleBirdCardClick()}
@@ -131,7 +138,12 @@ const BirdCard = ({ bird }: Props) => {
 		>
 			<BirdImage>
 				<img
-					src="https://www.theanimalfacts.com/wp-content/uploads/2021/08/Red-Whiskered-Bulbul-2.jpg"
+					src={
+						bird?.resourceList?.[0]?.dataLink
+							? bird?.resourceList[0].dataLink
+							: "https://www.theanimalfacts.com/wp-content/uploads/2021/08/Red-Whiskered-Bulbul-2.jpg"
+					}
+					// src={bird?.resourceList?.[0]?.dataLink}
 					alt=""
 				/>
 			</BirdImage>

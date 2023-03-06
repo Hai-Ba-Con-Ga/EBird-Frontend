@@ -39,6 +39,7 @@
     "framer-motion": "^8.5.5",
     "google-map-react": "^2.2.0",
     "google-one-tap": "^1.0.6",
+    "imagekit-javascript": "^1.5.4",
     "lodash": "^4.17.21",
     "mdi-material-ui": "^7.6.0",
     "react": "^18.2.0",

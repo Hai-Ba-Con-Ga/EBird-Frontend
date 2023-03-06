@@ -38,4 +38,9 @@ interface CreateBirdParams {
 	color: string;
 	birdTypeId: string;
 	ownerId: string;
+	listResource?: {
+		dataLink: string;
+		description: string;
+		createById?: string;
+	}[];
 }

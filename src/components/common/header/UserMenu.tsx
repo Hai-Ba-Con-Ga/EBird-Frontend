@@ -46,8 +46,20 @@ const UserMenu = () => {
 				<UserMenuDropdown>
 					<UserFullname>Thanh Phong</UserFullname>
 					<UserFunctionsList>
-						<UserFunctionItem>Profile</UserFunctionItem>
-						<UserFunctionItem onClick={() => nav("/app/plans")}>
+						<UserFunctionItem
+							onClick={() => {
+								nav("/app/profile");
+								setActive(false);
+							}}
+						>
+							Profile
+						</UserFunctionItem>
+						<UserFunctionItem
+							onClick={() => {
+								nav("/app/plans");
+								setActive(false);
+							}}
+						>
 							Upgrade to pro
 						</UserFunctionItem>
 						<UserFunctionItem
@@ -61,7 +73,7 @@ const UserMenu = () => {
 						>
 							Setting
 						</UserFunctionItem>
-						<UserFunctionItem>Logout</UserFunctionItem>
+						<UserFunctionItem onClick={() => nav("/")}>Logout</UserFunctionItem>
 					</UserFunctionsList>
 				</UserMenuDropdown>
 			)}

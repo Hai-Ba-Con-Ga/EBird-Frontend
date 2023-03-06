@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { ButtonCommon } from "../../../common/button/Button.style";
+
 import {
 	MultipleTextField,
 	TextFieldBlock,
@@ -50,7 +51,9 @@ const CreateBirdModal = () => {
 			})}
 		>
 			<FormTitle>Create new bird</FormTitle>
-			<BirdImageSelectSection></BirdImageSelectSection>
+			<BirdImageSelectSection>
+				<input type="file" {...register("images")} />
+			</BirdImageSelectSection>
 			<MultipleTextField>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Name</label>
