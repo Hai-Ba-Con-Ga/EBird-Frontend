@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Table from "../../components/admin/views/dashboard/Table";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -11,10 +11,18 @@ import TableCell from "@mui/material/TableCell";
 import { Checkbox, Typography } from '@mui/material';
 import useMatchAdmin from '../../components/admin/match/useMatchAdmin';
 
+
+
+
 const MatchAdminPage = () => {
-  const {matches,tablePagination,selected,isAllSelected,onDeselectAll,rowSelected,onSelectAll}= useMatchAdmin();
+  const {matches,tablePagination,selected,isAllSelected,onDeselectAll,rowSelected,onSelectAll,
+	MatchPageTabs,currentTab,setTab
+}= useMatchAdmin();
   return (
     <div>
+		<Box component={"div"} style={{display: 'flex',gap: '1rem'}}>
+			{MatchPageTabs?.map((tab,i)=><Chip style={{fontSize: 'var(--text-2xl)',fontWeight: 600, cursor:'pointer'}} key={i} color={currentTab == tab.value ? 'primary' : 'default'} onClick={()=>setTab(tab.value)} label={tab?.label}/>)}
+		</Box>
 			<Table
 				selectAllChecked={isAllSelected ?? false}
 				onSelectAll={isAllSelected ? onDeselectAll : onSelectAll}

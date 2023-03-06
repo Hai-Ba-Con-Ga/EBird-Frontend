@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { MatchStatus } from '../../../utils/types';
 import { MatchApi } from '../../app/lobby/match.api';
 import usePagination from '../common/pagination/usePagination';
 
@@ -7,17 +8,33 @@ import usePagination from '../common/pagination/usePagination';
 const useMatchAdmin = () => {
     const [matches,setMatches] = useState<any[]>();
     const {tablePagination,pagination,setPagination,setTotalPages,setTotalItems} = usePagination();
+    const MatchPageTabs = [
+        {
+            label: 'Overview',
+            value: '',
+        },
+        {
+            label: 'Completed',
+            value: 'Completed',
+        },
+        {
+            label: 'Conflict',
+            value: 'Conflict',
+        },
+    ];
+	const [currentTab,setTab] = useState<string>(MatchPageTabs[0].value);
+
 
   useEffect(()=>{
     // TODO: //Status
       MatchApi.getAllMatches({
-            PageNumber: pagination.currentPage+1,PageSize:pagination.pageSize,
+            PageNumber: pagination.currentPage+1,PageSize:pagination.pageSize,status: currentTab as MatchStatus
       }).then(response=>{
           setSelected(null);
           setPagination({...pagination,totalItems: response.pagingData.totalCount,totalPages: response.pagingData.totalPages})
           setMatches(response.data)
       })
-  },[pagination.currentPage,pagination.pageSize])
+  },[pagination.currentPage,pagination.pageSize,currentTab])
   const [selected, setSelected] = useState<{ [key: string]: boolean }|null>();
   useEffect(() => {
       if (matches) {
@@ -72,7 +89,10 @@ const useMatchAdmin = () => {
       rowSelected,
       onSelectAll,
       isAllSelected,
-      onDeselectAll
+      onDeselectAll,
+      MatchPageTabs,
+      setTab,
+      currentTab
   }
   )
 }
