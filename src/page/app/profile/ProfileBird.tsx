@@ -61,7 +61,7 @@ const ProfileBird = () => {
 		</ProfileBirdPageWrapper>
 	);
 };
-export const CreateBirdButton = styled(ButtonCommon)`
+export const CreateBirdButton: any = styled(ButtonCommon)`
 	background: var(--dark-blue);
 	color: var(--white);
 	font-size: var(--text-3xl);

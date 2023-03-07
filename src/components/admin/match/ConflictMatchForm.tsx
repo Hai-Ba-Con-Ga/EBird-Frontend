@@ -1,4 +1,4 @@
-import { Box, Radio, Typography } from "@mui/material";
+import { Box, Radio, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import { MatchStatus } from "../../../utils/types";
 import { RequestBirdContainer } from "../../app/lobby/lobby.style";
@@ -16,8 +16,11 @@ import { MatchCardBird } from "../../app/match/MatchCard";
 import { IconMapPin, IconClock } from "@tabler/icons-react";
 import { ButtonCommon } from "../../common/button/Button.style";
 import styled from "styled-components";
+import useModal from "../../common/modal/useModal";
+import { toast } from "react-toastify";
 const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 	const [matchDetail, setMatchDetail] = useState<any>();
+	const { closeModal } = useModal();
 	useEffect(() => {
 		if (matchId) {
 			MatchApi.getMatchDetail(matchId).then((res) => setMatchDetail(res.data));
@@ -122,7 +125,17 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 				</RequestBirdContainer>
 				<UpdateResultButton
 					type="button"
-					onClick={() => console.log("solved", updateParams)}
+					onClick={async () => {
+						console.log("solved", updateParams);
+						MatchApi.updateConflict(updateParams).then((res) => {
+							console.log("Updateresult", res);
+							if (res.success) {
+								closeModal();
+							} else {
+								toast.error("Error updating conflict");
+							}
+						});
+					}}
 				>
 					Update result
 				</UpdateResultButton>

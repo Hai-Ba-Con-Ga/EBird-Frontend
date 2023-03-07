@@ -28,6 +28,11 @@ export const BirdApi = {
 		const res = await axiosClient.get(url);
 		return res.data;
 	},
+	getCurrentBirdRank: async (birdId: string): Promise<Response<Bird>> => {
+		const url = `/bird/${birdId}/rank`;
+		const res = await axiosClient.get(url);
+		return res.data;
+	},
 };
 
 interface CreateBirdParams {

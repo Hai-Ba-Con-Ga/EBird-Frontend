@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { Bird, Match } from "../../../../utils/types";
 import MatchCard from "../../match/MatchCard";
@@ -91,6 +91,17 @@ const BirdDetailModal = ({ birdId }: Props) => {
 export default BirdDetailModal;
 
 export const BirdOverview = ({ bird }: { bird: Bird }) => {
+	const birdAvatar = useMemo(() => {
+		if (bird?.id) {
+			if (bird?.resourceList?.length > 0 && bird?.resourceList[0].dataLink) {
+				return bird.resourceList[0].dataLink;
+			} else {
+				return "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg";
+			}
+		} else {
+			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
+		}
+	}, [bird]);
 	return (
 		<div
 			style={{
@@ -100,7 +111,7 @@ export const BirdOverview = ({ bird }: { bird: Bird }) => {
 			}}
 		>
 			<BirdOverviewCover>
-				<img src="https://source.unsplash.com/random" alt="" />
+				<img src={birdAvatar} alt="" />
 			</BirdOverviewCover>
 			<div
 				style={{
