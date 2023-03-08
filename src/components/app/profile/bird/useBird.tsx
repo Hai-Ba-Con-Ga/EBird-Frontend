@@ -13,7 +13,7 @@ const useBird = () => {
 	const { closeModal } = useModal();
 	const createNewBird = useCallback(
 		async (formData: CreateBirdFormData) => {
-			if (!userInfomation) return;
+			
 			console.log(imagekit);
 			console.log(formData);
 			const resouces: any[] = [];
