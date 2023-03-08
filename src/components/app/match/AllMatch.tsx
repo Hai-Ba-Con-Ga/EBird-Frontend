@@ -54,7 +54,7 @@ const AllMatch = () => {
 			</AllMatchTabSide>
 			<MatchesLayout>
 				{matches?.map((match) => (
-					<MatchCard key={match?.id} match={match} />
+					<MatchCard isView={false} key={match?.id} match={match} />
 				))}
 			</MatchesLayout>
 		</AllMatchWrapper>

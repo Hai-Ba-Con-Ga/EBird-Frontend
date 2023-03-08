@@ -26,7 +26,13 @@ import useModal from "../../common/modal/useModal";
 import UpdateResultForm from "../../common/form/UploadResultForm";
 import useAuth from "../../auth/useAuth";
 
-const MatchCard = ({ match }: { match?: any }) => {
+const MatchCard = ({
+	match,
+	isView = true,
+}: {
+	match?: any;
+	isView?: boolean;
+}) => {
 	const [matchDetail, setDetail] = useState<any>(null);
 	const {
 		auth: { userInfomation },
@@ -90,27 +96,29 @@ const MatchCard = ({ match }: { match?: any }) => {
 					</BirdResult>
 				</BirdResultWrapper>
 			</RequestBirdContainer>
-			<UpdateResultButton
-				type="button"
-				onClick={() =>
-					openModal({
-						payload: null,
-						closable: true,
-						component: (
-							<UpdateResultForm
-								birdId={
-									matchDetail?.matchDetails?.find(
-										(mBird: any) => mBird.bird.ownerId == userInfomation?.id
-									)?.bird?.id
-								}
-								matchID={match?.id}
-							/>
-						),
-					})
-				}
-			>
-				Update result
-			</UpdateResultButton>
+			{isView && (
+				<UpdateResultButton
+					type="button"
+					onClick={() =>
+						openModal({
+							payload: null,
+							closable: true,
+							component: (
+								<UpdateResultForm
+									birdId={
+										matchDetail?.matchDetails?.find(
+											(mBird: any) => mBird.bird.ownerId == userInfomation?.id
+										)?.bird?.id
+									}
+									matchID={match?.id}
+								/>
+							),
+						})
+					}
+				>
+					Update result
+				</UpdateResultButton>
+			)}
 		</MatchCardWrapper>
 	);
 };

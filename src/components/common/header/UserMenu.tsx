@@ -1,6 +1,7 @@
 import { Chip } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useClickOutside from "../../app/common/useClickOutside";
 import useAuth from "../../auth/useAuth";
 import SettingsForm from "../form/SettingsForm";
 import useModal from "../modal/useModal";
@@ -23,8 +24,13 @@ const UserMenu = () => {
 	//TODO VIP include
 	// const isVip = useMemo(() => userInfomation?.role == 1, [userInfomation]);
 	const isVip = false;
+	const userMenuRef = useRef();
+	const outsideClickHandler = useCallback(() => {
+		setActive(false);
+	}, []);
+	useClickOutside(userMenuRef, outsideClickHandler);
 	return (
-		<UserMenuWrapper>
+		<UserMenuWrapper ref={userMenuRef as any}>
 			<Chip
 				style={{
 					position: "absolute",

@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import {
 	IconBrandStripe,
 	IconChevronLeft,
 	IconBrandVisa,
 } from "@tabler/icons-react";
+import useAuth from "../../components/auth/useAuth";
+import axiosClient from "../../api/axiosClient";
 const plans = [
 	{
 		type: "1 Month",
@@ -35,9 +37,27 @@ const PageFunc = styled.div`
 	justify-content: space-between;
 	width: 100%;
 `;
+
 const PaidPlanPage = () => {
 	const [choosenPlan, setPlan] = useState<any>();
 	const [step, setStep] = useState<number>(1);
+	const {
+		auth: { userInfomation },
+	} = useAuth();
+
+	const handlerPayVnpay = useCallback(() => {
+		console.log(choosenPlan);
+		const paymentParams = {
+			limitMonth: choosenPlan.duration,
+			amount: choosenPlan.price,
+			accountId: userInfomation?.id,
+			createdDate: "2023-03-08T00:56:23.562Z",
+		};
+		const url = "/payment/create-payment";
+		axiosClient
+			.post(url, paymentParams)
+			.then((res: any) => (window.location.href = res.data.data));
+	}, [choosenPlan, userInfomation]);
 	return (
 		<PageWrapper>
 			<PageTitle>Account Upgrade Plans</PageTitle>
@@ -67,12 +87,22 @@ const PaidPlanPage = () => {
 			{step == 2 && (
 				<PaymentList>
 					<IconBrandStripe color="var(--dark-blue)" />
-					<IconBrandVisa color="var(--dark-blue)" />
+					<PaymentMethodItem onClick={handlerPayVnpay}>
+						<IconBrandVisa />
+					</PaymentMethodItem>
 				</PaymentList>
 			)}
 		</PageWrapper>
 	);
 };
+const PaymentMethodItem = styled.div`
+	background-color: var(--dark-blue);
+	padding: 1rem 3rem;
+	color: var(--color-coffee);
+	border-radius: var(--roundedSmall);
+	cursor: pointer;
+	margin: 1rem 0;
+`;
 const PaymentList = styled.div`
 	display: flex;
 	align-items: center;
