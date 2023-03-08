@@ -47,25 +47,27 @@ const UpdateResultForm = ({ matchID, birdId }: Props) => {
 						resources.splice(resources.length, 1, {
 							dataLink: result.url,
 							description: result.name,
+							thumbnail: "",
 						});
 					}
 				});
 				console.log(resources);
 
-				/*  const params = {
-          result: data.result,
-          birdId,
-          matchId: matchID,
-        };
-        // console.log(params);
+				const params = {
+					result: data.result,
+					birdId,
+					matchId: matchID,
+					listResource: resources,
+				};
+				// console.log(params);
 
-        const res = await MatchApi.updateResult(params);
-        console.log(res);
-        if (res.success) {
-          closeModal();
-        } else {
-          toast.warning("Cannot update result");
-        }*/
+				const res = await MatchApi.updateResult(params);
+				console.log(res);
+				if (res.success) {
+					closeModal();
+				} else {
+					toast.warning("Cannot update result");
+				}
 			})}
 		>
 			<UpdateResultTitle>UPDATE RESULT</UpdateResultTitle>

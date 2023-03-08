@@ -1,13 +1,23 @@
 import { Button } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import {
 	IconBrandStripe,
 	IconChevronLeft,
 	IconBrandVisa,
 } from "@tabler/icons-react";
+import {
+	Elements,
+	CardElement,
+	useStripe,
+	useElements,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
 import useAuth from "../../components/auth/useAuth";
 import axiosClient from "../../api/axiosClient";
+import StripePayment from "../../components/app/payment/StripePayment";
+import { PaymentIntent } from "@stripe/stripe-js";
 const plans = [
 	{
 		type: "1 Month",
@@ -44,6 +54,7 @@ const PaidPlanPage = () => {
 	const {
 		auth: { userInfomation },
 	} = useAuth();
+	const [stripePaymentIntentSK, setIntentSK] = useState<string>();
 
 	const handlerPayVnpay = useCallback(() => {
 		console.log(choosenPlan);
@@ -58,6 +69,21 @@ const PaidPlanPage = () => {
 			.post(url, paymentParams)
 			.then((res: any) => (window.location.href = res.data.data));
 	}, [choosenPlan, userInfomation]);
+	const handleStripCreateIntent = useCallback(async () => {
+		const url = "/stripe/payment_intent";
+		const pi = (await axiosClient.post(url)).data;
+		console.log(pi);
+		setIntentSK(pi.clientSecret);
+	}, []);
+	useEffect(() => {
+		console.log("StripCreate");
+
+		console.log(stripePaymentIntentSK);
+	}, [stripePaymentIntentSK]);
+	const stripePromise = loadStripe(
+		// "sk_test_51MjOMSDIlCFDWwtMJJyh0nNTdevlH2GcAV3E9T7m9b8UZeuq5q2zOIr38gs1OTENNChcjA9Nc7O2c7T1CUxrXrIh00H52ywIlA"
+		"pk_test_51MjOMSDIlCFDWwtMxMw7nXREWQqbNxvnzIN0wull4MIRN7STr4jgkpSWuxQNuVZDktfPy595CAgsaocskXaKeDmQ00Yyf8Ox2O"
+	);
 	return (
 		<PageWrapper>
 			<PageTitle>Account Upgrade Plans</PageTitle>
@@ -86,12 +112,23 @@ const PaidPlanPage = () => {
 			)}
 			{step == 2 && (
 				<PaymentList>
-					<IconBrandStripe color="var(--dark-blue)" />
+					{/* <IconBrandStripe color="var(--dark-blue)" /> */}
 					<PaymentMethodItem onClick={handlerPayVnpay}>
 						<IconBrandVisa />
 					</PaymentMethodItem>
+					<PaymentMethodItem onClick={handleStripCreateIntent}>
+						<IconBrandStripe />
+					</PaymentMethodItem>
 				</PaymentList>
 			)}
+			<Elements
+				stripe={stripePromise}
+				options={{ clientSecret: stripePaymentIntentSK }}
+			>
+				{stripePaymentIntentSK && (
+					<StripePayment clientSecret={stripePaymentIntentSK} />
+				)}
+			</Elements>
 		</PageWrapper>
 	);
 };

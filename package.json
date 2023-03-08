@@ -26,6 +26,8 @@
     "@react-google-maps/api": "^2.18.1",
     "@react-three/drei": "^9.56.24",
     "@react-three/fiber": "^8.11.0",
+    "@stripe/react-stripe-js": "^1.16.5",
+    "@stripe/stripe-js": "^1.48.0",
     "@tabler/icons-react": "^2.1.2",
     "@types/google-one-tap": "^1.2.2",
     "@types/mssql": "^8.1.2",

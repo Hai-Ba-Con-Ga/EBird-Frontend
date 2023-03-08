@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import Table from "../../components/admin/views/dashboard/Table";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -8,20 +8,103 @@ import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import { Checkbox, Typography } from '@mui/material';
-import useRequestAdmin from '../../components/admin/request/useRequestAdmin';
-
+import { Checkbox, MenuItem, Select, Typography } from "@mui/material";
+import useRequestAdmin from "../../components/admin/request/useRequestAdmin";
 
 const RequestPage = () => {
-    const {requests,tablePagination,selected,isAllSelected,onDeselectAll,rowSelected,onSelectAll}= useRequestAdmin();
-  return (
-    <div>
+	const {
+		requests,
+		tablePagination,
+		selected,
+		isAllSelected,
+		onDeselectAll,
+		rowSelected,
+		onSelectAll,
+		RequestPageTabs,
+		setTab,
+		currentTab,
+		rooms,
+		groups,
+		roomSelect,
+		setRoomSelect,
+		groupSelect,
+		setGroupSelect,
+	} = useRequestAdmin();
+
+	return (
+		<div>
+			<Box
+				component={"div"}
+				style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}
+			>
+				{RequestPageTabs?.map((tab, i) => (
+					<Chip
+						style={{
+							fontSize: "var(--text-xl)",
+							fontWeight: 600,
+							cursor: "pointer",
+							padding: "1.5rem 1rem",
+						}}
+						key={i}
+						color={currentTab == tab.value ? "primary" : "default"}
+						onClick={() => setTab(tab.value)}
+						label={tab?.label}
+					/>
+				))}
+			</Box>
+			<Box
+				component={"div"}
+				style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}
+			>
+				{roomSelect && (
+					<Select
+						value={roomSelect}
+						label="Room"
+						onChange={(ev) => {
+							console.log("Select room", ev.target.value);
+							setRoomSelect(ev.target.value);
+						}}
+					>
+						{rooms.map((room) => (
+							<MenuItem key={room.id} value={room.id}>
+								{room.name}
+							</MenuItem>
+						))}
+					</Select>
+				)}
+				{
+					<Select
+						value={groupSelect}
+						label="Group"
+						onChange={(ev) => {
+							console.log("Select room", ev.target.value);
+							setGroupSelect(ev.target.value);
+						}}
+					>
+						{groups?.map((group) => (
+							<MenuItem key={group.id} value={group.id}>
+								{group.name}
+							</MenuItem>
+						))}
+					</Select>
+				}
+			</Box>
 			<Table
 				selectAllChecked={isAllSelected ?? false}
 				onSelectAll={isAllSelected ? onDeselectAll : onSelectAll}
 				pagination={tablePagination}
 				isSelect={true}
-				fieldNames={["Id", "Bird Name", "Age", "Weight", "Color","Elo", "Status","Owner", "Description", ]}
+				fieldNames={[
+					"Id",
+					"Bird Name",
+					"Age",
+					"Weight",
+					"Color",
+					"Elo",
+					"Status",
+					"Owner",
+					"Description",
+				]}
 			>
 				<>
 					{requests?.map((row: any) => (
@@ -67,7 +150,7 @@ const RequestPage = () => {
 				</>
 			</Table>
 		</div>
-  )
-}
+	);
+};
 
-export default RequestPage
+export default RequestPage;

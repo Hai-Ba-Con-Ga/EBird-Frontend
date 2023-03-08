@@ -45,9 +45,9 @@ export const MatchApi = {
 		const response = await axiosClient.get(url);
 		return response.data;
 	},
-	updateResult: async ({ matchId, birdId, result }: any) => {
+	updateResult: async ({ matchId, birdId, result, listResource }: any) => {
 		const url = "/match-detail/result/" + matchId;
-		const res = await axiosClient.put(url, { result, birdId });
+		const res = await axiosClient.put(url, { result, birdId, listResource });
 		return res.data;
 	},
 	getAllMatches: async (
