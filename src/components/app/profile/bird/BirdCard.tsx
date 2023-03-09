@@ -7,6 +7,7 @@ import useModal from "../../../common/modal/useModal";
 import { BirdApi } from "./bird.api";
 import BirdDetailModal from "./BirdDetailModal";
 import { motion } from "framer-motion";
+import Typography from "@mui/material/Typography";
 
 type Props = {
 	bird: Bird;
@@ -147,6 +148,9 @@ const BirdCard = ({ bird }: Props) => {
 					alt=""
 				/>
 			</BirdImage>
+			<Typography color="var(--dark-blue)" fontWeight={600} textAlign="center" fontSize="var(--text-5xl)" style={{
+				padding: "1.5rem 1rem"
+			}}>{bird?.name}</Typography>
 			{pop && (
 				<BirdInformationPrompt
 					initial={{

@@ -30,7 +30,8 @@ const useAuth = (init?: boolean) => {
   const registerNewAccount = useCallback(async (params:RegisterParams) => {
     const data = await request(AuthApi.register,params);
     if(data.success){
-      window.location.replace("/app") 
+      // window.location.replace("/log")
+      nav("/login") 
     }else {
       toast.error( data.message || "Cannot register new account! Try again later")
     }
@@ -45,7 +46,7 @@ const useAuth = (init?: boolean) => {
 
         setAuth({ userInfomation: response.data, firstLoading: false,isAuthenticated : true })
         console.log("setauth successful",auth);
-      window.location.replace("/app") 
+        window.location.replace("/app") 
         
       }
       )

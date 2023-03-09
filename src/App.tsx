@@ -48,6 +48,7 @@ import RequestPage from "./page/admin/RequestPage";
 import MatchAdminPage from "./page/admin/MatchAdminPage";
 import RoomPage from "./page/admin/RoomPage";
 import PaidPlanPage from "./page/app/PaidPlanPage";
+import PaymentResultPage from "./components/app/others/PaymentResultPage";
 function App() {
 	// const { auth } = useAuth(true);
 	const { isLoading, loadingType, Loader } = useLoading();
@@ -175,6 +176,7 @@ function App() {
 							</AppLayout>
 						}
 					></Route>
+					<Route path="payment/result" element={<PaymentResultPage/>}></Route>
 				</Route>
 				<Route
 					path="/admin"

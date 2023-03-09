@@ -1,3 +1,5 @@
+import { Typography } from "@mui/material";
+import { IconUpload } from "@tabler/icons-react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -28,12 +30,30 @@ const FormTitle = styled.h2`
 	transform: translateX(-50%);
 	text-transform: uppercase;
 `;
-const BirdImageSelectSection = styled.div``;
+const BirdImageSelectSection = styled.div`
+	/* height: 15rem; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	label {
+		border: 2px solid var(--dark-blue);
+		border-radius: var(--roundedMedium);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 30rem;
+		aspect-ratio: 4/3;
+		height: 100%;
+		transition: all 0.25s linear;
+	}
+`;
 const CreateBirdModal = () => {
 	const { setValue, handleSubmit, register } = useForm();
 	const [birdTypes, setTypes] = useState<any[]>([]);
 	const [currentTypeName, setTypeName] = useState<string>("");
+
 	const { createNewBird } = useBird();
+
 	useEffect(() => {
 		BirdApi.getAllBirdType()
 			.then((res) => res.data)
@@ -42,7 +62,7 @@ const CreateBirdModal = () => {
 	useEffect(() => {
 		console.log(currentTypeName);
 	}, [currentTypeName]);
-
+	const [previewUrl, setPreviewUrl] = useState<string>();
 	return (
 		<CreateFormWrapper
 			onSubmit={handleSubmit((data) => {
@@ -52,7 +72,30 @@ const CreateBirdModal = () => {
 		>
 			<FormTitle>Create new bird</FormTitle>
 			<BirdImageSelectSection>
-				<input type="file" {...register("images")} />
+				<label htmlFor="bird-img-upload" style={{ cursor: "pointer" }}>
+					{previewUrl ? (
+						<img src={previewUrl} alt="" />
+					) : (
+						<IconUpload color="var(--dark-blue)" />
+					)}
+					<input
+						type="file"
+						id="bird-img-upload"
+						style={{ display: "none" }}
+						{...register("images", {
+							onChange: (event) => {
+								const reader = new FileReader();
+								console.log(event);
+
+								reader.onload = (event) => {
+									setPreviewUrl(event?.target?.result as string);
+								};
+
+								reader.readAsDataURL(event.target.files[0]);
+							},
+						})}
+					/>
+				</label>
 			</BirdImageSelectSection>
 			<MultipleTextField>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
@@ -83,11 +126,22 @@ const CreateBirdModal = () => {
 			<MultipleTextField>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Weight</label>
-					<input {...register("weight")} type="number" placeholder="Weight" />
+					<input
+						{...register("weight", { min: 0 })}
+						min={0}
+						type="number"
+						step={0.1}
+						placeholder="Weight"
+					/>
 				</TextFieldBlock>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					<label htmlFor="">Bird Age</label>
-					<input {...register("age")} type="number" placeholder="Age" />
+					<input
+						{...register("age", { min: 0 })}
+						type="number"
+						min={0}
+						placeholder="Age"
+					/>
 				</TextFieldBlock>
 				<TextFieldBlock style={{ color: "var(--dark-blue)" }}>
 					{/* TODO : Description use RichText */}
