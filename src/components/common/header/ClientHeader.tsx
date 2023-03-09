@@ -37,7 +37,7 @@ const ClientHeader = () => {
           <NavBarItem to={"/app/profile"}>Profile</NavBarItem>
           <NavBarItem to={"/app/group"}>Group</NavBarItem>
           <NavBarItem to={"/app/lobby"} className="nav-play-button">
-            <HeaderPlayButton type="button">Request</HeaderPlayButton>
+            <HeaderPlayButton type="button">Find request</HeaderPlayButton>
           </NavBarItem>
           <NavBarItem to={"/app/ranking"}>Ranking</NavBarItem>
           <NavBarItem to={"/app/match"}>Match</NavBarItem>
