@@ -106,6 +106,19 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 							/>
 							{resultLabelFirst}
 						</BirdResult>
+						<Box component={"div"}>
+							{matchDetail?.matchDetails?.[1]?.resourceResponses.map(
+								(rs: any, i: any) => (
+									<a
+										target={"_blank"}
+										rel="noreferrer"
+										style={{ display: "block" }}
+										href={rs?.dataLink}
+										key={rs?.id}
+									>{`Proof ${i}`}</a>
+								)
+							)}
+						</Box>
 					</BirdResultWrapper>
 					<VersusDivider>vs</VersusDivider>
 					<BirdResultWrapper>
@@ -121,6 +134,19 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 							/>
 							{resultLabelSecond}
 						</BirdResult>
+						<Box component={"div"}>
+							{matchDetail?.matchDetails?.[0]?.resourceResponses.map(
+								(rs: any, i: any) => (
+									<a
+										target={"_blank"}
+										rel="noreferrer"
+										style={{ display: "block" }}
+										href={rs?.dataLink}
+										key={rs?.id}
+									>{`Proof ${i}`}</a>
+								)
+							)}
+						</Box>
 					</BirdResultWrapper>
 				</RequestBirdContainer>
 				<UpdateResultButton
