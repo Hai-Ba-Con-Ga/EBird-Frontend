@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
 	BirdImage,
 	BirdInformations,
@@ -132,14 +132,21 @@ export const MatchCardBird = ({
 	bird: any;
 	isOwner: boolean;
 }) => {
+	const birdAvatar = useMemo(() => {
+		if (bird?.id) {
+			if (bird?.resourceList?.length > 0 && bird?.resourceList[0].dataLink) {
+				return bird.resourceList[0].dataLink;
+			} else {
+				return "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg";
+			}
+		} else {
+			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
+		}
+	}, [bird]);
 	return (
 		<RequestBirdWrapper isOwner={isOwner}>
 			<BirdMatchImage>
-				<img
-					src="https://thucung.farmvina.com/wp-content/uploads/2019/12/chao-mao-hot-hay.jpg"
-					alt=""
-					srcSet="https://thucung.farmvina.com/wp-content/uploads/2019/12/chao-mao-hot-hay.jpg"
-				/>
+				<img src={birdAvatar} alt="" />
 			</BirdMatchImage>
 			<BirdMatchInformation isOwner={isOwner}>
 				<h1>{bird?.name || "Louis Vuitton"}</h1>

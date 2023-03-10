@@ -55,7 +55,7 @@ const UserMenu = () => {
 			</UserMenuAvatar>
 			{active && (
 				<UserMenuDropdown>
-					<UserFullname>Thanh Phong</UserFullname>
+					<UserFullname>{`${userInfomation?.firstName} ${userInfomation?.lastName}`}</UserFullname>
 					<UserFunctionsList>
 						<UserFunctionItem
 							onClick={() => {

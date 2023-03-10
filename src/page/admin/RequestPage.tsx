@@ -12,6 +12,8 @@ import { Button, Checkbox, MenuItem, Select, Typography } from "@mui/material";
 import useRequestAdmin from "../../components/admin/request/useRequestAdmin";
 import { IconSettingsAutomation } from "@tabler/icons-react";
 import { MatchApi } from "../../components/app/lobby/match.api";
+import useLoading from "../../components/useLoading";
+import { RequestApi } from "../../components/app/lobby/request.api";
 
 const RequestPage = () => {
 	const {
@@ -32,11 +34,26 @@ const RequestPage = () => {
 		groupSelect,
 		setGroupSelect,
 	} = useRequestAdmin();
-	const handleAutomatchClick = useCallback(async()=>{
-		if(groupSelect) {
-			MatchApi.autoMatchGroup(groupSelect).then(res => console.log(res.data))
+	const { openLoading, closeLoading } = useLoading();
+	const handleAutomatchClick = useCallback(async () => {
+		openLoading();
+		if (groupSelect) {
+			const res = await MatchApi.autoMatchGroup(groupSelect);
+			const resultsArray: any[] = res.data;
+			if (resultsArray?.length > 0) {
+				const mergeResult = await Promise.all(
+					resultsArray.map((pair) => {
+						return RequestApi.mergeRequest({
+							hostRequestId: pair?.item1,
+							challengerRequestId: pair?.item2,
+						});
+					})
+				);
+				console.log("MERGE GROUP REQUEST RESULT = ", mergeResult);
+			}
 		}
-	},[groupSelect])
+		closeLoading();
+	}, [groupSelect]);
 	return (
 		<div>
 			<Box
@@ -78,25 +95,33 @@ const RequestPage = () => {
 						))}
 					</Select>
 				)}
-				{ currentTab == "group" &&
-				<>
-					<Select
-						value={groupSelect}
-						label="Group"
-						onChange={(ev) => {
-							console.log("Select room", ev.target.value);
-							setGroupSelect(ev.target.value);
-						}}
-					>
-						{groups?.map((group) => (
-							<MenuItem key={group.id} value={group.id}>
-								{group.name}
-							</MenuItem>
-						))}
-					</Select>
-					<Button variant="contained"style={{fontWeight:600}} disabled={!groupSelect} color={groupSelect? "primary" : "secondary"}><IconSettingsAutomation color="white"/> Auto match</Button>
-							</>
-				}
+				{currentTab == "group" && (
+					<>
+						<Select
+							value={groupSelect}
+							label="Group"
+							onChange={(ev) => {
+								console.log("Select room", ev.target.value);
+								setGroupSelect(ev.target.value);
+							}}
+						>
+							{groups?.map((group) => (
+								<MenuItem key={group.id} value={group.id}>
+									{group.name}
+								</MenuItem>
+							))}
+						</Select>
+						<Button
+							variant="contained"
+							style={{ fontWeight: 600 }}
+							disabled={!groupSelect}
+							color={groupSelect ? "primary" : "secondary"}
+							onClick={handleAutomatchClick}
+						>
+							<IconSettingsAutomation color="white" /> Auto match
+						</Button>
+					</>
+				)}
 			</Box>
 			<Table
 				selectAllChecked={isAllSelected ?? false}
