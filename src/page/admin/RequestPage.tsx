@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Table from "../../components/admin/views/dashboard/Table";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -8,8 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import { Checkbox, MenuItem, Select, Typography } from "@mui/material";
+import { Button, Checkbox, MenuItem, Select, Typography } from "@mui/material";
 import useRequestAdmin from "../../components/admin/request/useRequestAdmin";
+import { IconSettingsAutomation } from "@tabler/icons-react";
+import { MatchApi } from "../../components/app/lobby/match.api";
 
 const RequestPage = () => {
 	const {
@@ -30,7 +32,11 @@ const RequestPage = () => {
 		groupSelect,
 		setGroupSelect,
 	} = useRequestAdmin();
-
+	const handleAutomatchClick = useCallback(async()=>{
+		if(groupSelect) {
+			MatchApi.autoMatchGroup(groupSelect).then(res => console.log(res.data))
+		}
+	},[groupSelect])
 	return (
 		<div>
 			<Box
@@ -56,7 +62,7 @@ const RequestPage = () => {
 				component={"div"}
 				style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}
 			>
-				{roomSelect && (
+				{currentTab == "room" && (
 					<Select
 						value={roomSelect}
 						label="Room"
@@ -72,7 +78,8 @@ const RequestPage = () => {
 						))}
 					</Select>
 				)}
-				{
+				{ currentTab == "group" &&
+				<>
 					<Select
 						value={groupSelect}
 						label="Group"
@@ -87,6 +94,8 @@ const RequestPage = () => {
 							</MenuItem>
 						))}
 					</Select>
+					<Button variant="contained"style={{fontWeight:600}} disabled={!groupSelect} color={groupSelect? "primary" : "secondary"}><IconSettingsAutomation color="white"/> Auto match</Button>
+							</>
 				}
 			</Box>
 			<Table

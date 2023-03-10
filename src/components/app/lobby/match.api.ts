@@ -62,4 +62,9 @@ export const MatchApi = {
 		const res = await axiosClient.put(url, params);
 		return res.data;
 	},
+	autoMatchGroup : async (groupId:string) => {
+		const url = "/automatch/"+groupId;
+		const res = await axiosClient.get(url);
+		return res.data;
+	}
 };

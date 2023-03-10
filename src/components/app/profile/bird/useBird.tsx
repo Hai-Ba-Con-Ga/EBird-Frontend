@@ -44,7 +44,6 @@ const useBird = () => {
 			closeLoading();
 			if (res.success) {
 				toast.success("Create new bird successfully");
-				
 				closeModal();
 			} else {
 				toast.error("Cannot create new bird");
