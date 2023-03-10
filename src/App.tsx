@@ -40,7 +40,7 @@ const MatchPage = lazy(() => import("./page/app/MatchPage"));
 const GroupPage = lazy(() => import("./page/app/GroupPage"));
 const Dashboard = lazy(() => import("./page/admin/Dashboard"));
 const AccountPage = lazy(() => import("./page/admin/AccountPage"));
-
+const RulePage = lazy(() => import("./page/app/RulePage"));
 import ProfilePage from "./page/app/profile";
 import ProfileBird from "./page/app/profile/ProfileBird";
 import BirdPage from "./page/admin/BirdPage";
@@ -103,6 +103,7 @@ function App() {
 							</AuthPage>
 						}
 					></Route>
+					<Route path="rule" element={<RulePage />}></Route>
 				</Route>
 				<Route
 					path="/app"
@@ -176,7 +177,7 @@ function App() {
 							</AppLayout>
 						}
 					></Route>
-					<Route path="payment/result" element={<PaymentResultPage/>}></Route>
+					<Route path="payment/result" element={<PaymentResultPage />}></Route>
 				</Route>
 				<Route
 					path="/admin"
