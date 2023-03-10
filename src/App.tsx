@@ -46,6 +46,7 @@ import ProfileBird from "./page/app/profile/ProfileBird";
 import BirdPage from "./page/admin/BirdPage";
 import RequestPage from "./page/admin/RequestPage";
 import MatchAdminPage from "./page/admin/MatchAdminPage";
+import RulePage from "./page/app/RulePage";
 function App() {
   // const { auth } = useAuth(true);
   const { isLoading, loadingType, Loader } = useLoading();
@@ -98,6 +99,12 @@ function App() {
               <AuthPage banner="https://images.unsplash.com/photo-1579273166629-ef19c29b11fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmlyZCUyMGFydHxlbnwwfHwwfHw%3D&w=1000&q=80">
                 <ForgotForm />
               </AuthPage>
+            }
+          ></Route>
+          <Route
+            path="rule"
+            element={
+              <RulePage/>
             }
           ></Route>
         </Route>
