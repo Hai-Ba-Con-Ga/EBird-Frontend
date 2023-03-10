@@ -65,6 +65,7 @@ const ClientHeader = () => {
 			</AppHeader>
 		</ClientHeaderWrapper>
 	);
+
 };
 
 export default ClientHeader;
