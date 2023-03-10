@@ -14,6 +14,7 @@ import { IconSettingsAutomation } from "@tabler/icons-react";
 import { MatchApi } from "../../components/app/lobby/match.api";
 import useLoading from "../../components/useLoading";
 import { RequestApi } from "../../components/app/lobby/request.api";
+import { toast } from "react-toastify";
 
 const RequestPage = () => {
 	const {
@@ -50,6 +51,7 @@ const RequestPage = () => {
 					})
 				);
 				console.log("MERGE GROUP REQUEST RESULT = ", mergeResult);
+				toast.success("Automatch successfully");
 			}
 		}
 		closeLoading();
