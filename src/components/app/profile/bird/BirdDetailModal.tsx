@@ -10,7 +10,7 @@ type Props = {
 };
 export const BirdDetailWrapper = styled.div`
 	width: 100%;
-	height: 95%;
+	height: auto;
 	/* background-color: red; */
 	padding: 2rem;
 	display: flex;

@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { toast } from "react-toastify";
 import useAuth from "../../../auth/useAuth";
 import useModal from "../../../common/modal/useModal";
+import useLoading from "../../../useLoading";
 import useImagekit from "../../common/useImagekit";
 import { BirdApi } from "./bird.api";
 
@@ -11,9 +12,11 @@ const useBird = () => {
 	} = useAuth();
 	const imagekit = useImagekit();
 	const { closeModal } = useModal();
+	const {openLoading,closeLoading} = useLoading();
 	const createNewBird = useCallback(
 		async (formData: CreateBirdFormData) => {
-			
+			openLoading();
+			if (!userInfomation) return;
 			console.log(imagekit);
 			console.log(formData);
 			const resouces: any[] = [];
@@ -38,8 +41,10 @@ const useBird = () => {
 				ownerId: userInfomation?.id,
 				listResource: resouces,
 			});
+			closeLoading();
 			if (res.success) {
 				toast.success("Create new bird successfully");
+				
 				closeModal();
 			} else {
 				toast.error("Cannot create new bird");

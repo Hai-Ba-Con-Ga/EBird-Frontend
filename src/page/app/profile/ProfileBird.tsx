@@ -30,6 +30,7 @@ const ProfileBird = () => {
 				.then((birds) => setBirds(birds));
 		}
 	}, [profileId]);
+	
 	const handleCreateBirdClick = useCallback(() => {
 		openModal({
 			closable: true,
@@ -77,8 +78,20 @@ export const ProfileBirdPageWrapper = styled.div`
 export const FilterSidebar = styled.div`
 	flex: 0 0 20%;
 	height: 100%;
+	padding-right: 2rem;;
 	display: grid;
 	place-items: center;
+	position: relative;
+	&::after{ 
+		position: absolute;
+		content: "";
+		width: 3px;
+		height: 100%;
+		background-color: var(--dark-blue);
+		border-radius: var(--roundedSmall);
+		right: 0;
+		top:0;
+	}
 `;
 
 export const BirdView = styled.div`
@@ -100,5 +113,6 @@ export const BirdCollectionSection = styled.div`
 	flex: 1 1 80%;
 	height: 100%;
 	padding-bottom: 2rem;
+	padding-left: 3rem;
 `;
 export default ProfileBird;

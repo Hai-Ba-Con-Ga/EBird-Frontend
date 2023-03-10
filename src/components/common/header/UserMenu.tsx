@@ -22,8 +22,8 @@ const UserMenu = () => {
 		auth: { userInfomation },
 	} = useAuth();
 	//TODO VIP include
-	// const isVip = useMemo(() => userInfomation?.role == 1, [userInfomation]);
-	const isVip = false;
+	const isVip = useMemo(() => userInfomation?.vip && new Date(userInfomation.vip.expiredDate).getTime() >= Date.now(), [userInfomation]);
+	// const isVip = false;
 	const userMenuRef = useRef();
 	const outsideClickHandler = useCallback(() => {
 		setActive(false);
@@ -60,14 +60,14 @@ const UserMenu = () => {
 						>
 							Profile
 						</UserFunctionItem>
-						<UserFunctionItem
+						{!isVip && <UserFunctionItem
 							onClick={() => {
 								nav("/app/plans");
 								setActive(false);
 							}}
 						>
 							Upgrade to pro
-						</UserFunctionItem>
+						</UserFunctionItem>}
 						<UserFunctionItem
 							onClick={() =>
 								openModal({

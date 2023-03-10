@@ -28,11 +28,11 @@ const LeaderBoard = ({ ranks }: Props) => {
       <tbody>
         {ranks?.map((bird, i) => (
           <tr key={bird?.id}>
-            <td>{i + 1}</td>
+            <td style={{fontWeight: 600}}>{i + 1}</td>
             <td style={{ position: "relative" }}>
               {bird?.name}
               <Chip
-                style={{ fontSize: "2rem", position: "absolute" }}
+                style={{ fontSize: "var(--text-xl)", position: "absolute",fontWeight:600, }}
                 size="medium"
                 label={"#" + bird?.number}
               />

@@ -31,6 +31,7 @@ const useRequest = (init?: boolean) => {
 			const { userInfomation } = auth;
 			const place = data.location;
 			const params: CreateRequestParams = {
+				//TODO : add noon or morning
 				requestDatetime: data.date,
 				hostId: userInfomation?.id,
 				hostBirdId: data.currentBirdId || (appState.currentBird?.id as string),
