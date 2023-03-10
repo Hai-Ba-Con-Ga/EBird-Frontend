@@ -130,17 +130,7 @@ const RequestPage = () => {
 				onSelectAll={isAllSelected ? onDeselectAll : onSelectAll}
 				pagination={tablePagination}
 				isSelect={true}
-				fieldNames={[
-					"Id",
-					"Bird Name",
-					"Age",
-					"Weight",
-					"Color",
-					"Elo",
-					"Status",
-					"Owner",
-					"Description",
-				]}
+				fieldNames={["Id", "Match Datetime", "Place", "Address", "Status"]}
 			>
 				<>
 					{requests?.map((row: any) => (
@@ -172,15 +162,10 @@ const RequestPage = () => {
 									{/* <Typography variant='caption'>{row.designation}</Typography> */}
 								</Box>
 							</TableCell>
-							<TableCell>{row?.name}</TableCell>
-							<TableCell>{`${row?.age}`}</TableCell>
-							<TableCell>{row?.weight}</TableCell>
-							<TableCell>{row.color}</TableCell>
-							<TableCell>{row.elo}</TableCell>
-							<TableCell>{row.status}</TableCell>
-							<TableCell>{row.owner?.username}</TableCell>
-							<TableCell>{row?.description}</TableCell>
-							<TableCell>{"IS VIP"}</TableCell>
+							<TableCell>{row?.requestDatetime}</TableCell>
+							<TableCell>{row?.place?.name}</TableCell>
+							<TableCell>{row?.place?.address}</TableCell>
+							{/* <TableCell>{row?.matchStatus}</TableCell> */}
 						</TableRow>
 					))}
 				</>
