@@ -1,45 +1,44 @@
 import { Pagination } from ".";
 import { MatchStatus } from "..";
 export interface CreateRequestParams {
-  requestDatetime: Date | string;
-  hostBirdId: string;
-  placeId?: string;
-  hostId?: string;
-  groupId?: string;
-  roomId: string;
-  place: {
-    address: string;
-    name: string;
-    longitude: number;
-    latitude: number;
-  };
+	requestDatetime: Date | string;
+	hostBirdId: string;
+	placeId?: string;
+	hostId?: string;
+	groupId?: string;
+	roomId: string;
+	place: {
+		address: string;
+		name: string;
+		longitude: number;
+		latitude: number;
+	};
 }
 export interface GetAllRequestParams {
-  pagination?: RequestPagination;
-  roomId?: string;
+	pagination?: RequestPagination;
+	roomId?: string;
 }
 export interface JoinRequestParams {
-  challengerBirdId: string;
-  requestId: string;
+	challengerBirdId: string;
+	requestId: string;
 }
 export interface CreatePlaceParams {
-  address: string;
-  name: string;
-  longitude: number;
-  latitude: number;
+	address: string;
+	name: string;
+	longitude: number;
+	latitude: number;
 }
 
 export interface CreateMatchParams {
-  requestId: string;
-  userId?: string;
+	requestId: string;
+	userId?: string;
 }
 
-
 export interface RequestPagination {
-  PageNumber: number;
-  PageSize: number;
+	PageNumber: number;
+	PageSize: number;
 }
 
 export interface GetAllMatchParams extends RequestPagination {
-  status?: MatchStatus
+	MatchStatus?: MatchStatus;
 }

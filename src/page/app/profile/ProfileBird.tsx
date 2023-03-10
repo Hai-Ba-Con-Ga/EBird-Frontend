@@ -9,6 +9,7 @@ import useModal from "../../../components/common/modal/useModal";
 import { Bird } from "../../../utils/types";
 import useProfile from "../../../components/app/profile/useProfile";
 import CreateBirdModal from "../../../components/app/profile/bird/CreateBirdModal";
+import { IconRefresh } from "@tabler/icons-react";
 
 export const ProfileBirdPage = styled.div`
 	padding: 3rem;
@@ -20,12 +21,16 @@ const ProfileBird = () => {
 	const [birds, setBirds] = useState<Bird[]>([]);
 	const { openModal } = useModal();
 	useEffect(() => {
+		getBirds();
+	}, [profileId]);
+	const getBirds = useCallback(() => {
 		if (profileId) {
 			BirdApi.getBirdByOwner(profileId)
 				.then((res) => res.data)
 				.then((birds) => setBirds(birds));
 		}
 	}, [profileId]);
+	
 	const handleCreateBirdClick = useCallback(() => {
 		openModal({
 			closable: true,
@@ -41,7 +46,13 @@ const ProfileBird = () => {
 				</CreateBirdButton>
 			</FilterSidebar>
 			<BirdCollectionSection>
-				<BirdViewHeadline>Bird Collections</BirdViewHeadline>
+				<BirdViewHeadline>
+					Bird Collections{" "}
+					<IconRefresh
+						style={{ cursor: "pointer" }}
+						onClick={() => getBirds()}
+					/>
+				</BirdViewHeadline>
 				<BirdView>
 					{birds?.map((bird) => (
 						<BirdCard key={bird?.id} bird={bird} />
@@ -51,7 +62,7 @@ const ProfileBird = () => {
 		</ProfileBirdPageWrapper>
 	);
 };
-export const CreateBirdButton = styled(ButtonCommon)`
+export const CreateBirdButton: any = styled(ButtonCommon)`
 	background: var(--dark-blue);
 	color: var(--white);
 	font-size: var(--text-3xl);
@@ -67,8 +78,20 @@ export const ProfileBirdPageWrapper = styled.div`
 export const FilterSidebar = styled.div`
 	flex: 0 0 20%;
 	height: 100%;
+	padding-right: 2rem;;
 	display: grid;
 	place-items: center;
+	position: relative;
+	&::after{ 
+		position: absolute;
+		content: "";
+		width: 3px;
+		height: 100%;
+		background-color: var(--dark-blue);
+		border-radius: var(--roundedSmall);
+		right: 0;
+		top:0;
+	}
 `;
 
 export const BirdView = styled.div`
@@ -79,6 +102,7 @@ export const BirdView = styled.div`
 	grid-auto-columns: minmax(0, 1fr);
 	grid-gap: 0px;
 	overflow-y: auto;
+	overflow-x: visible;
 	gap: 5rem;
 `;
 export const BirdViewHeadline = styled.h1`
@@ -89,5 +113,6 @@ export const BirdCollectionSection = styled.div`
 	flex: 1 1 80%;
 	height: 100%;
 	padding-bottom: 2rem;
+	padding-left: 3rem;
 `;
 export default ProfileBird;

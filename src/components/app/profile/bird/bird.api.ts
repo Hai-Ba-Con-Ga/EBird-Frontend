@@ -1,6 +1,6 @@
 import { Response } from "../../../../api";
 import axiosClient from "../../../../api/axiosClient";
-import { Bird } from "../../../../utils/types";
+import { Bird, Match } from "../../../../utils/types";
 
 export const BirdApi = {
 	getBirdDetail: async (id: string): Promise<Response<Bird>> => {
@@ -23,10 +23,29 @@ export const BirdApi = {
 		const res = await axiosClient.post(url, params);
 		return await res.data;
 	},
+	getMatchHistory: async (birdId: string): Promise<Response<Match[]>> => {
+		const url = `/match/bird/${birdId}`;
+		const res = await axiosClient.get(url);
+		return res.data;
+	},
+	getCurrentBirdRank: async (birdId: string): Promise<Response<Bird>> => {
+		const url = `/bird/${birdId}/rank`;
+		const res = await axiosClient.get(url);
+		return res.data;
+	},
 };
 
 interface CreateBirdParams {
 	name: string;
 	age: number;
 	weight: number;
+	description: string;
+	color: string;
+	birdTypeId: string;
+	ownerId: string;
+	listResource?: {
+		dataLink: string;
+		description: string;
+		createById?: string;
+	}[];
 }

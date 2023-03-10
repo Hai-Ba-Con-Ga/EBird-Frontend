@@ -9,6 +9,12 @@ export interface User {
   lastName: string;
   role: number | boolean;
   description: string;
+  vip? : {
+    createdDate : string;
+    description?: string;
+    expiredDate: string;
+    paymentId: string;
+  }
 }
 export interface AuthState {
   userInfomation?: User | null;

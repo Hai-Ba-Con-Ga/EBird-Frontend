@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { MatchStatus } from "../../../utils/types";
-import { MatchApi } from "../../app/lobby/match.api";
+import { RoomApi } from "../../app/room/room.api";
 import usePagination from "../common/pagination/usePagination";
 
-const useMatchAdmin = () => {
-	const [matches, setMatches] = useState<any[]>();
+const useRoomAdmin = () => {
+	const [room, setRoom] = useState<any[]>();
 	const {
 		tablePagination,
 		pagination,
@@ -12,49 +11,30 @@ const useMatchAdmin = () => {
 		setTotalPages,
 		setTotalItems,
 	} = usePagination();
-	const MatchPageTabs = [
-		{
-			label: "Overview",
-			value: "",
-		},
-		{
-			label: "Completed",
-			value: "Completed",
-		},
-		{
-			label: "Conflict",
-			value: "Conflict",
-		},
-	];
-	const [currentTab, setTab] = useState<string>(MatchPageTabs[0].value);
 
 	useEffect(() => {
-		MatchApi.getAllMatches({
-			PageNumber: pagination.currentPage + 1,
-			PageSize: pagination.pageSize,
-			MatchStatus: currentTab as MatchStatus,
-		}).then((response) => {
+		RoomApi.getAllRooms().then((response) => {
 			setSelected(null);
 			setPagination({
 				...pagination,
-				totalItems: response.pagingData.totalCount,
-				totalPages: response.pagingData.totalPages,
+				totalItems: response.data.length,
+				totalPages: response.data.length / pagination.pageSize,
 			});
-			setMatches(response.data);
+			setRoom(response.data);
 		});
-	}, [pagination.currentPage, pagination.pageSize, currentTab]);
+	}, [pagination.currentPage, pagination.pageSize]);
 	const [selected, setSelected] = useState<{ [key: string]: boolean } | null>();
 	useEffect(() => {
-		if (matches) {
+		if (room) {
 			setSelected(() => {
 				const initialState: { [key: string]: boolean } = {};
-				matches?.forEach((request) => {
+				room?.forEach((request) => {
 					initialState[request.id] = false;
 				});
 				return initialState;
 			});
 		}
-	}, [matches]);
+	}, [room]);
 	const rowSelected = useCallback((id: string) => {
 		setSelected((prevSelected) => {
 			return {
@@ -66,12 +46,12 @@ const useMatchAdmin = () => {
 	const onSelectAll = useCallback(() => {
 		setSelected((prevSelected) => {
 			const updatedSelected = { ...prevSelected };
-			matches?.forEach((request) => {
+			room?.forEach((request) => {
 				updatedSelected[request.id] = true;
 			});
 			return updatedSelected;
 		});
-	}, [matches, setSelected, selected]);
+	}, [room, setSelected, selected]);
 	const onDeselectAll = useCallback(() => {
 		if (selected) {
 			setSelected((prevSelected) => {
@@ -86,21 +66,30 @@ const useMatchAdmin = () => {
 
 	const isAllSelected = useMemo(() => {
 		if (selected) {
-			return matches?.every((request) => selected?.[request.id]);
+			return room?.every((request) => selected?.[request.id]);
 		}
-	}, [matches, selected]);
+	}, [room, selected]);
+	const refreshList = useCallback(() => {
+		RoomApi.getAllRooms().then((response) => {
+			setSelected(null);
+			setPagination({
+				...pagination,
+				totalItems: response.data.length,
+				totalPages: response.data.length / pagination.pageSize,
+			});
+			setRoom(response.data);
+		});
+	}, []);
 	return {
-		matches,
+		room,
 		tablePagination,
 		selected,
 		rowSelected,
 		onSelectAll,
 		isAllSelected,
 		onDeselectAll,
-		MatchPageTabs,
-		setTab,
-		currentTab,
+		refreshList,
 	};
 };
 
-export default useMatchAdmin;
+export default useRoomAdmin;
