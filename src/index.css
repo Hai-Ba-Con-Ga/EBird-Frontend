@@ -486,7 +486,7 @@ button {
 }
 .Toastify {
   position: absolute;
-  z-index: 100;
+  z-index: 10000;
 }
 
 .pac-container {
@@ -504,4 +504,7 @@ button {
 }
 .pac-container::after{
   display: none;
+}
+.Toastify__toast-container {
+  z-index: 10000!important; 
 }

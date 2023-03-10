@@ -76,7 +76,7 @@ export interface Group {
 	id: string;
 	name: string;
 	maxELO: number;
-	minElo: number;
+	minELO: number;
 	status: string;
 	createDatetime: Date;
 	createdById: string;

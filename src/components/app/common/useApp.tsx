@@ -9,52 +9,52 @@ import { BirdApi } from "../profile/bird.api";
 import AppAtom from "./app.atom";
 
 interface useAppProps {
-  useSelection: boolean;
+	useSelection: boolean;
 }
 
 const useApp = ({ useSelection = false }: useAppProps) => {
-  const [appState, setAppState] = useRecoilState(AppAtom);
-  const {
-    auth: { userInfomation },
-  } = useAuth();
-  const setCurrentBird = useCallback(
-    (bird: Bird) => {
-      console.log("Selected", bird);
-      setAppState((old) => ({ ...old, currentBird: bird }));
-    },
-    [appState]
-  );
-  useEffect(() => {
-    console.log("App state changed", appState);
-  }, [appState]);
-  // CURRENT BIRD SELECT
-  const [birdsOwned, setBirds] = useState<Bird[]>();
-  useEffect(() => {
-    if (useSelection) {
-      BirdApi.getOwnedBirds().then((res) => {
-        setBirds(res.data);
-      });
-    }
-  }, [userInfomation]);
+	const [appState, setAppState] = useRecoilState(AppAtom);
+	const {
+		auth: { userInfomation },
+	} = useAuth();
+	const setCurrentBird = useCallback(
+		(bird: Bird) => {
+			console.log("Selected", bird);
+			setAppState((old) => ({ ...old, currentBird: bird }));
+		},
+		[appState]
+	);
+	useEffect(() => {
+		console.log("App state changed", appState);
+	}, [appState]);
+	// CURRENT BIRD SELECT
+	const [birdsOwned, setBirds] = useState<Bird[]>();
+	useEffect(() => {
+		if (useSelection) {
+			BirdApi.getOwnedBirds().then((res) => {
+				setBirds(res.data);
+			});
+		}
+	}, [userInfomation]);
 
-  return {
-    setCurrentBird,
-    currentBird: appState.currentBird,
-    currentRoom: appState.currentRoom,
-    SelectBird: (
-      <TextFieldBlock>
-        <label htmlFor="">My bird</label>
-        <Select value={appState.currentBird?.name} placeholder="Select">
-          {birdsOwned &&
-            birdsOwned?.map((bird, i) => (
-              <SelectOption key={i} onClick={() => setCurrentBird(bird)}>
-                {bird?.name}
-              </SelectOption>
-            ))}
-        </Select>
-      </TextFieldBlock>
-    ),
-  };
+	return {
+		setCurrentBird,
+		currentBird: appState.currentBird,
+		currentRoom: appState.currentRoom,
+		SelectBird: (
+			<TextFieldBlock>
+				<label htmlFor="">{userInfomation?.username}</label>
+				<Select value={appState.currentBird?.name} placeholder="My Bird">
+					{birdsOwned &&
+						birdsOwned?.map((bird, i) => (
+							<SelectOption key={i} onClick={() => setCurrentBird(bird)}>
+								{bird?.name}
+							</SelectOption>
+						))}
+				</Select>
+			</TextFieldBlock>
+		),
+	};
 };
 
 export default useApp;
