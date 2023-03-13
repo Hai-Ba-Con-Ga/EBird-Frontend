@@ -96,4 +96,19 @@ export const RequestApi = {
 		const res = await axiosClient.put(url, params);
 		return res.data;
 	},
+	kickFromRequest: async (requestId: string, userId: string) => {
+		const url = "/request/kick/" + requestId;
+		const res = await axiosClient.put(url, userId);
+		return res.data;
+	},
+	leaveRequest: async (requestId: string) => {
+		const url = "/request/leave/" + requestId;
+		const res = await axiosClient.put(url);
+		return res.data;
+	},
+	cancelRequest: async (requestId: string) => {
+		const url = "/request/" + requestId;
+		const res = await axiosClient.delete(url);
+		return res.data;
+	},
 };
