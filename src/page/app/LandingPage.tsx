@@ -7,6 +7,7 @@ import IntroSection from "../../components/landing/intro/IntroSection";
 import RankSection from "../../components/landing/rank/RankSection";
 import RuleSection from "../../components/landing/rule/RuleSection";
 import ggOneTap from "google-one-tap";
+import useAuth from "../../components/auth/useAuth";
 const Wrapper = styled.div`
 	width: 100%;
 	height: 100vh;
@@ -16,14 +17,14 @@ const Wrapper = styled.div`
 	/* scroll-padding: 50px 0 0 0; */
 `;
 const LandingPage = () => {
+	const { loginWithGoogle } = useAuth(false);
 	const options = {
 		client_id:
 			"589640365693-7p2e9n7o5t55abl30itolav861h4c3kv.apps.googleusercontent.com", // required
 		auto_select: false, // optional
 		cancel_on_tap_outside: false, // optional
 		context: "signin", // optional
-		login_uri: "https://mistrium.azurewebsites.net",
-		ux_mode: "popup",
+		ux_mode: "redirect",
 	};
 	const ggOneTap2 = ggOneTap as any;
 	ggOneTap2(options, (response: any) => {
@@ -31,6 +32,10 @@ const LandingPage = () => {
 		console.log("SEND TO SV");
 
 		console.log(response);
+		const token = response?.credential;
+		if (token) {
+			loginWithGoogle(token);
+		}
 	});
 	return (
 		<Wrapper style={{ scrollSnapType: "y mandatory" }}>
