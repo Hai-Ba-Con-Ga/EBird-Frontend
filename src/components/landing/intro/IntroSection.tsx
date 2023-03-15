@@ -1,24 +1,28 @@
+/* eslint-disable */
 import { Environment, OrbitControls } from "@react-three/drei";
+import {} from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 // import { Canvas } from "@react-three/fiber";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GradientGreenButton } from "../../common/button/Button.style";
+import { Model } from "../../common/three_model/Colibri.3d";
 import Bird1 from "./210604_Colibri";
 import { IntroBlock, IntroSectionWrapper } from "./IntroSection.style";
 // import Phoenix from "./Phoenix";
-// /* eslint-disable */
 const IntroSection = () => {
+	const nav = useNavigate();
 	return (
 		<IntroSectionWrapper id="about">
 			{/* TODO : 3D */}
 			<StyledCanvas shadows>
-				{/* <ambientLight />
-				<OrbitControls />
-				<mesh>
+				<ambientLight />
+				<OrbitControls enableZoom={false} enableRotate={false} />
+				{/* <mesh>
 					<boxBufferGeometry />
 					<meshNormalMaterial />
-				</mesh>
+				</mesh> */}
 				<directionalLight
 					position={[-5, 5, 5]}
 					castShadow
@@ -26,7 +30,7 @@ const IntroSection = () => {
 					shadow-mapSize-height={1024}
 				/>
 				<group position={[0, -1, 0]}>
-					<LandingScene />
+					<Model />
 				</group>
 				<mesh
 					rotation={[-0.5 * Math.PI, 0, 0]}
@@ -35,25 +39,15 @@ const IntroSection = () => {
 				>
 					<planeBufferGeometry args={[10, 10, 1, 1]} />
 					<shadowMaterial transparent opacity={0.2} />
-				</mesh> */}
+				</mesh>
 			</StyledCanvas>
 			<IntroBlock>
-				{/* <h1>WRITE YOU OWN IMPECCABLE STORY</h1>
-        <h4>
-        Together we fly
-        </h4>
-        <h4>
-        But only one remains at the beak
-        </h4>
-        <h4>
-        Do you dare to try?
-        </h4>
-        <h2>
-        Find the glory you always seek
-        </h2>
-        <h2>GLOBIRD.</h2> */}
-				<h1>Grow and compete with birds? Join our community now!</h1>
-				<GradientGreenButton>Join now</GradientGreenButton>
+				<h1 style={{ pointerEvents: "none" }}>
+					Grow and compete with birds? Join our community now!
+				</h1>
+				<GradientGreenButton onClick={() => nav("/login")}>
+					Join now
+				</GradientGreenButton>
 			</IntroBlock>
 			{/* TODO : 3D */}
 
