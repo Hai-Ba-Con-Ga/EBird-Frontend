@@ -1,5 +1,5 @@
 import { IconInfoCircleFilled, IconKarate } from "@tabler/icons-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { Bird } from "../../../utils/types";
 import { RequestApi } from "../lobby/request.api";
@@ -84,6 +84,19 @@ const TableBird = ({
 			});
 		};
 	}, []);
+	console.log(bird);
+
+	const birdAvatar = useMemo(() => {
+		if (bird?.id) {
+			if (bird?.resourceList?.length > 0 && bird?.resourceList[0].dataLink) {
+				return bird.resourceList[0].dataLink;
+			} else {
+				return "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg";
+			}
+		} else {
+			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
+		}
+	}, [bird]);
 	return (
 		<TableBirdWrapper>
 			{/* {!bird?.id && message && (
@@ -95,8 +108,8 @@ const TableBird = ({
 			<BirdImage>
 				<img
 					src={
-						bird?.id
-							? "https://thucung.farmvina.com/wp-content/uploads/2019/12/chao-mao-hot-hay.jpg"
+						birdAvatar
+							? birdAvatar
 							: "https://www.seekpng.com/png/full/847-8474751_download-empty-profile.png"
 					}
 					alt=""

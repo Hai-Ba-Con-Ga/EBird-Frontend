@@ -12,9 +12,9 @@ const useBird = () => {
 	} = useAuth();
 	const imagekit = useImagekit();
 	const { closeModal } = useModal();
-	const {openLoading,closeLoading} = useLoading();
+	const { openLoading, closeLoading } = useLoading();
 	const createNewBird = useCallback(
-		async (formData: CreateBirdFormData) => {
+		async (formData: CreateBirdFormData, reloadList?: () => void) => {
 			openLoading();
 			if (!userInfomation) return;
 			console.log(imagekit);
@@ -44,6 +44,7 @@ const useBird = () => {
 			closeLoading();
 			if (res.success) {
 				toast.success("Create new bird successfully");
+				reloadList?.();
 				closeModal();
 			} else {
 				toast.error("Cannot create new bird");

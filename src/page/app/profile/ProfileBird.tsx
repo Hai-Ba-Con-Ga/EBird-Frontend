@@ -34,7 +34,17 @@ const ProfileBird = () => {
 	const handleCreateBirdClick = useCallback(() => {
 		openModal({
 			closable: true,
-			component: <CreateBirdModal />,
+			component: (
+				<CreateBirdModal
+					reloadList={() => {
+						if (profileId) {
+							BirdApi.getBirdByOwner(profileId)
+								.then((res) => res.data)
+								.then((birds) => setBirds(birds));
+						}
+					}}
+				/>
+			),
 			payload: null,
 		});
 	}, []);

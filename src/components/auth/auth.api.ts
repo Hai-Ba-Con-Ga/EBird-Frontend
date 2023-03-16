@@ -76,5 +76,24 @@ const AuthApi = {
 				return null;
 			});
 	},
+	getProfile: async (accessToken: string, idToken?: string) => {
+		const url =
+			"https://www.googleapis.com/oauth2/v3/userinfo?access_token=" +
+			accessToken;
+		const params = {
+			client_id: CLIENT_ID,
+			redirect_uri: REDIRECT_URI,
+			response_type: "token",
+			scope: "https://www.googleapis.com/auth/userinfo.email",
+		};
+		return axios
+			.get(url, {
+				params,
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			})
+			.then((res) => res.data);
+	},
 };
 export default AuthApi;

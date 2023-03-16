@@ -47,7 +47,7 @@ const BirdImageSelectSection = styled.div`
 		transition: all 0.25s linear;
 	}
 `;
-const CreateBirdModal = () => {
+const CreateBirdModal = ({ reloadList }: { reloadList?: () => void }) => {
 	const { setValue, handleSubmit, register } = useForm();
 	const [birdTypes, setTypes] = useState<any[]>([]);
 	const [currentTypeName, setTypeName] = useState<string>("");
@@ -67,7 +67,7 @@ const CreateBirdModal = () => {
 		<CreateFormWrapper
 			onSubmit={handleSubmit((data) => {
 				console.log(data);
-				createNewBird(data as any);
+				createNewBird(data as any, reloadList);
 			})}
 		>
 			<FormTitle>Create new bird</FormTitle>

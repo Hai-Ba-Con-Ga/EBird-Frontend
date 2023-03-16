@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,7 +16,6 @@ import {
 	OauthLink,
 } from "./Login.style";
 import useAuth from "./useAuth";
-import { GoogleAuth, UserRefreshClient } from "google-auth-library";
 
 import AuthApi, { LoginParams } from "./auth.api";
 import { toast } from "react-toastify";
@@ -53,40 +52,43 @@ const LoginForm = () => {
 		if (authCode) {
 			AuthApi.getGoogleToken(authCode).then((response) => {
 				console.log("GOOGLE TOKEN", response);
-				if (response.id_token) {
-					console.log(response.id_token);
+				if (response.access_token) {
+					console.log(response.access_token);
+					AuthApi.getProfile(response.access_token).then((res) =>
+						console.log(res)
+					);
 
 					// loginWithGoogle(response.id_token);
 				}
 			});
 		}
 	}, [authCode]);
-	const googleAuthHandler = useCallback(async () => {
-		// create a new OAuth 2.0 client with the specified credentials
-		const auth = new GoogleAuth({
-			clientId: CLIENT_ID,
-			clientSecret: CLIENT_SECRET,
-			redirectUri: REDIRECT_URI,
-		});
+	// const googleAuthHandler = useCallback(async () => {
+	// 	// create a new OAuth 2.0 client with the specified credentials
+	// 	const auth = new GoogleAuth({
+	// 		clientId: CLIENT_ID,
+	// 		clientSecret: CLIENT_SECRET,
+	// 		redirectUri: REDIRECT_URI,
+	// 	});
 
-		// create a new user refresh token client with the specified refresh token
-		const refreshClient = new UserRefreshClient({
-			clientId: CLIENT_ID,
-			clientSecret: CLIENT_SECRET,
-			refreshToken: REFRESH_TOKEN,
-		});
+	// 	// create a new user refresh token client with the specified refresh token
+	// 	const refreshClient = new UserRefreshClient({
+	// 		clientId: CLIENT_ID,
+	// 		clientSecret: CLIENT_SECRET,
+	// 		refreshToken: REFRESH_TOKEN,
+	// 	});
 
-		// obtain a new access token using the refresh token client
-		const accessToken = await refreshClient.getAccessToken();
+	// 	// obtain a new access token using the refresh token client
+	// 	const accessToken = await refreshClient.getAccessToken();
 
-		// obtain a new credential using the access token
-		const credential = auth.fromTokenResponse({
-			access_token: accessToken,
-			refresh_token: REFRESH_TOKEN,
-		});
+	// 	// obtain a new credential using the access token
+	// 	const credential = auth.fromTokenResponse({
+	// 		access_token: accessToken,
+	// 		refresh_token: REFRESH_TOKEN,
+	// 	});
 
-		console.log(`Credential: ${JSON.stringify(credential.toJSON())}`);
-	});
+	// 	console.log(`Credential: ${JSON.stringify(credential.toJSON())}`);
+	// }, []);
 	return (
 		<LoginFormWrapper
 			initial={{ opacity: 0, transform: "scale(0.5)" }}
