@@ -23,8 +23,13 @@ const useGroupPage = (isGetGroupList : boolean) => {
         toast.error("Fail to get requests in this group");
       }
     },[]);
+  const GetGroupDetail = useCallback( async (groupId: string)=>{
+    const res = await GroupApi.getGroupDetail(groupId)
+    return res.data
+  },[])
   return (
    {
+    GetGroupDetail,
     getGroupList,
     groupList,
     getGroupRequest

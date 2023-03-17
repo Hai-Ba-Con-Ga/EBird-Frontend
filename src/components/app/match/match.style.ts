@@ -41,8 +41,14 @@ export const MatchTab = styled.span`
 	font-weight: 600;
 	/* opacity: 0.6; */
 	opacity: ${({ active }: { active: boolean }) => {
-		return active ? "0.6;" : "1;";
+		return active ? "1;" : "0.8;";
 	}};
+	border-bottom: 0px solid var(--dark-blue);
+	
+	/* ${({ active }: { active: boolean }) => {
+		return active ? "border-bottom-width: 2px" : "0px";
+	}};
+	 */
 	transition: all 0.25s linear;
 `;
 export const MatchesLayout = styled.div`
@@ -106,10 +112,14 @@ export const MatchStatusSpan = styled.span`
 	font-size: var(--text-2xl);
 	background-color: ${(props: MatchStatusProps) => {
 		switch (props.status) {
-			case MatchStatus.Pending:
-				return "var(--warning);";
 			case MatchStatus.During:
+				return "var(--warning);";
+			case MatchStatus.Conflict:
 				return "var(--dangerous);";
+			case MatchStatus.Cancelled : 
+				return "var(--grey);";
+			case MatchStatus.Completed : 
+				return "var(--active);";
 			default:
 				return "var(--active);";
 		}

@@ -72,7 +72,7 @@ const UpdateResultForm = ({ matchID, birdId }: Props) => {
 		>
 			<UpdateResultTitle>UPDATE RESULT</UpdateResultTitle>
 
-			<UpdateResultProof>
+			<UpdateResultProof htmlFor="file">
 				<UpdateResultInput
 					multiple
 					type="file"

@@ -22,4 +22,9 @@ export const GroupApi = {
 		});
 		return response.data;
 	},
+	getGroupDetail: async (groupId : string): Promise<Response<Group>> => {
+		const url = `group/${groupId}`;
+		const response = await axiosClient.get(url);
+		return response.data;
+	}
 };

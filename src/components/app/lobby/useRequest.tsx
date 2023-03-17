@@ -46,8 +46,9 @@ const useRequest = (init?: boolean) => {
 				toast.success(
 					"Create match successfully! Refresh list manually please"
 				);
-
+				
 				// TODO : Refresh list manually || socket
+				getAllRequest();
 				getListRelatedRequests();
 				closeModal();
 			} else {
