@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { IconCrown } from "@tabler/icons-react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import { Bird } from "../../../utils/types";
 import useAuth from "../../auth/useAuth";
@@ -17,6 +18,12 @@ const useApp = ({ useSelection = false }: useAppProps) => {
 	const {
 		auth: { userInfomation },
 	} = useAuth();
+	const isVip = useMemo(
+		() =>
+			userInfomation?.vip &&
+			new Date(userInfomation.vip.expiredDate).getTime() >= Date.now(),
+		[userInfomation]
+	);
 	const setCurrentBird = useCallback(
 		(bird: Bird) => {
 			console.log("Selected", bird);
@@ -42,9 +49,34 @@ const useApp = ({ useSelection = false }: useAppProps) => {
 		currentBird: appState.currentBird,
 		currentRoom: appState.currentRoom,
 		SelectBird: (
-			<TextFieldBlock>
-				<label htmlFor="">{userInfomation?.username}</label>
-				<Select value={appState.currentBird?.name} placeholder="My Bird">
+			<TextFieldBlock style={{ width: "20rem" }}>
+				<label
+					htmlFor=""
+					style={{
+						display: "flex",
+						justifyContent: "flex-start",
+						alignItems: "flex-end",
+						gap: "0.5rem",
+						marginBottom: "0.5rem",
+					}}
+				>
+					{isVip && (
+						<IconCrown
+							color="var(--pink-neon)"
+							style={{ fill: "var(--pink-neon)" }}
+						/>
+					)}
+					{userInfomation?.username}
+				</label>
+				<Select
+					width="100%"
+					value={
+						appState.currentBird
+							? appState.currentBird?.name + " - " + appState.currentBird?.elo
+							: "My bird"
+					}
+					placeholder="My Bird"
+				>
 					{birdsOwned &&
 						birdsOwned?.map((bird, i) => (
 							<SelectOption key={i} onClick={() => setCurrentBird(bird)}>

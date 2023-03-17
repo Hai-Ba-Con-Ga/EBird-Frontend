@@ -22,19 +22,40 @@ const plans = [
 	{
 		type: "1 Month",
 		duration: 1,
-		provillages: ["Blah blah", " OOKK OK KO adw adajn sq", "adaw", "adwdw"],
+		provillages: [
+			"No advertising",
+			"Create a request with higher priority",
+			"Chat in a room with special effects",
+			"Join groups without Elo limitations",
+			"Unlimited initialization of birds in the list",
+		],
+		price_format: "20.000",
 		price: 20000,
 	},
 	{
 		type: "3 Month",
 		duration: 3,
-		provillages: ["Blah blah", " OOKK OK KO adw adajn sq", "adaw", "adwdw"],
+		provillages: [
+			"No advertising",
+			"Create a request with higher priority",
+			"Chat in a room with special effects",
+			"Join groups without Elo limitations",
+			"Unlimited initialization of birds in the list",
+		],
+		price_format: "50.000",
 		price: 50000,
 	},
 	{
 		type: "1 Year",
 		duration: 12,
-		provillages: ["Blah blah", " OOKK OK KO adw adajn sq", "adaw", "adwdw"],
+		provillages: [
+			"No advertising",
+			"Create a request with higher priority",
+			"Chat in a room with special effects",
+			"Join groups without Elo limitations",
+			"Unlimited initialization of birds in the list",
+		],
+		price_format: "180.000",
 		price: 180000,
 	},
 ];
@@ -114,10 +135,18 @@ const PaidPlanPage = () => {
 				<PaymentList>
 					{/* <IconBrandStripe color="var(--dark-blue)" /> */}
 					<PaymentMethodItem onClick={handlerPayVnpay}>
-						<IconBrandVisa />
+						{/* <IconBrandVisa /> */}
+						<img
+							src="https://www.ppro.com/wp-content/uploads/2021/06/VNPAYQR-logo.png"
+							alt=""
+						/>
 					</PaymentMethodItem>
 					<PaymentMethodItem onClick={handleStripCreateIntent}>
-						<IconBrandStripe />
+						<img
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Stripe_Logo%2C_revised_2016.svg/1280px-Stripe_Logo%2C_revised_2016.svg.png"
+							alt=""
+						/>
+						{/* <IconBrandStripe /> */}
 					</PaymentMethodItem>
 				</PaymentList>
 			)}
@@ -133,12 +162,22 @@ const PaidPlanPage = () => {
 	);
 };
 const PaymentMethodItem = styled.div`
-	background-color: var(--dark-blue);
+	/* background-color: var(--dark-blue); */
 	padding: 1rem 3rem;
 	color: var(--color-coffee);
+	border: 2px solid var(--dark-blue);
 	border-radius: var(--roundedSmall);
 	cursor: pointer;
 	margin: 1rem 0;
+	width: 20rem;
+	height: 7rem;
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	display: grid;
+	place-items: center;
 `;
 const PaymentList = styled.div`
 	display: flex;
@@ -177,15 +216,17 @@ const PlanCard = ({
 		<PlanCardWrapper onClick={() => handleClick()}>
 			<h1>{plan?.type}</h1>
 			{plan?.provillages?.map((temp: any, i: number) => (
-				<span key={i}>{temp}</span>
+				<span style={{ fontSize: "var(--text-3xl)" }} key={i}>
+					{temp}
+				</span>
 			))}
 			<Button
 				variant="contained"
 				color="primary"
 				style={{ fontSize: "var(--text-2xl)" }}
 			>
-				{plan?.price}
-				{"vnd"}/{plan?.type}
+				{plan?.price_format}
+				{"₫"}/{plan?.type}
 			</Button>
 		</PlanCardWrapper>
 	);
