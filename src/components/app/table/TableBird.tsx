@@ -1,7 +1,9 @@
 import { IconInfoCircleFilled, IconKarate } from "@tabler/icons-react";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
+import axiosClient from "../../../api/axiosClient";
 import { Bird } from "../../../utils/types";
+import VipBadge from "../../common/tag/VipBadge";
 import { RequestApi } from "../lobby/request.api";
 import {
 	MergeInformation,
@@ -26,6 +28,7 @@ export const TableBirdWrapper = styled.div`
 	border-radius: var(--roundedSmall);
 	background-color: var(--dark-green);
 	color: var(--gold-primary);
+	width: 100%;
 `;
 export const BirdImage = styled.div`
 	width: 40rem;
@@ -84,7 +87,17 @@ const TableBird = ({
 			});
 		};
 	}, []);
-	console.log(bird);
+	const [account, setAccount] = useState<any>();
+	useEffect(() => {
+		// console.log(bird.ownerId);
+		axiosClient
+			.get("/account/" + bird?.ownerId)
+			.then((res) => res.data.data)
+			.then((data) => setAccount(data));
+	}, [bird]);
+	useEffect(() => {
+		console.log(account);
+	}, [account]);
 
 	const birdAvatar = useMemo(() => {
 		if (bird?.id) {
@@ -97,6 +110,7 @@ const TableBird = ({
 			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
 		}
 	}, [bird]);
+
 	return (
 		<TableBirdWrapper>
 			{/* {!bird?.id && message && (
@@ -104,7 +118,7 @@ const TableBird = ({
           Waiting for someone join this request
         </WaitingMessage>
       )} */}
-
+			{account?.vip && <VipBadge />}
 			<BirdImage>
 				<img
 					src={
@@ -116,10 +130,19 @@ const TableBird = ({
 				/>
 			</BirdImage>
 			<BirdInformations>
-				<span>{bird?.name || "Null"}</span>
-				<span>{bird?.id ? "Chao mao" : "Null"}</span>
-				<span>{bird?.ratio?.win || "W:0 - L:0 - R:0%"}</span>
-				<span>{bird?.elo || "NaN"}</span>
+				{bird ? (
+					<>
+						<span>{bird?.name || "Empty"}</span>
+						<span>{bird?.id ? "Chao mao" : "Empty"}</span>
+						<span>{bird?.owner ? bird?.owner?.username : "Empty"}</span>
+						<span>
+							{bird ? bird?.ratio?.win || "W:0 - L:0 - R:0%" : "Empty"}
+						</span>
+						<span>{bird?.elo || "NaN"}</span>
+					</>
+				) : (
+					<span>Wait for user</span>
+				)}
 			</BirdInformations>
 			<MergeInformationSection>
 				{kickable && (

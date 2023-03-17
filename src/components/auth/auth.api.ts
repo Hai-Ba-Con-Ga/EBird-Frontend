@@ -26,6 +26,7 @@ const data = {
 	grant_type: "authorization_code",
 	// grant_type: "client_credentials",
 	code: "",
+	scope: "email",
 };
 const AuthApi = {
 	getMe: async () => {

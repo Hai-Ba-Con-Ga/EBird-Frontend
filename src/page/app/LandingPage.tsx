@@ -20,7 +20,7 @@ const LandingPage = () => {
 	const { loginWithGoogle } = useAuth(false);
 	const options = {
 		client_id:
-			"589640365693-7p2e9n7o5t55abl30itolav861h4c3kv.apps.googleusercontent.com", // required
+			"510469289426-ka5eitvaosv0mfjrj24ajfkvovjneli1.apps.googleusercontent.com", // required
 		auto_select: false, // optional
 		cancel_on_tap_outside: false, // optional
 		context: "signin", // optional

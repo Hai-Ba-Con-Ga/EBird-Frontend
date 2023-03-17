@@ -24,7 +24,7 @@ import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 const CLIENT_ID =
 	"510469289426-ka5eitvaosv0mfjrj24ajfkvovjneli1.apps.googleusercontent.com";
 const REDIRECT_URI = "https://localhost:3000/login";
-const SCOPE = "profile";
+const SCOPE = "profile email";
 
 const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_type=code`;
 
@@ -53,12 +53,11 @@ const LoginForm = () => {
 			AuthApi.getGoogleToken(authCode).then((response) => {
 				console.log("GOOGLE TOKEN", response);
 				if (response.access_token) {
-					console.log(response.access_token);
-					AuthApi.getProfile(response.access_token).then((res) =>
-						console.log(res)
-					);
-
-					// loginWithGoogle(response.id_token);
+					// console.log(response.access_token);
+					// AuthApi.getProfile(response.access_token).then((res) =>
+					// 	console.log(res)
+					// );
+					loginWithGoogle(response.id_token);
 				}
 			});
 		}
