@@ -23,7 +23,7 @@ export const UpdateResultTitle = styled.h1`
 `
 
 
-export const UpdateResultProof = styled.div`
+export const UpdateResultProof = styled.label`
     border: 2px dashed;
     width: 40%;
     height: 40%;
@@ -35,8 +35,7 @@ export const UpdateResultProof = styled.div`
     display: flex;
 	align-items: center;
     justify-content: center;
-    
-  
+    cursor: pointer;
 `
 
 export const UpdateResultInput = styled.input`

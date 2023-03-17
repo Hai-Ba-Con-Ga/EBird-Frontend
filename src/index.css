@@ -48,6 +48,7 @@
   --lighter-dark :#202023;
   --white: #fff;
   --dark-blue :#34495e;
+  --lighter-dark-blue: #607a92;
   --green : #87b6a1;
   --dark-green : #34453d;
   --gold-secondary : rgb(236 202 110);
@@ -76,7 +77,7 @@
   --dark-gray: #484848;
   --off-white: #f0f0f0;
   /* COMMON SIZING  */
-  --header-height : 10rem;
+  --header-height : 11rem;
 
   /* PADDING & MARGIN */
 
@@ -485,7 +486,7 @@ button {
 }
 .Toastify {
   position: absolute;
-  z-index: 100;
+  z-index: 10000;
 }
 
 .pac-container {
@@ -503,4 +504,7 @@ button {
 }
 .pac-container::after{
   display: none;
+}
+.Toastify__toast-container {
+  z-index: 10000!important; 
 }
