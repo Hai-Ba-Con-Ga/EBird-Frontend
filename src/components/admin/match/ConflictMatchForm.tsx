@@ -94,6 +94,7 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 				</MatchInformationSection>
 				<RequestBirdContainer>
 					<BirdResultWrapper>
+					<Typography textAlign={"center"} fontSize={"var(--text-2xl)"} fontWeight={600} color={"var(--medium-gray)"}>{matchDetail?.matchDetails?.[0]?.result}</Typography>
 						<MatchCardBird
 							bird={matchDetail?.matchDetails?.[0]?.bird}
 							isOwner
@@ -122,6 +123,7 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 					</BirdResultWrapper>
 					<VersusDivider>vs</VersusDivider>
 					<BirdResultWrapper>
+						<Typography textAlign={"center"} fontSize={"var(--text-2xl)"} fontWeight={600} color={"var(--medium-gray)"}>{matchDetail?.matchDetails?.[1]?.result}</Typography>
 						<MatchCardBird
 							bird={matchDetail?.matchDetails?.[1]?.bird}
 							isOwner={false}

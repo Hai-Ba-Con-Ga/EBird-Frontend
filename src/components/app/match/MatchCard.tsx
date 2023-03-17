@@ -47,6 +47,22 @@ const MatchCard = ({
 	useEffect(() => {
 		console.log(matchDetail);
 	}, [matchDetail]);
+	const firstBirdEloChange = useMemo(
+		() =>
+			matchDetail?.matchDetails?.[0]?.afterElo -
+			matchDetail?.matchDetails?.[0]?.beforeElo > 0 ? `+${matchDetail?.matchDetails?.[0]?.afterElo -
+			matchDetail?.matchDetails?.[0]?.beforeElo}` : `${matchDetail?.matchDetails?.[0]?.afterElo -
+				matchDetail?.matchDetails?.[0]?.beforeElo}`,
+		[matchDetail]
+	);
+	const secondBirdEloChange = useMemo(
+		() =>
+			matchDetail?.matchDetails?.[1]?.afterElo -
+			matchDetail?.matchDetails?.[1]?.beforeElo > 0 ? `+${matchDetail?.matchDetails?.[1]?.afterElo -
+			matchDetail?.matchDetails?.[1]?.beforeElo}` : `${matchDetail?.matchDetails?.[1]?.afterElo -
+				matchDetail?.matchDetails?.[1]?.beforeElo}`,
+		[matchDetail]
+	);
 	return (
 		<MatchCardWrapper>
 			<MatchInformationSection>
@@ -60,14 +76,14 @@ const MatchCard = ({
 						<span>{matchDetail?.matchDatetime || "00:00"}</span>
 					</MatchInformationField>
 				</div>
-				<MatchStatusSpan status={MatchStatus.During}>
+				<MatchStatusSpan status={matchDetail?.matchStatus}>
 					{matchDetail?.matchStatus}
 				</MatchStatusSpan>
 			</MatchInformationSection>
 			<RequestBirdContainer>
 				<BirdResultWrapper>
 					<MatchCardBird bird={matchDetail?.matchDetails?.[0]?.bird} isOwner />
-					<BirdResult result>
+					<BirdResult result={matchDetail?.matchDetails?.[0]?.result == "Win"}>
 						{matchDetail?.matchDetails?.[0]?.result == "Ready" ||
 						matchDetail?.matchDetails?.[0]?.result == "NotReady"
 							? "--"
@@ -76,6 +92,7 @@ const MatchCard = ({
 							: matchDetail?.matchDetails?.[0]?.result == "Win"
 							? "Win"
 							: "Drawn"}
+							{matchDetail?.matchStatus === MatchStatus.Completed &&`(${firstBirdEloChange})`}
 					</BirdResult>
 				</BirdResultWrapper>
 				<VersusDivider>vs</VersusDivider>
@@ -84,7 +101,7 @@ const MatchCard = ({
 						bird={matchDetail?.matchDetails?.[1]?.bird}
 						isOwner={false}
 					/>
-					<BirdResult result={false}>
+					<BirdResult result={matchDetail?.matchDetails?.[1]?.result == "Win"}>
 						{matchDetail?.matchDetails?.[1]?.result == "Ready" ||
 						matchDetail?.matchDetails?.[1]?.result == "NotReady"
 							? "--"
@@ -92,7 +109,9 @@ const MatchCard = ({
 							? "Lose"
 							: matchDetail?.matchDetails?.[1]?.result == "Win"
 							? "Win"
-							: "Drawn"}
+							: "Drawn"}  
+							{matchDetail?.matchStatus === MatchStatus.Completed &&`(${secondBirdEloChange})`}
+
 					</BirdResult>
 				</BirdResultWrapper>
 			</RequestBirdContainer>
