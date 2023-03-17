@@ -17,13 +17,20 @@ import useRequest from "../../components/app/lobby/useRequest";
 import {useParams} from "react-router-dom"
 import {useState, useEffect} from 'react'
 import useGroupPage from "../../components/app/group/useGroup";
+import { Group } from "../../utils/types";
 const GroupDetailPage = () => {
   const {id} = useParams();
   console.log(id);
   
   const {createRequestOpenModal} = useRequest(false);
   const [groupRequests,setGroupRequests] = useState<any[]>();
-  const {getGroupRequest}  = useGroupPage(false);
+  const {getGroupRequest,GetGroupDetail}  = useGroupPage(false);
+  const [groupDetail,setGroupDetail] =useState<Group>();
+  useEffect(()=>{
+    if(id){
+      GetGroupDetail(id).then(groupDetail => setGroupDetail(groupDetail));
+    }
+  },[id])
   useEffect(()=>{
     getGroupRequest(id as string).then(requests => setGroupRequests(requests));
   },[])
@@ -36,76 +43,7 @@ const GroupDetailPage = () => {
           <OnlineMember><h1>Online Member</h1></OnlineMember>
           <ChatFrame>
               <ChatBox>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
-              <ChatItem>
-                <span>WyvernP</span>
-                <span>
-                  Hello Lorem ipsum dolor sit amet consectetur, adipisicing
-                  elit. 
-                </span>
-              </ChatItem>
+
               </ChatBox>
               
             <ChatMessage>
@@ -120,7 +58,7 @@ const GroupDetailPage = () => {
         <Match>
           <MatchArea>
             <MatchTitle>
-              <h3>GROUP DETAIL</h3>
+              <h3>{groupDetail?.name} | {`${groupDetail?.minELO} - ${groupDetail?.maxELO}`}</h3>
               <button type="button" onClick={()=> getGroupRequest(id as string).then(requests => setGroupRequests(requests))}>
                 <IconRefresh color="var(--gold-primary)" />
               </button>
@@ -129,14 +67,11 @@ const GroupDetailPage = () => {
               {groupRequests?.map((request) => (
                 <RequestCard key={request?.id} request={request as any} />
               ))}
-              {/* <RequestCard request={{} as any} /> */}
-              
+              {/* <RequestCard request={{} as any} /> */} 
             </RequestGridGroupPage>
           </MatchArea>
-
           <ActionArea>
             <RequestActions>
-              
               <ActionButton onClick={()=> createRequestOpenModal(id)}>
                 Create Request
               </ActionButton>

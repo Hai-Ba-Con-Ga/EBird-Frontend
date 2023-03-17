@@ -120,11 +120,14 @@ const RankingPage = () => {
 						<Typography>{}</Typography>
 						<Typography fontSize={"var(--text-2xl)"}>
 							Win: {currentBirdRank?.ratio?.win} || Lose:{" "}
-							{currentBirdRank?.ratio?.win} || Ratio:{" "}
+							{currentBirdRank?.ratio?.lose} || Ratio:{" "}
 							{currentBirdRank?.ratio?.win + currentBirdRank?.ratio?.lose == 0
 								? "0"
-								: currentBirdRank?.ratio?.win /
-								  (currentBirdRank?.ratio?.win + currentBirdRank?.ratio?.lose)}
+								: (currentBirdRank?.ratio?.win /
+										(currentBirdRank?.ratio?.win +
+											currentBirdRank?.ratio?.lose)) *
+										100 +
+								  "%"}
 						</Typography>
 					</MyRankCard>
 				</MyRanking>

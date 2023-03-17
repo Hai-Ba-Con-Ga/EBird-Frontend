@@ -16,12 +16,22 @@ export interface Bird {
 }
 
 export const HomeApi = {
-	getLeaderboardBirds: async (): Promise<Response<Bird[]>> => {
+	getLeaderboardBirds: async ({
+		pageSize,
+		page,
+	}: {
+		page: number;
+		pageSize: number;
+	}): Promise<Response<Bird[]>> => {
+		console.log("PAGI change", {
+			page,
+			pageSize,
+		});
 		const url = "/bird/all";
 		const response = await axiosClient.get(url, {
 			params: {
-				PageSize: 10,
-				CurrentPage: 1,
+				PageSize: pageSize,
+				PageNumber: page,
 				SortElo: "DESC",
 			},
 		});

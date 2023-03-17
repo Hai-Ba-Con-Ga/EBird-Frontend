@@ -46,6 +46,13 @@ const useAuth = (init?: boolean) => {
 			);
 		}
 	}, []);
+	const loginWithGoogle = useCallback(async (token: string) => {
+		const data = await AuthApi.loginWithGoogle(token);
+		if (data.success) {
+			window.location.replace("/app");
+		}
+		console.log("LOGIN GOOGLE", data);
+	}, []);
 	const login = useCallback(async (params: LoginParams) => {
 		const data = await request(AuthApi.login, params);
 		await getMe()
@@ -87,6 +94,7 @@ const useAuth = (init?: boolean) => {
 		login,
 		logout,
 		registerNewAccount,
+		loginWithGoogle,
 	};
 };
 export default useAuth;
