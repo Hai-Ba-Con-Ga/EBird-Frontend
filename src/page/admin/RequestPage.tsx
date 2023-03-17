@@ -47,10 +47,16 @@ const RequestPage = () => {
 						return RequestApi.mergeRequest({
 							hostRequestId: pair?.item1,
 							challengerRequestId: pair?.item2,
-						});
+						}).then((res) => res.data);
+					})
+				);
+				const matchCreateResult = await Promise.all(
+					mergeResult.map((reqId) => {
+						return RequestApi.createMatch(reqId);
 					})
 				);
 				console.log("MERGE GROUP REQUEST RESULT = ", mergeResult);
+				console.log("CREATE Match RESULT = ", mergeResult);
 				toast.success("Automatch successfully");
 			}
 		}

@@ -111,4 +111,11 @@ export const RequestApi = {
 		const res = await axiosClient.delete(url);
 		return res.data;
 	},
+	createMatch: async (requestId: string) => {
+		const url = "/match";
+		const res = await axiosClient.post(url, {
+			RequestId: requestId,
+		});
+		return res.data;
+	},
 };

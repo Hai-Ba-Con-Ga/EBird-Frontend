@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import useImagekit from "../../app/common/useImagekit";
 import { MatchApi } from "../../app/lobby/match.api";
+import useLoading from "../../useLoading";
 import useModal from "../modal/useModal";
 import {
 	UpdateResultFormWrapper,
@@ -23,10 +24,11 @@ const UpdateResultForm = ({ matchID, birdId }: Props) => {
 	console.log(matchID, "\n", "BIRD ID = ", birdId);
 	const { closeModal } = useModal();
 	const imagekit = useImagekit();
-
+	const { closeLoading, openLoading } = useLoading();
 	return (
 		<UpdateResultFormWrapper
 			onSubmit={handleSubmit(async (data) => {
+				openLoading();
 				console.log(data);
 				const resources: any[] = [];
 				const proofFiles: FileList = data.proof;
@@ -68,6 +70,7 @@ const UpdateResultForm = ({ matchID, birdId }: Props) => {
 				} else {
 					toast.warning("Cannot update result");
 				}
+				closeLoading();
 			})}
 		>
 			<UpdateResultTitle>UPDATE RESULT</UpdateResultTitle>
