@@ -6,7 +6,7 @@ const useImagekit = () => {
 		() =>
 			new ImageKit({
 				urlEndpoint: "https://ik.imagekit.io/flamefoxeswyvernp/",
-				authenticationEndpoint: "https://localhost:7137/imagekit/sign",
+				authenticationEndpoint: "https://wyvernpserver.tech/imagekit/sign",
 				publicKey: "public_S6vyU9FG56dNofgzx0hbbBAZGDs=",
 			}),
 		[]
