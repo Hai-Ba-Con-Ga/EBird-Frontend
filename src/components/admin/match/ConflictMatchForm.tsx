@@ -94,6 +94,14 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 				</MatchInformationSection>
 				<RequestBirdContainer>
 					<BirdResultWrapper>
+						<Typography
+							textAlign={"center"}
+							fontSize={"var(--text-2xl)"}
+							fontWeight={600}
+							color={"var(--medium-gray)"}
+						>
+							{matchDetail?.matchDetails?.[0]?.result}
+						</Typography>
 						<MatchCardBird
 							bird={matchDetail?.matchDetails?.[0]?.bird}
 							isOwner
@@ -106,9 +114,40 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 							/>
 							{resultLabelFirst}
 						</BirdResult>
+						<Box component={"div"}>
+							<Typography fontWeight={600} textAlign={"center"}>
+								Attachment
+							</Typography>
+							{matchDetail?.matchDetails?.[1]?.resourceResponses.map(
+								(rs: any, i: any) => (
+									<a
+										target={"_blank"}
+										rel="noreferrer"
+										style={{
+											display: "block",
+											padding: "0.5rem",
+											backgroundColor: "var(--dark-green)",
+											color: "var(--color-coffee)",
+											fontWeight: 600,
+											margin: "0.5rem 1rem",
+										}}
+										href={rs?.dataLink}
+										key={rs?.id}
+									>{`Proof ${i + 1}`}</a>
+								)
+							)}
+						</Box>
 					</BirdResultWrapper>
 					<VersusDivider>vs</VersusDivider>
 					<BirdResultWrapper>
+						<Typography
+							textAlign={"center"}
+							fontSize={"var(--text-2xl)"}
+							fontWeight={600}
+							color={"var(--medium-gray)"}
+						>
+							{matchDetail?.matchDetails?.[1]?.result}
+						</Typography>
 						<MatchCardBird
 							bird={matchDetail?.matchDetails?.[1]?.bird}
 							isOwner={false}
@@ -121,6 +160,29 @@ const ConflictMatchForm = ({ matchId }: { matchId: string }) => {
 							/>
 							{resultLabelSecond}
 						</BirdResult>
+						<Box component={"div"}>
+							<Typography fontWeight={600} textAlign={"center"}>
+								Attachment
+							</Typography>
+							{matchDetail?.matchDetails?.[0]?.resourceResponses.map(
+								(rs: any, i: any) => (
+									<a
+										target={"_blank"}
+										rel="noreferrer"
+										style={{
+											display: "block",
+											padding: "0.5rem",
+											backgroundColor: "var(--dark-green)",
+											color: "var(--color-coffee)",
+											fontWeight: 600,
+											margin: "0.5rem 1rem",
+										}}
+										href={rs?.dataLink}
+										key={rs?.id}
+									>{`Proof ${i}`}</a>
+								)
+							)}
+						</Box>
 					</BirdResultWrapper>
 				</RequestBirdContainer>
 				<UpdateResultButton

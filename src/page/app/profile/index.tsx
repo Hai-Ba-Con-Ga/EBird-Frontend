@@ -33,7 +33,7 @@ const ProfilePage = () => {
 				<CoverImage></CoverImage>
 				<UserAvatarWrapper>
 					<img
-						src="https://yt3.googleusercontent.com/2rIW6m-ZDdTDITm0VpttLYxR9onL699oB1XBF-apHCjxfl88D7vA4jMTog499zSlQ_pBF8Y_WA=s900-c-k-c0x00ffffff-no-rj"
+						src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
 						alt=""
 					/>
 				</UserAvatarWrapper>

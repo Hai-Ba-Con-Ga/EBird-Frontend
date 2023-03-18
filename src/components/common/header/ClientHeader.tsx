@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axiosClient from "../../../api/axiosClient";
 import useApp from "../../app/common/useApp";
 import useAuth from "../../auth/useAuth";
+import FunnyLobbyButton from "../button/FunnyLobbyButton";
 import HeaderPlayButton from "../button/HeaderPlayButton";
 import SettingsForm from "../form/SettingsForm";
 import useModal from "../modal/useModal";
@@ -44,7 +45,8 @@ const ClientHeader = () => {
 					<NavBarItem to={"/app/profile"}>Profile</NavBarItem>
 					<NavBarItem to={"/app/group"}>Group</NavBarItem>
 					<NavBarItem to={"/app/lobby"} className="nav-play-button">
-						<HeaderPlayButton type="button">Find request</HeaderPlayButton>
+						<FunnyLobbyButton />
+						{/* <HeaderPlayButton type="button">Lobby</HeaderPlayButton> */}
 					</NavBarItem>
 					<NavBarItem to={"/app/ranking"}>Ranking</NavBarItem>
 					<NavBarItem to={"/app/match"}>Match</NavBarItem>
@@ -65,7 +67,6 @@ const ClientHeader = () => {
 			</AppHeader>
 		</ClientHeaderWrapper>
 	);
-
 };
 
 export default ClientHeader;

@@ -22,7 +22,12 @@ const UserMenu = () => {
 		auth: { userInfomation },
 	} = useAuth();
 	//TODO VIP include
-	const isVip = useMemo(() => userInfomation?.vip && new Date(userInfomation.vip.expiredDate).getTime() >= Date.now(), [userInfomation]);
+	const isVip = useMemo(
+		() =>
+			userInfomation?.vip &&
+			new Date(userInfomation.vip.expiredDate).getTime() >= Date.now(),
+		[userInfomation]
+	);
 	// const isVip = false;
 	const userMenuRef = useRef();
 	const outsideClickHandler = useCallback(() => {
@@ -50,7 +55,7 @@ const UserMenu = () => {
 			</UserMenuAvatar>
 			{active && (
 				<UserMenuDropdown>
-					<UserFullname>Thanh Phong</UserFullname>
+					<UserFullname>{`${userInfomation?.firstName} ${userInfomation?.lastName}`}</UserFullname>
 					<UserFunctionsList>
 						<UserFunctionItem
 							onClick={() => {
@@ -60,19 +65,21 @@ const UserMenu = () => {
 						>
 							Profile
 						</UserFunctionItem>
-						{!isVip && <UserFunctionItem
-							onClick={() => {
-								nav("/app/plans");
-								setActive(false);
-							}}
-						>
-							Upgrade to pro
-						</UserFunctionItem>}
+						{!isVip && (
+							<UserFunctionItem
+								onClick={() => {
+									nav("/app/plans");
+									setActive(false);
+								}}
+							>
+								Upgrade to pro
+							</UserFunctionItem>
+						)}
 						<UserFunctionItem
 							onClick={() =>
 								openModal({
 									payload: null,
-									closable: false,
+									closable: true,
 									component: <SettingsForm />,
 								})
 							}

@@ -30,11 +30,21 @@ const ProfileBird = () => {
 				.then((birds) => setBirds(birds));
 		}
 	}, [profileId]);
-	
+
 	const handleCreateBirdClick = useCallback(() => {
 		openModal({
 			closable: true,
-			component: <CreateBirdModal />,
+			component: (
+				<CreateBirdModal
+					reloadList={() => {
+						if (profileId) {
+							BirdApi.getBirdByOwner(profileId)
+								.then((res) => res.data)
+								.then((birds) => setBirds(birds));
+						}
+					}}
+				/>
+			),
 			payload: null,
 		});
 	}, []);
@@ -78,11 +88,11 @@ export const ProfileBirdPageWrapper = styled.div`
 export const FilterSidebar = styled.div`
 	flex: 0 0 20%;
 	height: 100%;
-	padding-right: 2rem;;
+	padding-right: 2rem;
 	display: grid;
 	place-items: center;
 	position: relative;
-	&::after{ 
+	&::after {
 		position: absolute;
 		content: "";
 		width: 3px;
@@ -90,12 +100,12 @@ export const FilterSidebar = styled.div`
 		background-color: var(--dark-blue);
 		border-radius: var(--roundedSmall);
 		right: 0;
-		top:0;
+		top: 0;
 	}
 `;
 
 export const BirdView = styled.div`
-	height: 100%;
+	height: 90%;
 	/* background-color: red; */
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -104,6 +114,7 @@ export const BirdView = styled.div`
 	overflow-y: auto;
 	overflow-x: visible;
 	gap: 5rem;
+	padding-bottom: 2rem;
 `;
 export const BirdViewHeadline = styled.h1`
 	font-size: var(--text-11xl);

@@ -1,9 +1,14 @@
 import { IconX } from "@tabler/icons-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import useClickOutside from "../../app/common/useClickOutside";
 import { CommonModalMain, CommonModalWrapper } from "./modal.style";
 import useModal from "./useModal";
 const CommonModal: React.FC = () => {
 	const { closeModal, ModalComponent, isModalClosable } = useModal();
+	const modalRef = useRef<any>();
+	useClickOutside(modalRef, () => {
+		closeModal();
+	});
 	useEffect(() => {
 		if (isModalClosable) {
 			window.addEventListener("keydown", (ev) => {
@@ -29,7 +34,7 @@ const CommonModal: React.FC = () => {
 			}}
 			exit={{ transform: "scale(0.3)" }}
 		>
-			<CommonModalMain>
+			<CommonModalMain ref={modalRef}>
 				{isModalClosable && (
 					<button id="close-modal-button" onClick={() => closeModal()}>
 						<IconX color="var(--dark-blue)" />

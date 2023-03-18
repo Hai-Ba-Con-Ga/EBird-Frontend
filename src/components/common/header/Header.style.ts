@@ -71,7 +71,7 @@ export const BirdSelectArea = styled.div`
 	flex: 0 0 fit-content;
 	display: flex;
 	place-items: center;
-	margin-top: -1.5rem;
+	/* margin-top: -1.5rem; */
 	padding: 1rem 2rem;
 	align-items: center;
 	gap: 1rem;

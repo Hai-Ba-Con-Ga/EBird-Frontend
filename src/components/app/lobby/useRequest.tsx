@@ -46,12 +46,15 @@ const useRequest = (init?: boolean) => {
 				toast.success(
 					"Create match successfully! Refresh list manually please"
 				);
-
+				
 				// TODO : Refresh list manually || socket
+				getAllRequest();
 				getListRelatedRequests();
 				closeModal();
 			} else {
-				toast.error("Create request failed! Check again later");
+				toast.error(
+					result.message || "Create request failed! Check again later"
+				);
 			}
 		},
 		[appState, auth]
@@ -223,7 +226,10 @@ const useRequest = (init?: boolean) => {
 						if (result.success) {
 							const requestId = result.data;
 							const matchedMatches = (
-								await RequestApi.quickMatchRequest(requestId)
+								await RequestApi.quickMatchRequest(
+									requestId,
+									appState.currentRoom?.id as string
+								)
 							).data;
 							if (matchedMatches.length > 0) {
 								const requests = await fetchRequestByIds(matchedMatches);

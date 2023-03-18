@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
 	BirdImage,
 	BirdInformations,
@@ -47,6 +47,22 @@ const MatchCard = ({
 	useEffect(() => {
 		console.log(matchDetail);
 	}, [matchDetail]);
+	const firstBirdEloChange = useMemo(
+		() =>
+			matchDetail?.matchDetails?.[0]?.afterElo -
+			matchDetail?.matchDetails?.[0]?.beforeElo > 0 ? `+${matchDetail?.matchDetails?.[0]?.afterElo -
+			matchDetail?.matchDetails?.[0]?.beforeElo}` : `${matchDetail?.matchDetails?.[0]?.afterElo -
+				matchDetail?.matchDetails?.[0]?.beforeElo}`,
+		[matchDetail]
+	);
+	const secondBirdEloChange = useMemo(
+		() =>
+			matchDetail?.matchDetails?.[1]?.afterElo -
+			matchDetail?.matchDetails?.[1]?.beforeElo > 0 ? `+${matchDetail?.matchDetails?.[1]?.afterElo -
+			matchDetail?.matchDetails?.[1]?.beforeElo}` : `${matchDetail?.matchDetails?.[1]?.afterElo -
+				matchDetail?.matchDetails?.[1]?.beforeElo}`,
+		[matchDetail]
+	);
 	return (
 		<MatchCardWrapper>
 			<MatchInformationSection>
@@ -60,14 +76,14 @@ const MatchCard = ({
 						<span>{matchDetail?.matchDatetime || "00:00"}</span>
 					</MatchInformationField>
 				</div>
-				<MatchStatusSpan status={MatchStatus.During}>
+				<MatchStatusSpan status={matchDetail?.matchStatus}>
 					{matchDetail?.matchStatus}
 				</MatchStatusSpan>
 			</MatchInformationSection>
 			<RequestBirdContainer>
 				<BirdResultWrapper>
 					<MatchCardBird bird={matchDetail?.matchDetails?.[0]?.bird} isOwner />
-					<BirdResult result>
+					<BirdResult result={matchDetail?.matchDetails?.[0]?.result == "Win"}>
 						{matchDetail?.matchDetails?.[0]?.result == "Ready" ||
 						matchDetail?.matchDetails?.[0]?.result == "NotReady"
 							? "--"
@@ -76,6 +92,7 @@ const MatchCard = ({
 							: matchDetail?.matchDetails?.[0]?.result == "Win"
 							? "Win"
 							: "Drawn"}
+							{matchDetail?.matchStatus === MatchStatus.Completed &&`(${firstBirdEloChange})`}
 					</BirdResult>
 				</BirdResultWrapper>
 				<VersusDivider>vs</VersusDivider>
@@ -84,7 +101,7 @@ const MatchCard = ({
 						bird={matchDetail?.matchDetails?.[1]?.bird}
 						isOwner={false}
 					/>
-					<BirdResult result={false}>
+					<BirdResult result={matchDetail?.matchDetails?.[1]?.result == "Win"}>
 						{matchDetail?.matchDetails?.[1]?.result == "Ready" ||
 						matchDetail?.matchDetails?.[1]?.result == "NotReady"
 							? "--"
@@ -92,7 +109,9 @@ const MatchCard = ({
 							? "Lose"
 							: matchDetail?.matchDetails?.[1]?.result == "Win"
 							? "Win"
-							: "Drawn"}
+							: "Drawn"}  
+							{matchDetail?.matchStatus === MatchStatus.Completed &&`(${secondBirdEloChange})`}
+
 					</BirdResult>
 				</BirdResultWrapper>
 			</RequestBirdContainer>
@@ -132,14 +151,21 @@ export const MatchCardBird = ({
 	bird: any;
 	isOwner: boolean;
 }) => {
+	const birdAvatar = useMemo(() => {
+		if (bird?.id) {
+			if (bird?.resourceList?.length > 0 && bird?.resourceList[0].dataLink) {
+				return bird.resourceList[0].dataLink;
+			} else {
+				return "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg";
+			}
+		} else {
+			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
+		}
+	}, [bird]);
 	return (
 		<RequestBirdWrapper isOwner={isOwner}>
 			<BirdMatchImage>
-				<img
-					src="https://thucung.farmvina.com/wp-content/uploads/2019/12/chao-mao-hot-hay.jpg"
-					alt=""
-					srcSet="https://thucung.farmvina.com/wp-content/uploads/2019/12/chao-mao-hot-hay.jpg"
-				/>
+				<img src={birdAvatar} alt="" />
 			</BirdMatchImage>
 			<BirdMatchInformation isOwner={isOwner}>
 				<h1>{bird?.name || "Louis Vuitton"}</h1>

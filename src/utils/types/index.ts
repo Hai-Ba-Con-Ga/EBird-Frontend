@@ -75,8 +75,13 @@ export interface Group {
 	//DONE
 	id: string;
 	name: string;
+<<<<<<< HEAD
 	maxElo: number;
 	minElo: number;
+=======
+	maxELO: number;
+	minELO: number;
+>>>>>>> 1824332bfa6642ea78ae5ce7d18ffa9d3fdbfcad
 	status: string;
 	createDatetime: Date;
 	createdById: string;
