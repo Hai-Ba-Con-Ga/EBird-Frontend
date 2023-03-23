@@ -28,9 +28,6 @@ const LandingPage = () => {
 	};
 	const ggOneTap2 = ggOneTap as any;
 	ggOneTap2(options, (response: any) => {
-		// Send response to server
-		console.log("SEND TO SV");
-
 		console.log(response);
 		const token = response?.credential;
 		if (token) {

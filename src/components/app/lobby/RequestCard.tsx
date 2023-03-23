@@ -1,4 +1,11 @@
-import { IconClock, IconLocation, IconMapPin } from "@tabler/icons-react";
+import {
+	IconBrandTwitter,
+	IconClock,
+	IconLocation,
+	IconMapPin,
+	IconStar,
+	IconUser,
+} from "@tabler/icons-react";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -134,9 +141,45 @@ const RequestBird = ({
 				<img src={birdAvatar} alt="" />
 			</BirdImage>
 			<BirdInformations isOwner={isOwner}>
-				<h1>{bird?.name || "Empty"}</h1>
-				<h1>{bird?.elo || "Empty"}</h1>
-				<h1>{ownerName || "Empty"}</h1>
+				<h1>
+					{isOwner ? (
+						<>
+							<span>{bird?.name || "Empty"}</span>
+							<IconBrandTwitter fill="var(--color-coffee)" />
+						</>
+					) : (
+						<>
+							<IconBrandTwitter fill="var(--color-coffee)" />
+							<span>{bird?.name || "Empty"}</span>
+						</>
+					)}
+				</h1>
+				<h1>
+					{isOwner ? (
+						<>
+							<span>{bird?.elo || "Empty"}</span>
+							<IconStar fill="var(--color-coffee)" />
+						</>
+					) : (
+						<>
+							<IconStar fill="var(--color-coffee)" />
+							<span>{bird?.elo || "Empty"}</span>
+						</>
+					)}
+				</h1>
+				<h1>
+					{isOwner ? (
+						<>
+							<span>{ownerName || "Empty"}</span>
+							<IconUser fill="var(--color-coffee)" />
+						</>
+					) : (
+						<>
+							<IconUser fill="var(--color-coffee)" />
+							<span>{ownerName || "Empty"}</span>
+						</>
+					)}
+				</h1>
 			</BirdInformations>
 		</RequestBirdWrapper>
 	);

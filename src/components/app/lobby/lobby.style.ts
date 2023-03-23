@@ -66,11 +66,23 @@ export const PageMain = styled.div`
 	overflow-y: auto;
 `;
 export const RequestGrid = styled.div`
+	--column: 4;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(var(--column), 1fr);
 	grid-gap: 10px;
 	overflow-y: auto;
 	overflow-x: hidden;
+	@media screen and (max-width: 1738.98px) {
+		--column: 3;
+	}
+	@media screen and (max-width: 1279.98px) {
+		--column: 2;
+		place-items: center;
+	}
+	@media screen and (max-width: 730.98px) {
+		--column: 1;
+		place-items: center;
+	}
 `;
 // Request Card
 
@@ -121,6 +133,7 @@ export const RequestCardInfomationField = styled.div`
 
 export const RequestBirdWrapper = styled.div`
 	display: flex;
+	flex: 0 0 50%;
 	gap: 1rem;
 	${({ isOwner }: { isOwner: boolean }) => {
 		return isOwner ? "flex-direction: row-reverse;" : "flex-direction: row;";
@@ -128,9 +141,8 @@ export const RequestBirdWrapper = styled.div`
 	align-items: center;
 `;
 export const BirdImage = styled.div`
-	width: 8rem;
+	flex: 0 0 7rem;
 	aspect-ratio: 1;
-	height: 8rem;
 	border-radius: var(--roundedFull);
 	overflow: hidden;
 	img {
@@ -148,6 +160,19 @@ export const BirdInformations = styled.div`
 	font-size: var(--text-small);
 	color: var(--color-coffee);
 	font-weight: 600;
+	h1 {
+		display: flex;
+		gap: 0.25rem;
+		align-items: center;
+		span {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 1; /* number of lines to show */
+			line-clamp: 1;
+			-webkit-box-orient: vertical;
+		}
+	}
 `;
 export const RequestBirdContainer = styled.div`
 	display: flex;

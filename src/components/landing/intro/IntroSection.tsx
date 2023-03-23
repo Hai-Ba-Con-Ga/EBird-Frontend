@@ -14,7 +14,16 @@ import { IntroBlock, IntroSectionWrapper } from "./IntroSection.style";
 const IntroSection = () => {
 	const nav = useNavigate();
 	return (
-		<IntroSectionWrapper id="about">
+		<IntroSectionWrapper
+			style={{
+				background:
+					"url('https://ik.imagekit.io/flamefoxeswyvernp/image_aj59UPSmS.png?updatedAt=1679580369795')",
+				backgroundAttachment: "fixed",
+				backgroundPosition: "center",
+				backgroundSize: "cover",
+			}}
+			id="about"
+		>
 			{/* TODO : 3D */}
 			<StyledCanvas shadows>
 				<ambientLight />

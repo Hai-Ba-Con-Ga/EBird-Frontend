@@ -5,7 +5,7 @@ export const IntroSectionWrapper = styled.section`
 	height: 100vh;
 	background-color: black;
 	/* background: url("https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832_960_720.jpg"); */
-	background: url("https://cdn.wallpapersafari.com/32/86/XxJPfL.jpg");
+	background: url("https://ik.imagekit.io/flamefoxeswyvernp/image_aj59UPSmS.png?updatedAt=1679580369795");
 	background-attachment: fixed;
 	background-color: transparent;
 	background-position: center;

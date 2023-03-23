@@ -49,6 +49,8 @@ import MatchAdminPage from "./page/admin/MatchAdminPage";
 import RoomPage from "./page/admin/RoomPage";
 import PaidPlanPage from "./page/app/PaidPlanPage";
 import PaymentResultPage from "./components/app/others/PaymentResultPage";
+import { CustomToast } from "./main.style";
+console.log(import.meta.env.REACT_APP_BE_URL);
 function App() {
 	// const { auth } = useAuth(true);
 	const { isLoading, loadingType, Loader } = useLoading();
@@ -202,11 +204,13 @@ function App() {
 			{/* )} */}
 			{isLoading && Loader}
 			{isModalShown && modalType == "common" && <CommonModal />}
-			<ToastContainer
+			<CustomToast
 				bodyStyle={{ zIndex: 1500 }}
 				toastStyle={{ zIndex: 10000 }}
-				autoClose={2500}
+				autoClose={10000}
 				pauseOnHover={false}
+				containerId="toast-container"
+				toastClassName={"toast-main"}
 			/>
 		</div>
 	);

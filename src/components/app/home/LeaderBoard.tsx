@@ -3,6 +3,8 @@ import Chip from "@mui/material/Chip";
 import { LeaderboardTable, SeeMoreRankLink } from "./homepage.style";
 import { Bird } from "../../../utils/types";
 import { TablePagination } from "@mui/material";
+import { IconRosette, IconRosetteFilled } from "@tabler/icons-react";
+import styled from "styled-components";
 export interface Props {
 	ranks: Bird[];
 	pagination?: {
@@ -35,29 +37,64 @@ const LeaderBoard = ({ ranks, pagination }: Props) => {
 				</tr>
 			</thead>
 			<tbody>
-				{ranks?.map((bird, i) => (
-					<tr key={bird?.id}>
-						<td style={{ fontWeight: 600 }}>{i + 1}</td>
-						<td style={{ position: "relative" }}>
-							{bird?.name}
-							<Chip
+				{ranks?.map((bird, i) => {
+					const no = ranks.indexOf(bird) + 1;
+					return (
+						<tr key={bird?.id}>
+							<td
 								style={{
-									fontSize: "var(--text-xl)",
-									position: "absolute",
 									fontWeight: 600,
-									marginLeft: "5px",
+									display: "flex",
+									justifyContent: "center",
 								}}
-								size="medium"
-								label={"#" + bird?.number}
-							/>
-						</td>
-						<td>{"Chao mao"}</td>
-						<td>{bird?.owner.username}</td>
-						<td>{bird?.elo}</td>
-					</tr>
-				))}
+							>
+								{no <= 3 ? (
+									<RankBadge>
+										<IconRosette
+											size={"4rem"}
+											style={{
+												fill:
+													no == 1
+														? "var(--gold-secondary)"
+														: no == 2
+														? "var(--light-gray)"
+														: "var(--gold-primary)",
+											}}
+											color={
+												no == 1
+													? "var(--gold-secondary)"
+													: no == 2
+													? "var(--light-gray)"
+													: "var(--gold-primary)"
+											}
+										/>
+										<span>{no}</span>
+									</RankBadge>
+								) : (
+									no
+								)}
+							</td>
+							<td style={{ position: "relative", textAlign: "left" }}>
+								{bird?.name}
+								<Chip
+									style={{
+										fontSize: "var(--text-xl)",
+										position: "absolute",
+										fontWeight: 600,
+										marginLeft: "5px",
+									}}
+									size="medium"
+									label={"#" + bird?.number}
+								/>
+							</td>
+							<td>{"Chao mao"}</td>
+							<td>{bird?.owner.username}</td>
+							<td>{bird?.elo}</td>
+						</tr>
+					);
+				})}
 			</tbody>
-			{pagination && (
+			{/* {pagination && (
 				<TablePagination
 					component={"div"}
 					count={pagination.totalItems || 10}
@@ -67,9 +104,26 @@ const LeaderBoard = ({ ranks, pagination }: Props) => {
 					onPageChange={pagination.onPageChange}
 					onRowsPerPageChange={pagination.onPageSizeChange}
 				/>
-			)}
+			)} */}
 		</LeaderboardTable>
 	);
 };
+const RankBadge = styled.div`
+	width: fit-content;
+	height: fit-content;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
+	span {
+		position: absolute;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 2;
+		color: var(--white);
+	}
+`;
 export default LeaderBoard;

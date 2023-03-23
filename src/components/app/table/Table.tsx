@@ -83,7 +83,7 @@ export const MatchTable = () => {
 		});
 	}, [id]);
 	const socket = useSocket({
-		host: "https://localhost:7137",
+		host: "https://wyvernpserver.tech",
 		path: "/hub/chat",
 		params: {
 			userId: userInfomation?.id,
