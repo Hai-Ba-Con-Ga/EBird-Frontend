@@ -16,7 +16,7 @@ export interface LoginParams {
 const CLIENT_ID =
 	"510469289426-ka5eitvaosv0mfjrj24ajfkvovjneli1.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
-const REDIRECT_URI = "https://localhost:3000/login";
+const REDIRECT_URI = "https://wyvernpserver.tech/login";
 
 // send a POST request to the Google OAuth API's token endpoint to obtain an access token
 const data = {
