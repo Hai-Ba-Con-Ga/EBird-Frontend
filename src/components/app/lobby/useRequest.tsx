@@ -30,9 +30,21 @@ const useRequest = (init?: boolean) => {
 		async (data: CreateRequestFormValues) => {
 			const { userInfomation } = auth;
 			const place = data.location;
+			const newData = new Date(
+				data.date.toLocaleString("en-US", { timeZone: "GMT+7" })
+			);
+			if (data.time === "PM") {
+				newData.setHours(13, 0, 0, 0);
+			} else {
+				newData.setHours(7, 0, 0, 0);
+			}
+			data.date = newData;
+			console.log(data.date);
+			console.log("DATE", newData);
+
 			const params: CreateRequestParams = {
 				//TODO : add noon or morning
-				requestDatetime: data.date,
+				requestDatetime: newData.toISOString(),
 				hostId: userInfomation?.id,
 				hostBirdId: data.currentBirdId || (appState.currentBird?.id as string),
 				roomId: appState.currentRoom?.id as string,
@@ -40,13 +52,15 @@ const useRequest = (init?: boolean) => {
 				place,
 			};
 
+			console.log("DATA CREAT REQUEST", params);
+
 			const result = await RequestApi.createRequest(params);
 			console.log("Create match result = ", result);
 			if (result.success) {
 				toast.success(
 					"Create match successfully! Refresh list manually please"
 				);
-				
+
 				// TODO : Refresh list manually || socket
 				getAllRequest();
 				getListRelatedRequests();

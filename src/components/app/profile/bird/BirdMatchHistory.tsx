@@ -38,13 +38,31 @@ const HistoryMatchCard = ({ match }: { match?: any }) => {
 	const firstBirdEloChange = useMemo(
 		() =>
 			matchDetail?.matchDetails?.[0]?.afterElo -
-			matchDetail?.matchDetails?.[0]?.beforeElo,
+				matchDetail?.matchDetails?.[0]?.beforeElo >
+			0
+				? `+${
+						matchDetail?.matchDetails?.[0]?.afterElo -
+						matchDetail?.matchDetails?.[0]?.beforeElo
+				  }`
+				: `${
+						matchDetail?.matchDetails?.[0]?.afterElo -
+						matchDetail?.matchDetails?.[0]?.beforeElo
+				  }`,
 		[matchDetail]
 	);
 	const secondBirdEloChange = useMemo(
 		() =>
 			matchDetail?.matchDetails?.[1]?.afterElo -
-			matchDetail?.matchDetails?.[1]?.beforeElo,
+				matchDetail?.matchDetails?.[1]?.beforeElo >
+			0
+				? `+${
+						matchDetail?.matchDetails?.[1]?.afterElo -
+						matchDetail?.matchDetails?.[1]?.beforeElo
+				  }`
+				: `${
+						matchDetail?.matchDetails?.[1]?.afterElo -
+						matchDetail?.matchDetails?.[1]?.beforeElo
+				  }`,
 		[matchDetail]
 	);
 	return (
@@ -60,15 +78,24 @@ const HistoryMatchCard = ({ match }: { match?: any }) => {
 						<span>{matchDetail?.matchDatetime || "00:00"}</span>
 					</MatchInformationField>
 				</div>
-				<MatchStatusSpan status={MatchStatus.During}>
+				<MatchStatusSpan status={matchDetail?.matchStatus}>
 					{matchDetail?.matchStatus}
 				</MatchStatusSpan>
 			</MatchInformationSection>
 			<RequestBirdContainer>
 				<BirdResultWrapper>
 					<MatchCardBird bird={matchDetail?.matchDetails?.[0]?.bird} isOwner />
-					<BirdResult result={firstBirdEloChange > 0}>
-						{firstBirdEloChange}
+					<BirdResult result={matchDetail?.matchDetails?.[0]?.result == "Win"}>
+						{matchDetail?.matchDetails?.[0]?.result == "Ready" ||
+						matchDetail?.matchDetails?.[0]?.result == "NotReady"
+							? "--"
+							: matchDetail?.matchDetails?.[0]?.result == "Lose"
+							? "Lose"
+							: matchDetail?.matchDetails?.[0]?.result == "Win"
+							? "Win"
+							: "Drawn"}
+						{matchDetail?.matchStatus === MatchStatus.Completed &&
+							`(${firstBirdEloChange})`}
 					</BirdResult>
 				</BirdResultWrapper>
 				<VersusDivider>vs</VersusDivider>
@@ -77,8 +104,17 @@ const HistoryMatchCard = ({ match }: { match?: any }) => {
 						bird={matchDetail?.matchDetails?.[1]?.bird}
 						isOwner={false}
 					/>
-					<BirdResult result={secondBirdEloChange > 0}>
-						{secondBirdEloChange}
+					<BirdResult result={matchDetail?.matchDetails?.[1]?.result == "Win"}>
+						{matchDetail?.matchDetails?.[1]?.result == "Ready" ||
+						matchDetail?.matchDetails?.[1]?.result == "NotReady"
+							? "--"
+							: matchDetail?.matchDetails?.[1]?.result == "Lose"
+							? "Lose"
+							: matchDetail?.matchDetails?.[1]?.result == "Win"
+							? "Win"
+							: "Drawn"}
+						{matchDetail?.matchStatus === MatchStatus.Completed &&
+							`(${secondBirdEloChange})`}
 					</BirdResult>
 				</BirdResultWrapper>
 			</RequestBirdContainer>

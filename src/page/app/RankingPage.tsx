@@ -75,7 +75,7 @@ const RankingPage = () => {
 		<RankingWrapper>
 			<RankingMainContent>
 				<RankingBoard>
-					<HeaderRanking></HeaderRanking>
+					{/* <HeaderRanking></HeaderRanking> */}
 					{/* 
             {tabs?.map((navTab) => (
               <MatchTab
@@ -89,13 +89,25 @@ const RankingPage = () => {
               </MatchTab>
             ))} */}
 
-					<h1>RANKING BOARD</h1>
+					<h1
+						style={{
+							margin: "2rem 0rem",
+						}}
+					>
+						RANKING BOARD
+					</h1>
 
 					<RankingLeaderBoard tab={tab} ranks={rank} />
 				</RankingBoard>
 
 				<MyRanking>
-					<h1>MY RANKING</h1>
+					<h1
+						style={{
+							margin: "3rem 0rem",
+						}}
+					>
+						MY RANKING
+					</h1>
 					<MyRankCard>
 						<MyBirdAvaRank>
 							<img src={birdAvatar} alt="" />

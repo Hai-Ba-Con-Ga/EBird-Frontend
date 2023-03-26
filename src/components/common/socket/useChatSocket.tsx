@@ -23,11 +23,11 @@ const useChatSocket = ({ host, path, params }: Props) => {
 		if (params?.referenceId && params?.userId) {
 			const newSocket = new HubConnectionBuilder()
 				.withUrl(
-					`wyvernpserver.tech/hub/chat?${new URLSearchParams(
+					`https://wyvernpserver.tech/hub/chat?${new URLSearchParams(
 						params
 					).toString()}`,
 					{
-						withCredentials: true,
+						// withCredentials: true,
 						transport: HttpTransportType.WebSockets,
 						skipNegotiation: true,
 					}

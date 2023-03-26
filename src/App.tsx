@@ -207,7 +207,7 @@ function App() {
 			<CustomToast
 				bodyStyle={{ zIndex: 1500 }}
 				toastStyle={{ zIndex: 10000 }}
-				autoClose={10000}
+				autoClose={2500}
 				pauseOnHover={false}
 				containerId="toast-container"
 				toastClassName={"toast-main"}

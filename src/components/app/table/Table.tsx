@@ -1,54 +1,41 @@
+import { Chip } from "@mui/material";
 import {
 	IconChevronLeft,
 	IconCircleX,
-	IconClock,
 	IconDoorExit,
-	IconMapPin,
 	IconRefresh,
-	IconSend,
 } from "@tabler/icons-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import axiosClient from "../../../api/axiosClient";
+import { RequestStatus } from "../../../utils/types";
 import useAuth from "../../auth/useAuth";
-import useGoogleMap from "../../common/map/useGoogleMap";
+import useSocket from "../../common/socket/useChatSocket";
+import useLoading from "../../useLoading";
 import { MatchApi } from "../lobby/match.api";
+import { RequestApi } from "../lobby/request.api";
 import useRequest from "../lobby/useRequest";
-import TableInformation from "./TableInformation";
+import { ChatApi } from "./chat.api";
 import {
 	BackButton,
-	ChatBox,
-	ChatFrame,
-	ChatItem,
-	ChatMessage,
 	ConfirmButton,
 	TableHeadline,
-	TableInformationItem,
-	TableInformations,
 	TableMain,
 	TableOpponents,
-	TableOthers,
 	TableTitle,
 	TableWrapper,
 	VsDividerTable,
 } from "./table.style";
 import TableBird from "./TableBird";
 import TableChat from "./TableChat";
-import { Chip } from "@mui/material";
-import { RequestApi } from "../lobby/request.api";
-import { RequestStatus } from "../../../utils/types";
-import { useRecoilValue } from "recoil";
-import useSocket from "../../common/socket/useChatSocket";
-import { HubConnection } from "@microsoft/signalr";
-import axiosClient from "../../../api/axiosClient";
-import useLoading from "../../useLoading";
+import TableInformation from "./TableInformation";
 export const MatchTable = () => {
 	const { id } = useParams();
 	const {
 		auth: { userInfomation },
 	} = useAuth();
 	const { closeLoading, openLoading } = useLoading();
-	const [isMerged, setIsMerged] = useState<boolean>(false);
 	const [requestDetail, setDetail] = useState<any>(null);
 	const isOwner = useMemo(
 		() => userInfomation?.id == requestDetail?.host?.id,
@@ -83,7 +70,7 @@ export const MatchTable = () => {
 		});
 	}, [id]);
 	const socket = useSocket({
-		host: "https://wyvernpserver.tech",
+		host: "https://localhost:7137",
 		path: "/hub/chat",
 		params: {
 			userId: userInfomation?.id,
@@ -111,13 +98,19 @@ export const MatchTable = () => {
 		[messages]
 	);
 	useEffect(() => {
-		console.log("MESSAGES = ", messages);
-	}, [messages]);
+		if (id) {
+			ChatApi.getChat(id)
+				.then((res) => res.data)
+				.then((chatsRaw) => {
+					const chats = chatsRaw.map((chatRaw: any) => ({
+						user: chatRaw.fromFullName,
+						message: chatRaw.content,
+					}));
+					setMessages([...chats]);
+				});
+		}
+	}, [id]);
 	// *** hanler *//
-	const count = useRef(1);
-	useEffect(() => {
-		console.log("RERENDER", ++count.current);
-	}, []);
 	useEffect(() => {
 		console.log(requestDetail);
 
@@ -229,6 +222,7 @@ export const MatchTable = () => {
 					/>
 				</TableOpponents>
 				<TableInformation
+					isOwner={isOwner}
 					request={requestDetail}
 					reloadCallback={() =>
 						getRequestDetail(id ?? "").then((data) => setDetail(data))

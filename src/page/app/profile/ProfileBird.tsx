@@ -115,6 +115,7 @@ export const BirdView = styled.div`
 	overflow-x: visible;
 	gap: 5rem;
 	padding-bottom: 2rem;
+	row-gap: 7rem;
 `;
 export const BirdViewHeadline = styled.h1`
 	font-size: var(--text-11xl);

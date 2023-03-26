@@ -17,7 +17,13 @@ import {
 	MatchStatusSpan,
 	VersusDivider,
 } from "./match.style";
-import { IconMapPin, IconClock } from "@tabler/icons-react";
+import {
+	IconMapPin,
+	IconClock,
+	IconBrandTwitter,
+	IconUser,
+	IconStar,
+} from "@tabler/icons-react";
 import { MatchStatus } from "../../../utils/types";
 import { MatchApi } from "../lobby/match.api";
 import styled from "styled-components";
@@ -50,17 +56,31 @@ const MatchCard = ({
 	const firstBirdEloChange = useMemo(
 		() =>
 			matchDetail?.matchDetails?.[0]?.afterElo -
-			matchDetail?.matchDetails?.[0]?.beforeElo > 0 ? `+${matchDetail?.matchDetails?.[0]?.afterElo -
-			matchDetail?.matchDetails?.[0]?.beforeElo}` : `${matchDetail?.matchDetails?.[0]?.afterElo -
-				matchDetail?.matchDetails?.[0]?.beforeElo}`,
+				matchDetail?.matchDetails?.[0]?.beforeElo >
+			0
+				? `+${
+						matchDetail?.matchDetails?.[0]?.afterElo -
+						matchDetail?.matchDetails?.[0]?.beforeElo
+				  }`
+				: `${
+						matchDetail?.matchDetails?.[0]?.afterElo -
+						matchDetail?.matchDetails?.[0]?.beforeElo
+				  }`,
 		[matchDetail]
 	);
 	const secondBirdEloChange = useMemo(
 		() =>
 			matchDetail?.matchDetails?.[1]?.afterElo -
-			matchDetail?.matchDetails?.[1]?.beforeElo > 0 ? `+${matchDetail?.matchDetails?.[1]?.afterElo -
-			matchDetail?.matchDetails?.[1]?.beforeElo}` : `${matchDetail?.matchDetails?.[1]?.afterElo -
-				matchDetail?.matchDetails?.[1]?.beforeElo}`,
+				matchDetail?.matchDetails?.[1]?.beforeElo >
+			0
+				? `+${
+						matchDetail?.matchDetails?.[1]?.afterElo -
+						matchDetail?.matchDetails?.[1]?.beforeElo
+				  }`
+				: `${
+						matchDetail?.matchDetails?.[1]?.afterElo -
+						matchDetail?.matchDetails?.[1]?.beforeElo
+				  }`,
 		[matchDetail]
 	);
 	return (
@@ -73,7 +93,12 @@ const MatchCard = ({
 					</MatchInformationField>
 					<MatchInformationField>
 						<IconClock />
-						<span>{matchDetail?.matchDatetime || "00:00"}</span>
+						<span>
+							{matchDetail?.matchDatetime?.split(" ")?.[0]}{" "}
+							{new Date(Date.parse(matchDetail?.matchDatetime)).getHours() === 0
+								? "Morning"
+								: "Afternoon"}
+						</span>
 					</MatchInformationField>
 				</div>
 				<MatchStatusSpan status={matchDetail?.matchStatus}>
@@ -92,7 +117,8 @@ const MatchCard = ({
 							: matchDetail?.matchDetails?.[0]?.result == "Win"
 							? "Win"
 							: "Drawn"}
-							{matchDetail?.matchStatus === MatchStatus.Completed &&`(${firstBirdEloChange})`}
+						{matchDetail?.matchStatus === MatchStatus.Completed &&
+							`(${firstBirdEloChange})`}
 					</BirdResult>
 				</BirdResultWrapper>
 				<VersusDivider>vs</VersusDivider>
@@ -109,9 +135,9 @@ const MatchCard = ({
 							? "Lose"
 							: matchDetail?.matchDetails?.[1]?.result == "Win"
 							? "Win"
-							: "Drawn"}  
-							{matchDetail?.matchStatus === MatchStatus.Completed &&`(${secondBirdEloChange})`}
-
+							: "Drawn"}
+						{matchDetail?.matchStatus === MatchStatus.Completed &&
+							`(${secondBirdEloChange})`}
 					</BirdResult>
 				</BirdResultWrapper>
 			</RequestBirdContainer>
@@ -168,9 +194,45 @@ export const MatchCardBird = ({
 				<img src={birdAvatar} alt="" />
 			</BirdMatchImage>
 			<BirdMatchInformation isOwner={isOwner}>
-				<h1>{bird?.name || "Louis Vuitton"}</h1>
-				<h1>{bird?.elo || "0"}</h1>
-				<h1>{"Chao mao"}</h1>
+				<h1>
+					{isOwner ? (
+						<>
+							<span>{bird?.name || "Empty"}</span>
+							<IconBrandTwitter fill="var(--color-coffee)" />
+						</>
+					) : (
+						<>
+							<IconBrandTwitter fill="var(--color-coffee)" />
+							<span>{bird?.name || "Empty"}</span>
+						</>
+					)}
+				</h1>
+				<h1>
+					{isOwner ? (
+						<>
+							<span>{bird?.elo || "Empty"}</span>
+							<IconStar fill="var(--color-coffee)" />
+						</>
+					) : (
+						<>
+							<IconStar fill="var(--color-coffee)" />
+							<span>{bird?.elo || "Empty"}</span>
+						</>
+					)}
+				</h1>
+				<h1>
+					{isOwner ? (
+						<>
+							<span>{bird?.owner?.username || "Empty"}</span>
+							<IconUser fill="var(--color-coffee)" />
+						</>
+					) : (
+						<>
+							<IconUser fill="var(--color-coffee)" />
+							<span>{bird?.owner?.username || "Empty"}</span>
+						</>
+					)}
+				</h1>
 			</BirdMatchInformation>
 		</RequestBirdWrapper>
 	);

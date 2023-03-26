@@ -49,7 +49,7 @@ const ProfilePage = () => {
 					<ActionButton variant="lg">
 						<IconBrandTwitter onClick={() => nav("birds")} />
 					</ActionButton>
-					<ActionButton variant="lg">
+					{/* <ActionButton variant="lg">
 						<IconUserPlus />
 					</ActionButton>
 					<ActionButton variant="lg">
@@ -57,7 +57,7 @@ const ProfilePage = () => {
 					</ActionButton>
 					<ActionButton variant="lg">
 						<IconUserPlus />
-					</ActionButton>
+					</ActionButton> */}
 				</ProfileAction>
 			</HeadlineProfileWrapper>
 			<HighestBirdSection>

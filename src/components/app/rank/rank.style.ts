@@ -30,7 +30,7 @@ export const MyRanking = styled.div`
 	flex: 0 0 25%;
 	height: 100%;
 	border: 3px solid var(--dark-green);
-	overflow-y: auto;
+	/* overflow-y: auto; */
 	border-radius: var(--roundedSmall);
 	h1 {
 		text-transform: uppercase;
@@ -78,11 +78,12 @@ export const MatchTab = styled.span`
 `;
 
 export const MyRankCard = styled.div`
+	padding: 5rem 0;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	/* justify-content: center; */
 	flex-direction: column;
 `;
 

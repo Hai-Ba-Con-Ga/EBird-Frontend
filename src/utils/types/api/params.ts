@@ -1,7 +1,7 @@
 import { Pagination } from ".";
 import { MatchStatus } from "..";
 export interface CreateRequestParams {
-	requestDatetime: Date | string;
+	requestDatetime: string;
 	hostBirdId: string;
 	placeId?: string;
 	hostId?: string;

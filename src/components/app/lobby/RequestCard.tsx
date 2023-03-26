@@ -78,7 +78,12 @@ const RequestCard = ({ request }: { request: any }) => {
 			</RequestCardInfomationField>
 			<RequestCardInfomationField>
 				<IconClock />
-				<span>{request?.requestDatetime || "00:00"}</span>
+				<span>
+					{request?.requestDatetime?.split("T")?.[0]}{" "}
+					{new Date(Date.parse(request?.requestDatetime)).getHours() === 0
+						? "Morning"
+						: "Afternoon"}
+				</span>
 			</RequestCardInfomationField>
 			<RequestBirdContainer>
 				<RequestBird
