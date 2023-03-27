@@ -23,7 +23,7 @@ import { FieldError, TextField } from "../common/form/TextField";
 import { TextFieldTheme } from "../common/theme/TextFieldTheme";
 const CLIENT_ID =
 	"510469289426-ka5eitvaosv0mfjrj24ajfkvovjneli1.apps.googleusercontent.com";
-const REDIRECT_URI = "https://globird.tech/login";
+const REDIRECT_URI = "https://localhost:3000/login";
 const SCOPE = "profile email";
 
 const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_type=code`;

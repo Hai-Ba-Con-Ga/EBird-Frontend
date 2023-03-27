@@ -23,7 +23,7 @@ const useChatSocket = ({ host, path, params }: Props) => {
 		if (params?.referenceId && params?.userId) {
 			const newSocket = new HubConnectionBuilder()
 				.withUrl(
-					`wss://wyvernpserver.tech/hub/chat?${new URLSearchParams(
+					`wss://localhost:7137/hub/chat?${new URLSearchParams(
 						params
 					).toString()}`,
 					{
