@@ -31,6 +31,7 @@ import { ButtonCommon } from "../../common/button/Button.style";
 import useModal from "../../common/modal/useModal";
 import UpdateResultForm from "../../common/form/UploadResultForm";
 import useAuth from "../../auth/useAuth";
+import { BirdApi } from "../profile/bird/bird.api";
 
 const MatchCard = ({
 	match,
@@ -48,11 +49,10 @@ const MatchCard = ({
 		MatchApi.getMatchDetail(match?.id as string)
 			.then((res) => res.data)
 			.then((match) => setDetail(match));
-		console.log(matchDetail);
 	}, [match]);
 	useEffect(() => {
-		console.log(matchDetail);
-	}, [matchDetail]);
+		console.log("MATCH PROPS", match);
+	}, [match]);
 	const firstBirdEloChange = useMemo(
 		() =>
 			matchDetail?.matchDetails?.[0]?.afterElo -
@@ -107,7 +107,11 @@ const MatchCard = ({
 			</MatchInformationSection>
 			<RequestBirdContainer>
 				<BirdResultWrapper>
-					<MatchCardBird bird={matchDetail?.matchDetails?.[0]?.bird} isOwner />
+					<MatchCardBird
+						bird={matchDetail?.matchDetails?.[0]?.bird}
+						isOwner
+						owner={match?.matchDetails?.[0]?.bird?.owner?.username}
+					/>
 					<BirdResult result={matchDetail?.matchDetails?.[0]?.result == "Win"}>
 						{matchDetail?.matchDetails?.[0]?.result == "Ready" ||
 						matchDetail?.matchDetails?.[0]?.result == "NotReady"
@@ -126,6 +130,7 @@ const MatchCard = ({
 					<MatchCardBird
 						bird={matchDetail?.matchDetails?.[1]?.bird}
 						isOwner={false}
+						owner={match?.matchDetails?.[1]?.bird?.owner?.username}
 					/>
 					<BirdResult result={matchDetail?.matchDetails?.[1]?.result == "Win"}>
 						{matchDetail?.matchDetails?.[1]?.result == "Ready" ||
@@ -173,21 +178,37 @@ export default MatchCard;
 export const MatchCardBird = ({
 	isOwner,
 	bird,
+	owner,
 }: {
 	bird: any;
 	isOwner: boolean;
+	owner?: any;
 }) => {
+	const [birdDetail, setDetail] = useState<any>();
+	console.log("BIRD IN CARD", bird);
+	useEffect(() => {
+		BirdApi.getBirdDetail(bird?.id)
+			.then((res) => res.data)
+			.then((bird) => {
+				setDetail(bird);
+			});
+	}, [bird]);
 	const birdAvatar = useMemo(() => {
-		if (bird?.id) {
-			if (bird?.resourceList?.length > 0 && bird?.resourceList[0].dataLink) {
-				return bird.resourceList[0].dataLink;
+		if (birdDetail?.id) {
+			if (
+				birdDetail?.resourceList?.length > 0 &&
+				birdDetail?.resourceList[0].dataLink
+			) {
+				return birdDetail.resourceList[0].dataLink;
 			} else {
 				return "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg";
 			}
 		} else {
 			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
 		}
-	}, [bird]);
+	}, [birdDetail]);
+	console.log(owner);
+
 	return (
 		<RequestBirdWrapper isOwner={isOwner}>
 			<BirdMatchImage>
@@ -223,13 +244,13 @@ export const MatchCardBird = ({
 				<h1>
 					{isOwner ? (
 						<>
-							<span>{bird?.owner?.username || "Empty"}</span>
+							<span>{owner || "Empty"}</span>
 							<IconUser fill="var(--color-coffee)" />
 						</>
 					) : (
 						<>
 							<IconUser fill="var(--color-coffee)" />
-							<span>{bird?.owner?.username || "Empty"}</span>
+							<span>{owner || "Empty"}</span>
 						</>
 					)}
 				</h1>

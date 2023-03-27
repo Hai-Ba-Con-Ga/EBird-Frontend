@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Group } from "../../../utils/types";
+import useApp from "../common/useApp";
 import { GroupLink, GroupTable } from "./grouppage.style";
 
 export interface Props {
@@ -10,7 +13,23 @@ const AllGroup = ({ groups }: Props) => {
 	useEffect(() => {
 		console.log(groups);
 	}, [groups]);
+	const { currentBird } = useApp({ useSelection: false });
+	console.log(currentBird, "CurrentBird");
+	const joinGroup = useCallback(
+		(group: any) => {
+			if (currentBird && currentBird.elo) {
+				if (currentBird.elo >= +group.minELO) {
+					console.log(currentBird?.elo, +group.minELO);
 
+					nav("/app/group/" + group?.id);
+				} else {
+					toast.error("Your bird is not meet requirement to join this group.");
+				}
+			}
+		},
+		[currentBird, groups]
+	);
+	const nav = useNavigate();
 	return (
 		<GroupTable>
 			<thead>
@@ -28,7 +47,7 @@ const AllGroup = ({ groups }: Props) => {
 						<td>{group?.minELO}</td>
 						<td>{group?.maxELO}</td>
 						<td>
-							<GroupLink to={"/app/group/" + group?.id}>JOIN</GroupLink>
+							<GroupLink onClick={() => joinGroup(group)}>JOIN</GroupLink>
 						</td>
 						{/* BỔ SUNG GROUP LINK */}
 					</tr>

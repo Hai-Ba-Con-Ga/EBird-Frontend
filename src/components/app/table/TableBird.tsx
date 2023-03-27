@@ -5,6 +5,7 @@ import axiosClient from "../../../api/axiosClient";
 import { Bird } from "../../../utils/types";
 import VipBadge from "../../common/tag/VipBadge";
 import { RequestApi } from "../lobby/request.api";
+import { BirdApi } from "../profile/bird/bird.api";
 import {
 	MergeInformation,
 	MergeInformationItem,
@@ -24,14 +25,14 @@ export const TableBirdWrapper = styled.div`
 	align-items: center;
 	position: relative;
 	border: 2px solid var(--dark-blue);
-	padding: 2rem;
+	padding: 1rem;
 	border-radius: var(--roundedSmall);
 	background-color: var(--dark-green);
 	color: var(--gold-primary);
-	width: 100%;
+	width: 65rem;
 `;
 export const BirdImage = styled.div`
-	width: 40rem;
+	flex: 0 0 40rem;
 	aspect-ratio: 16/9;
 	border-radius: var(--roundedSmall);
 	img {
@@ -49,6 +50,14 @@ export const BirdInformations = styled.div`
 	flex-direction: column;
 	& span:nth-child(1) {
 		font-size: var(--text-9xl);
+	}
+	span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 1; /* number of lines to show */
+		line-clamp: 1;
+		-webkit-box-orient: vertical;
 	}
 `;
 const WaitingMessage = styled.span`
@@ -88,28 +97,39 @@ const TableBird = ({
 		};
 	}, []);
 	const [account, setAccount] = useState<any>();
+	const [birdDetail, setDetail] = useState<any>();
 	useEffect(() => {
-		// console.log(bird.ownerId);
+		console.log("Table bird ", bird);
 		axiosClient
 			.get("/account/" + bird?.ownerId)
 			.then((res) => res.data.data)
 			.then((data) => setAccount(data));
 	}, [bird]);
 	useEffect(() => {
+		if (bird?.id) {
+			BirdApi.getBirdDetail(bird.id)
+				.then((res) => res.data)
+				.then((bird) => setDetail(bird));
+		}
+	}, [bird]);
+	useEffect(() => {
 		console.log(account);
 	}, [account]);
 
 	const birdAvatar = useMemo(() => {
-		if (bird?.id) {
-			if (bird?.resourceList?.length > 0 && bird?.resourceList[0].dataLink) {
-				return bird.resourceList[0].dataLink;
+		if (birdDetail?.id) {
+			if (
+				birdDetail?.resourceList?.length > 0 &&
+				birdDetail?.resourceList[0].dataLink
+			) {
+				return birdDetail.resourceList[0].dataLink;
 			} else {
 				return "https://indiabiodiversity.org/files-api/api/get/raw/img//Pycnonotus%20jocosus/pycnonotus_jocosus_2.jpg";
 			}
 		} else {
 			return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNSuIiJCjxQ5gDnadu2n7QFDrDTcHvRH53OngpEKPcPRo6KUkOMJXXreesiUn5p-zka0&usqp=CAU";
 		}
-	}, [bird]);
+	}, [birdDetail]);
 
 	return (
 		<TableBirdWrapper>

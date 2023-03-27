@@ -44,7 +44,7 @@ export const MatchTab = styled.span`
 		return active ? "1;" : "0.8;";
 	}};
 	border-bottom: 0px solid var(--dark-blue);
-	
+
 	/* ${({ active }: { active: boolean }) => {
 		return active ? "border-bottom-width: 2px" : "0px";
 	}};
@@ -116,9 +116,9 @@ export const MatchStatusSpan = styled.span`
 				return "var(--warning);";
 			case MatchStatus.Conflict:
 				return "var(--dangerous);";
-			case MatchStatus.Cancelled : 
+			case MatchStatus.Cancelled:
 				return "var(--grey);";
-			case MatchStatus.Completed : 
+			case MatchStatus.Completed:
 				return "var(--active);";
 			default:
 				return "var(--active);";
@@ -134,7 +134,9 @@ export const BirdMatchImage = styled(BirdImage)`
 	aspect-ratio: 1;
 `;
 
-export const BirdResultWrapper = styled.div``;
+export const BirdResultWrapper = styled.div`
+	flex: 0 0 50%;
+`;
 
 export const BirdResult = styled.span`
 	margin-top: 2rem;

@@ -1,0 +1,20 @@
+[
+    {
+        "name" : "Cong Vien Tao Dan",
+        "address" : "Trương Định, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh, Vietnam",
+        "lat" :10.7745469101687,
+        "long" : 106.69247551810729
+    },
+    {
+        "name" : "Cong Vien Le Thi Rieng",
+        "address" : "875 Đ. Cách Mạng Tháng 8, Phường 15, Quận 10, Thành phố Hồ Chí Minh, Vietnam",
+        "lat" :10.784517309908491,
+        "long" : 106.66479369839077
+    },
+    {
+        "name" : "Công viên 30/4",
+        "address" : "Đ. Lê Duẩn, Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Vietnam",
+        "lat" :10.778930806232237,
+        "long" : 106.69698105867643
+    }
+]
