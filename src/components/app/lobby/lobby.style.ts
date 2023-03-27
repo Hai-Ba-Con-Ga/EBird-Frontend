@@ -183,13 +183,16 @@ export const RequestBirdContainer = styled.div`
 export const JoinButton = styled(ButtonCommon)`
 	background-color: var(
 		${({ isOwner }: { isOwner: boolean }) =>
-			isOwner ? "--green" : "--warning"}
+			isOwner ? "--green" : "--gold-secondary"}
 	);
-	color: var(--white);
-	font-weight: 600;
+	color: var(
+		${({ isOwner }: { isOwner: boolean }) =>
+			isOwner ? "--white" : "--dark-gray"}
+	);
+	font-weight: 800;
 	padding: 1.5rem 0;
 	border-radius: var(--roundedSmall);
-	font-size: var(--text-2xl);
+	font-size: var(--text-3xl);
 	&:disabled {
 		/* opacity: 0.8; */
 		background-color: var(--gray);
